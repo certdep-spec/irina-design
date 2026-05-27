@@ -77,7 +77,7 @@ function About() {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                   <img
-                    src="/Paint/ira-portrait.webp"
+                    src={`${import.meta.env.BASE_URL}Paint/ira-portrait.webp`}
                     alt="Ірина — професійний дизайнер інтер'єру та меблів у Вінниці"
                     loading="lazy"
                     decoding="async"

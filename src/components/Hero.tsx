@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
             sizes="100vw"
           />
           <img
-            src="/Paint/hero-main.webp"
+            src={`${import.meta.env.BASE_URL}Paint/hero-main.webp`}
             alt="Сучасний дизайн інтер'єру — студія у Вінниці"
             className="w-full h-full object-cover"
             fetchPriority="high"
