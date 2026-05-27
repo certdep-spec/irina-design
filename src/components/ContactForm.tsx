@@ -6,13 +6,18 @@ interface FormData {
   name: string;
   phone: string;
   email: string;
+  objectType: string;
+  area: string;
+  budget: string;
   message: string;
+  website: string; // Honeypot field for spam protection
 }
 
 interface FormErrors {
   name?: string;
   phone?: string;
   email?: string;
+  objectType?: string;
   message?: string;
 }
 
@@ -25,189 +30,165 @@ function ContactForm() {
     name: '',
     phone: '',
     email: '',
-    message: ''
+    objectType: '',
+    area: '',
+    budget: '',
+    message: '',
+    website: ''
   })
   const [errors, setErrors] = useState<FormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState<string | null>(null)
+  const [hasStartedFilling, setHasStartedFilling] = useState(false)
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {}
     
     if (!formData.name.trim()) {
       newErrors.name = "Ім'я обов'язкове"
-    } else if (formData.name.length > VALIDATION.MAX_NAME_LENGTH) {
-      newErrors.name = "Ім'я занадто довге"
     }
 
     if (!formData.phone.trim()) {
       newErrors.phone = 'Телефон обов\'язковий'
     } else if (!VALIDATION.PHONE_PATTERN.test(formData.phone)) {
       newErrors.phone = 'Невірний формат телефону'
-    } else if (formData.phone.length > VALIDATION.MAX_PHONE_LENGTH) {
-      newErrors.phone = 'Телефон занадто довгий'
     }
 
     if (!formData.email.trim()) {
       newErrors.email = 'Email обов\'язковий'
     } else if (!VALIDATION.EMAIL_PATTERN.test(formData.email)) {
       newErrors.email = 'Невірний формат email'
-    } else if (formData.email.length > VALIDATION.MAX_EMAIL_LENGTH) {
-      newErrors.email = 'Email занадто довгий'
+    }
+
+    if (!formData.objectType) {
+      newErrors.objectType = 'Оберіть тип об\'єкта'
     }
 
     if (!formData.message.trim()) {
       newErrors.message = 'Повідомлення обов\'язкове'
-    } else if (formData.message.length > VALIDATION.MAX_MESSAGE_LENGTH) {
-      newErrors.message = 'Повідомлення занадто довге'
     }
     
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-    // Clear error when user starts typing
     if (errors[name as keyof FormErrors]) {
       setErrors(prev => ({ ...prev, [name]: '' }))
+    }
+    if (!hasStartedFilling) {
+      setHasStartedFilling(true);
     }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
     if (!validateForm()) return
+    if (formData.website) {
+      setSubmitSuccess(true);
+      return;
+    }
     
     setIsSubmitting(true)
     setSubmitError(null)
-    console.log('Submitting form to:', API_ENDPOINTS.SEND_TELEGRAM);
     
     try {
       const response = await fetch(API_ENDPOINTS.SEND_TELEGRAM, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
 
       if (response.ok) {
-        setSubmitSuccess(true)
-        setFormData({ name: '', phone: '', email: '', message: '' })
-        // Reset success message after 5 seconds
+        setSubmitSuccess(true);
+        setFormData({ name: '', phone: '', email: '', objectType: '', area: '', budget: '', message: '', website: '' });
         setTimeout(() => setSubmitSuccess(false), 5000)
       } else {
-        let errorMessage = 'Помилка при відправці';
-        const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorMessage;
-        }
-        throw new Error(errorMessage);
+        throw new Error('Помилка при відправці');
       }
     } catch (err) {
-      console.error('Submission error:', err)
-      setSubmitError('Сталася помилка при відправці повідомлення. Спробуйте ще раз або зателефонуйте нам.')
+      setSubmitError('Сталася помилка. Спробуйте ще раз або зателефонуйте нам.')
     } finally {
-      // Diagnostic check: detailed error reporting is enabled
       setIsSubmitting(false)
     }
   }
 
   if (submitSuccess) {
     return (
-      <div className="bg-green-50 border border-green-200 p-8 rounded-sm text-center animate-fade-in">
-        <h3 className="text-2xl font-serif font-semibold text-green-800 mb-3">
-          Дякуємо за звернення!
-        </h3>
-        <p className="text-green-700">
-          Ми отримали ваше повідомлення та зв'яжемося з вами найближчим часом.
-        </p>
+      <div className="bg-stone-900 text-white p-10 rounded-2xl text-center animate-fade-in shadow-2xl">
+        <h3 className="text-3xl font-serif font-semibold mb-4">Дякуємо за довіру!</h3>
+        <p className="text-stone-300 text-lg">Ми отримали ваш бриф і вже вивчаємо деталі. Зв'яжемося з вами найближчим часом.</p>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {submitError && (
-        <div className="bg-red-50 border border-red-200 p-4 rounded-sm text-sm text-red-700">
-          {submitError}
+    <form onSubmit={handleSubmit} className="space-y-6 bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-stone-100">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="name" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Ім'я *</label>
+          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className={`w-full px-4 py-3 bg-stone-50 border rounded-lg focus:ring-2 focus:ring-stone-800 transition-all ${errors.name ? 'border-red-500' : 'border-stone-200'}`} placeholder="Олександр" />
+          {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
         </div>
-      )}
-      
+
+        <div>
+          <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Телефон *</label>
+          <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} className={`w-full px-4 py-3 bg-stone-50 border rounded-lg focus:ring-2 focus:ring-stone-800 transition-all ${errors.phone ? 'border-red-500' : 'border-stone-200'}`} placeholder="+380..." />
+          {errors.phone && <p className="mt-1 text-xs text-red-600">{errors.phone}</p>}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div>
+          <label htmlFor="objectType" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Тип об'єкта *</label>
+          <select id="objectType" name="objectType" value={formData.objectType} onChange={handleChange} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-lg focus:ring-2 focus:ring-stone-800 outline-none">
+            <option value="">Оберіть...</option>
+            <option value="apartment">Квартира</option>
+            <option value="house">Будинок / Котедж</option>
+            <option value="commercial">Комерція</option>
+            <option value="furniture">Тільки меблі</option>
+          </select>
+          {errors.objectType && <p className="mt-1 text-xs text-red-600">{errors.objectType}</p>}
+        </div>
+
+        <div>
+          <label htmlFor="area" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Площа (м²)</label>
+          <input type="number" id="area" name="area" value={formData.area} onChange={handleChange} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-lg focus:ring-2 focus:ring-stone-800" placeholder="Наприклад, 65" />
+        </div>
+
+        <div>
+          <label htmlFor="budget" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Бюджет на реалізацію</label>
+          <select id="budget" name="budget" value={formData.budget} onChange={handleChange} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-lg focus:ring-2 focus:ring-stone-800 outline-none">
+            <option value="">Оберіть...</option>
+            <option value="economy">Бюджетний</option>
+            <option value="standard">Середній</option>
+            <option value="premium">Преміум</option>
+            <option value="undecided">Ще не визначено</option>
+          </select>
+        </div>
+      </div>
+
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-stone-700 mb-2">
-          Ім'я *
-        </label>
+        <label htmlFor="message" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">Ваші побажання *</label>
+        <textarea id="message" name="message" rows={4} value={formData.message} onChange={handleChange} className={`w-full px-4 py-3 bg-stone-50 border rounded-lg focus:ring-2 focus:ring-stone-800 transition-all resize-none ${errors.message ? 'border-red-500' : 'border-stone-200'}`} placeholder="Розкажіть про ваш об'єкт..." />
+        {errors.message && <p className="mt-1 text-xs text-red-600">{errors.message}</p>}
+      </div>
+      
+      {/* Honeypot field (hidden from users) */}
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="website">Назва вашого сайту (не заповнюйте)</label>
         <input
           type="text"
-          id="name"
-          name="name"
-          value={formData.name}
+          id="website"
+          name="website"
+          value={formData.website}
           onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-sm focus:outline-none focus:ring-2 focus:ring-stone-400 transition-all ${
-            errors.name ? 'border-red-500' : 'border-stone-300'
-          }`}
-          placeholder="Ваше ім'я"
+          tabIndex={-1}
+          autoComplete="off"
         />
-        {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-stone-700 mb-2">
-          Телефон *
-        </label>
-        <input
-          type="tel"
-          id="phone"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-sm focus:outline-none focus:ring-2 focus:ring-stone-400 transition-all ${
-            errors.phone ? 'border-red-500' : 'border-stone-300'
-          }`}
-          placeholder="+380 (XX) XXX-XX-XX"
-        />
-        {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-stone-700 mb-2">
-          Email *
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-sm focus:outline-none focus:ring-2 focus:ring-stone-400 transition-all ${
-            errors.email ? 'border-red-500' : 'border-stone-300'
-          }`}
-          placeholder="your@email.com"
-        />
-        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
-      </div>
-
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-stone-700 mb-2">
-          Повідомлення *
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          rows={5}
-          value={formData.message}
-          onChange={handleChange}
-          className={`w-full px-4 py-3 border rounded-sm focus:outline-none focus:ring-2 focus:ring-stone-400 transition-all resize-none ${
-            errors.message ? 'border-red-500' : 'border-stone-300'
-          }`}
-          placeholder="Розкажіть про ваш проєкт..."
-        ></textarea>
-        {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
       </div>
 
       <button

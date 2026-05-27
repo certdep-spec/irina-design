@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { useLocation } from 'react-router-dom'
 import ContactForm from '../components/ContactForm'
-import { FiPhone, FiMail, FiMapPin, FiInstagram, FiMessageCircle } from 'react-icons/fi'
+import { FiPhone, FiMail, FiMapPin, FiInstagram, FiMessageCircle, FiFacebook } from 'react-icons/fi'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 /**
@@ -26,6 +27,48 @@ function Contact() {
   const [contentRef, contentVisible] = useScrollReveal()
   return (
     <div>
+      <Helmet>
+        <title>Контакти — Дизайнер інтер'єру Ірина у Вінниці</title>
+        <meta name="description" content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту." />
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "Дизайн інтер'єру та меблів Ірини",
+              "image": "https://irina-design.netlify.app/Paint/ira-portrait.webp",
+              "telephone": "+380964599885",
+              "email": "irina26408@gmail.com",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Центр міста",
+                "addressLocality": "Вінниця",
+                "addressRegion": "Вінницька область",
+                "postalCode": "21000",
+                "addressCountry": "UA"
+              },
+              "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": 49.2331,
+                "longitude": 28.4682
+              },
+              "url": "https://irina-design.netlify.app/contact",
+              "openingHoursSpecification": {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": [
+                  "Monday",
+                  "Tuesday",
+                  "Wednesday",
+                  "Thursday",
+                  "Friday"
+                ],
+                "opens": "09:00",
+                "closes": "19:00"
+              }
+            }
+          `}
+        </script>
+      </Helmet>
       {/* Hero Section */}
       <section 
         ref={heroRef}
@@ -107,9 +150,18 @@ function Contact() {
               {/* Social Media */}
               <div className="mb-10">
                 <h3 className="font-semibold mb-4 text-stone-800">Ми в соціальних мережах</h3>
-                <div className="flex space-x-4">
+              <div className="flex space-x-4">
                   <a 
-                    href="https://instagram.com" 
+                    href="https://www.facebook.com/profile.php?id=100063828644118" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center hover:bg-stone-200 transition-colors"
+                    aria-label="Facebook"
+                  >
+                    <FiFacebook size={20} className="text-stone-700" />
+                  </a>
+                  <a 
+                    href="https://www.instagram.com/nova_art_design/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center hover:bg-stone-200 transition-colors"
@@ -118,7 +170,7 @@ function Contact() {
                     <FiInstagram size={20} className="text-stone-700" />
                   </a>
                   <a 
-                    href="https://t.me/username" 
+                    href="https://t.me/+380964599885" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center hover:bg-stone-200 transition-colors"
@@ -127,7 +179,7 @@ function Contact() {
                     <FiMessageCircle size={20} className="text-stone-700" />
                   </a>
                   <a 
-                    href="https://viber.com" 
+                    href="viber://chat?number=%2B380964599885" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center hover:bg-stone-200 transition-colors"
@@ -140,16 +192,15 @@ function Contact() {
 
               {/* Map Placeholder */}
               <div className="bg-stone-200 h-64 rounded-sm overflow-hidden">
-                {/* TODO: Replace with actual Google Maps embed */}
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82408.32707464616!2d28.46826275869139!3d49.23273753483889!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4735f5e89c8b0c4d%3A0x7c4e6e0e0e0e0e0e!2sVinnytsia!5e0!3m2!1sen!2sua!4v1234567890123!5m2!1sen!2sua"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
+                <iframe 
+                  title="Офіс у Вінниці"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d41756.23467664317!2d28.4354271!3d49.2327827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472d5b65195a6489%3A0xc311145a539111!2z0JLQuNC90L3QuNGG0LAsINCS0LjQvdC90LjRhtC60LDRjyDQvtCx0LvQsNGB0YLRjCwg0KPQutGA0LDQuNC90LAsIDIxMDAw!5e0!3m2!1suk!2sua!4v1715500000000!5m2!1suk!2sua"
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen 
+                  loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Map Vinnytsia"
                 ></iframe>
               </div>
             </div>

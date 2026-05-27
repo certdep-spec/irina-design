@@ -1,5 +1,6 @@
+import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { FiHome, FiBox, FiMessageCircle, FiMonitor } from 'react-icons/fi'
+import { FiHome, FiBox, FiMonitor } from 'react-icons/fi'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
 function Services() {
@@ -10,94 +11,99 @@ function Services() {
 
   const services = [
     {
+      icon: FiMonitor,
+      title: 'Планувальне рішення',
+      description: 'Ідеальний варіант для тих, хто знає, який стиль хоче, але потребує професійної ергономіки та розстановки стін.',
+      result: [
+        'Функціональне зонування кожного сантиметра',
+        'Технічно правильні плани демонтажу та монтажу стін',
+        'Основа для вашого подальшого ремонту'
+      ],
+      price: 'від 250 грн/м²',
+      features: [
+        'Обмірний план об\'єкта',
+        '3-4 варіанти перепланування',
+        'Підсумковий план з розмірами меблів',
+        'Консультація щодо зонування'
+      ],
+      badge: 'Швидкий старт'
+    },
+    {
       icon: FiHome,
-      title: 'Повний дизайн-проєкт інтер\'єру',
-      description: 'Ви отримуєте не просто дизайн, а чіткий план ремонту без помилок і зайвих витрат.',
+      title: 'Повний дизайн-проєкт',
+      description: 'Комплексна розробка інтер\'єру з 3D-візуалізацією та всіма технічними кресленнями для будівельників.',
       result: [
-        'Ви бачите результат ще до початку ремонту',
-        'Уникаєте переробок і перевитрат',
-        'Отримуєте зрозумілі креслення для виконавців робіт'
+        'Ви бачите майбутній дім у фотореалістичній якості',
+        'Будівельники працюють за чіткими кресленнями без питань',
+        'Повна специфікація матеріалів (ви знаєте, де і що купити)'
       ],
-      price: 'від 800 грн/м²',
+      price: 'від 750 грн/м²',
       features: [
-        'Заміри та виїзд на об\'єкт',
-        '2–3 варіанти планування',
         '3D-візуалізація всіх приміщень',
-        'Повний пакет креслень',
-        'Підбір матеріалів і меблів',
-        'Авторський нагляд (за потреби)'
-      ]
-    },
-    {
-      icon: FiBox,
-      title: 'Дизайн меблів',
-      description: 'Індивідуальні меблі, які ідеально підходять під ваш простір і не потребують доопрацювань.',
-      result: [
-        'Максимальне використання простору',
-        'Зручність у повсякденному житті',
-        'Готові креслення для виробника меблів'
+        'Повний пакет технічної документації',
+        'Схема електрики, сантехніки, освітлення',
+        'Розгортки стін та розкладка плитки',
+        'Відомість оздоблювальних матеріалів'
       ],
-      price: 'від 3000 грн/проєкт',
-      features: [
-        'Індивідуальний дизайн',
-        '3D-модель меблів',
-        'Креслення для виробника меблів',
-        'Підбір фурнітури',
-        'Консультація з виробником'
-      ]
-    },
-    {
-      icon: FiMessageCircle,
-      title: 'Консультація',
-      description: 'Швидкий спосіб отримати професійні рішення без повного дизайн-проєкту.',
-      result: [
-        'Чітке розуміння планування',
-        'Рекомендації по стилю',
-        'Поради щодо матеріалів'
-      ],
-      price: '1000 грн/год',
-      features: [
-        'Онлайн або офлайн зустріч',
-        'Аналіз приміщення',
-        'Рекомендації щодо планування',
-        'Поради щодо стилю та кольорів',
-        'Відповіді на всі запитання'
-      ]
+      badge: 'Популярний вибір',
+      isPopular: true
     },
     {
       icon: FiMonitor,
-      title: '3D візуалізація',
-      description: 'Дозволяє побачити майбутній інтер’єр і внести зміни до початку ремонту.',
+      title: 'Преміум супровід',
+      description: 'Для тих, хто цінує свій час. Ми беремо на себе не тільки дизайн, а й контроль за його точною реалізацією.',
       result: [
-        'Розуміння кінцевого результату',
-        'Можливість внести правки заздалегідь',
-        'Впевненість у виборі'
+        'Об\'єкт виглядає точно як на візуалізації',
+        'Ви звільнені від спілкування з майстрами та постачальниками',
+        'Економія бюджету завдяки партнерським знижкам'
       ],
-      price: 'від 2000 грн/кімната',
+      price: 'за запитом',
       features: [
-        'Фотореалістичні зображення',
-        'Кілька ракурсів',
-        '2 ітерації правок',
-        'Висока якість',
-        'Термін: 3–5 днів'
+        'Все, що входить у повний проєкт',
+        'Регулярні виїзди на об\'єкт (авторський нагляд)',
+        'Комплектація об\'єкта меблями та декором',
+        'Перевірка відповідності робіт кресленням',
+        'Коригування проєкту в ході будівництва'
+      ],
+      badge: 'Під ключ'
+    },
+    {
+      icon: FiBox,
+      title: 'Дизайн меблів та кухонь',
+      description: 'Вузькоспеціалізована розробка корпусних меблів. Ідеально для тих, кому потрібен тільки проект меблів.',
+      result: [
+        'Меблі, які ідеально стають у ніші',
+        'Ергономічне наповнення шаф та кухні',
+        'Готова документація для меблевого виробництва'
+      ],
+      price: 'від 2500 грн/проєкт',
+      features: [
+        'Детальна 3D-модель меблів',
+        'Креслення для меблевика з усіма розмірами',
+        'Підбір матеріалів (ДСП, фасади, фурнітура)',
+        'Розміщення розеток під кухонну техніку'
       ]
     }
   ]
 
   return (
     <div>
+      <Helmet>
+        <title>Послуги та ціни — Дизайнер інтер'єру Ірина</title>
+        <meta name="description" content="Ціни на дизайн інтер'єру у Вінниці. Від планування до повного дизайн-проєкту та авторського нагляду. Підберемо рішення під ваш бюджет." />
+      </Helmet>
 
       {/* HERO */}
       <section 
         ref={heroRef}
-        className={`bg-stone-100 py-20 px-6 ${heroVisible ? 'reveal-visible' : 'reveal-hidden'}`}
+        className={`bg-stone-50 py-20 px-6 border-b border-stone-200 ${heroVisible ? 'reveal-visible' : 'reveal-hidden'}`}
       >
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4 text-stone-800">
-            Послуги дизайну інтер’єру та меблів
+            Скільки коштує дизайн інтер’єру?
           </h1>
           <p className="text-xl text-stone-600">
-            Продумані рішення, які допомагають уникнути помилок і заощадити бюджет під час ремонту
+            Ми розробили різні формати роботи, щоб ви могли обрати оптимальний варіант: від швидкого планування до повного супроводу.
           </p>
         </div>
       </section>
@@ -108,51 +114,63 @@ function Services() {
         className={`section-padding ${listVisible ? 'reveal-visible' : 'reveal-hidden'}`}
       >
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
             {services.map((service, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-md border border-stone-100 hover:shadow-lg transition-shadow">
+              <div 
+                key={index} 
+                className={`bg-white p-8 rounded-2xl shadow-sm border transition-all duration-300 hover:shadow-xl relative overflow-hidden ${service.isPopular ? 'border-stone-800 ring-1 ring-stone-800' : 'border-stone-100'}`}
+              >
+                {service.badge && (
+                  <div className={`absolute top-4 right-[-35px] rotate-45 px-10 py-1 text-[10px] font-bold uppercase tracking-widest ${service.isPopular ? 'bg-stone-800 text-white' : 'bg-stone-100 text-stone-600'}`}>
+                    {service.badge}
+                  </div>
+                )}
 
                 <div className="flex items-start mb-6">
-                  <div className="w-14 h-14 bg-stone-100 rounded-full flex items-center justify-center mr-6">
-                    <service.icon className="text-stone-700" size={28} />
+                  <div className={`w-14 h-14 rounded-full flex items-center justify-center mr-6 ${service.isPopular ? 'bg-stone-800 text-white' : 'bg-stone-100 text-stone-800'}`}>
+                    <service.icon size={28} />
                   </div>
 
                   <div>
-                    <h3 className="text-2xl font-serif font-semibold mb-2 text-stone-800">
+                    <h3 className="text-2xl font-serif font-semibold mb-1 text-stone-800">
                       {service.title}
                     </h3>
-                    <p className="text-stone-600 font-medium">{service.price}</p>
+                    <p className={`font-bold text-lg ${service.isPopular ? 'text-stone-800' : 'text-stone-500'}`}>
+                      {service.price}
+                    </p>
                   </div>
                 </div>
 
-                <p className="text-stone-700 mb-6 font-medium leading-relaxed">
+                <p className="text-stone-600 mb-8 leading-relaxed min-h-[60px]">
                   {service.description}
                 </p>
 
-                {/* RESULT BLOCK */}
-                <div className="mb-6 bg-stone-50 p-6 rounded-lg border border-stone-200">
-                  <h4 className="font-semibold text-stone-800 mb-3">Що ви отримуєте:</h4>
-                  <ul className="space-y-3">
-                    {service.result.map((item, i) => (
-                      <li key={i} className="text-sm text-stone-700 flex items-start gap-2">
-                        <span className="text-green-600 mt-0.5">✔</span> 
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="space-y-6">
+                  <div>
+                    <h4 className="text-sm font-bold uppercase tracking-wider text-stone-400 mb-4">Що входить у вартість:</h4>
+                    <ul className="space-y-3">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start text-sm text-stone-700">
+                          <span className="text-stone-300 mr-3">•</span>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="pt-6 border-t border-stone-50">
+                     <h4 className="text-sm font-bold uppercase tracking-wider text-stone-400 mb-4">Результат для вас:</h4>
+                     <ul className="space-y-2">
+                       {service.result.map((item, i) => (
+                         <li key={i} className="text-xs text-stone-600 flex items-start gap-2">
+                           <span className="text-stone-800">✔</span> 
+                           <span>{item}</span>
+                         </li>
+                       ))}
+                     </ul>
+                  </div>
                 </div>
-
-                {/* FEATURES */}
-                <ul className="space-y-3 pl-2">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <span className="w-2 h-2 bg-stone-400 rounded-full mt-1.5 mr-3"></span>
-                      <span className="text-stone-600 text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
               </div>
             ))}
 
@@ -168,31 +186,20 @@ function Services() {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto relative">
-
-              <div className="text-center relative z-10">
-                <div className="w-16 h-16 bg-stone-800 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-serif font-bold shadow-md">1</div>
-                <h3 className="font-semibold text-stone-800 mb-2 text-lg">Обговорення</h3>
-                <p className="text-sm text-stone-600">Визначаємо задачі, стиль і бюджет</p>
-              </div>
-
-              <div className="text-center relative z-10">
-                <div className="w-16 h-16 bg-stone-800 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-serif font-bold shadow-md">2</div>
-                <h3 className="font-semibold text-stone-800 mb-2 text-lg">Планування</h3>
-                <p className="text-sm text-stone-600">Створюємо зручне рішення</p>
-              </div>
-
-              <div className="text-center relative z-10">
-                <div className="w-16 h-16 bg-stone-800 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-serif font-bold shadow-md">3</div>
-                <h3 className="font-semibold text-stone-800 mb-2 text-lg">Візуалізація</h3>
-                <p className="text-sm text-stone-600">Ви бачите результат заздалегідь</p>
-              </div>
-
-              <div className="text-center relative z-10">
-                <div className="w-16 h-16 bg-stone-800 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-serif font-bold shadow-md">4</div>
-                <h3 className="font-semibold text-stone-800 mb-2 text-lg">Реалізація</h3>
-                <p className="text-sm text-stone-600">Передаємо проєкт і супроводжуємо</p>
-              </div>
-
+              {[
+                { step: 1, title: 'Обговорення', desc: 'Визначаємо задачі, стиль і бюджет' },
+                { step: 2, title: 'Планування', desc: 'Створюємо зручне рішення' },
+                { step: 3, title: 'Візуалізація', desc: 'Ви бачите результат заздалегідь' },
+                { step: 4, title: 'Реалізація', desc: 'Передаємо проєкт і супроводжуємо' }
+              ].map((item) => (
+                <div key={item.step} className="text-center relative z-10">
+                  <div className="w-16 h-16 bg-stone-800 text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-serif font-bold shadow-md">
+                    {item.step}
+                  </div>
+                  <h3 className="font-semibold text-stone-800 mb-2 text-lg">{item.title}</h3>
+                  <p className="text-sm text-stone-600">{item.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
 

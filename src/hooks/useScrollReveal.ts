@@ -1,20 +1,21 @@
-import { useEffect, useRef, useState, MutableRefObject } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 
 interface ScrollRevealOptions {
   threshold?: number;
   rootMargin?: string;
 }
 
-/**
- * Custom hook to detect when an element is in view and apply reveal animations
- * @param options - IntersectionObserver options
- * @returns [ref, isVisible] - Ref to attach to element and visibility state
- */
-export function useScrollReveal(
-  options: ScrollRevealOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-): [MutableRefObject<HTMLElement | null>, boolean] {
+const DEFAULT_OPTIONS: ScrollRevealOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px',
+};
+
+export function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
+  options: ScrollRevealOptions = DEFAULT_OPTIONS
+): [React.MutableRefObject<T | null>, boolean] {
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLElement | null>(null);
+  const ref = useRef<T | null>(null);
+  const memoizedOptions = useMemo(() => options, [options.threshold, options.rootMargin]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const element = ref.current;
@@ -27,7 +28,7 @@ export function useScrollReveal(
           observer.unobserve(element);
         }
       },
-      options
+      memoizedOptions
     );
 
     observer.observe(element);
@@ -35,7 +36,7 @@ export function useScrollReveal(
     return () => {
       observer.unobserve(element);
     };
-  }, [options, options.threshold, options.rootMargin]);
+  }, [memoizedOptions]);
 
   return [ref, isVisible];
 }

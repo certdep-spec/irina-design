@@ -1,4 +1,4 @@
-import { FiExternalLink, FiMail, FiPhone, FiMapPin } from 'react-icons/fi'
+import { FiExternalLink, FiMail, FiPhone, FiMapPin, FiFacebook, FiInstagram } from 'react-icons/fi'
 
 /**
  * Footer Component
@@ -17,9 +17,29 @@ function Footer() {
               INTERIOR.DESIGN
             </h3>
             <p className="text-stone-400 text-sm leading-relaxed mb-6">
-              Створюємо унікальні інтер'єри та меблі, які відображають вашу індивідуальність та стиль життя.
+              Створюємо унікальні інтер'єри та меблі у Вінниці, які відображають вашу індивідуальність та стиль життя.
             </p>
              <div className="flex space-x-4">
+                <a
+                  href="https://www.facebook.com/profile.php?id=100063828644118"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                  title="Facebook"
+                  aria-label="Facebook - переглянути профіль"
+                >
+                  <FiFacebook size={20} />
+                </a>
+                <a
+                  href="https://www.instagram.com/nova_art_design/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors"
+                  title="Instagram"
+                  aria-label="Instagram - переглянути профіль"
+                >
+                  <FiInstagram size={20} />
+                </a>
                 <a
                   href="https://www.olx.ua/d/uk/obyavlenie/dizayn-nterru-ta-meblv-ID8JTWR.html"
                   target="_blank"
@@ -31,7 +51,7 @@ function Footer() {
                   <FiExternalLink size={20} />
                 </a>
               </div>
-           </div>
+          </div>
 
           {/* Contact Info */}
           <div>

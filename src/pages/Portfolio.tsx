@@ -1,8 +1,10 @@
-import { useState, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { FiX } from 'react-icons/fi'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useScrollReveal } from '../hooks/useScrollReveal'
-import { portfolioCases, type PortfolioCase } from '../data/portfolio'
+import { portfolioCases as staticCases, type PortfolioCase } from '../data/portfolio'
+import { Image } from '../components/Image'
 
 function Portfolio() {
   const location = useLocation()
@@ -20,7 +22,15 @@ function Portfolio() {
   const [heroRef, heroVisible] = useScrollReveal()
   const [introRef, introVisible] = useScrollReveal()
   const [gridRef, gridVisible] = useScrollReveal()
+  const [cases, setCases] = useState<PortfolioCase[]>(staticCases)
   const [selectedItem, setSelectedItem] = useState<PortfolioCase | null>(null)
+
+  useEffect(() => {
+    fetch('/api/portfolio.json')
+      .then(res => res.json())
+      .then(data => setCases(data))
+      .catch(() => {/* use static fallback */})
+  }, [])
 
   const activeFilter = getFilterFromURL()
 
@@ -34,13 +44,17 @@ function Portfolio() {
     navigate({ search: params.toString() }, { replace: true })
   }
 
-  const filteredCases = portfolioCases.filter(item => {
+  const filteredCases = cases.filter(item => {
     if (activeFilter === 'all') return true;
     return item.category === activeFilter;
   });
 
   return (
     <div className="bg-stone-50 min-h-screen">
+      <Helmet>
+        <title>Портфоліо — Дизайнер інтер'єру Ірина</title>
+        <meta name="description" content="Портфоліо робіт дизайнера інтер'єру та меблів. Реалізовані проекти квартир, будинків, індивідуальні меблі." />
+      </Helmet>
       {/* Hero Section */}
       <section 
         ref={heroRef}
@@ -97,18 +111,21 @@ function Portfolio() {
         <div className="max-w-7xl mx-auto">
           {/* Grid Container with animations on mount */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredCases.map((item) => (
+            {filteredCases.map((item, index) => (
               <div 
                 key={item.id}
+                data-cta-name={`portfolio_card_${item.id}`}
                 className="bg-white rounded-xl overflow-hidden transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] group relative cursor-pointer flex flex-col h-full border border-stone-100"
                 onClick={() => setSelectedItem(item)}
               >
                 {/* Image Wrapper */}
                 <div className="relative w-full h-[280px] overflow-hidden">
-                   <img
-                     src={item.coverImage}
+                   <Image
+                     baseSrc={item.coverImage}
                      alt={item.title}
-                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                     loading={index < 3 ? "eager" : "lazy"}
+                     decoding="async"
+                     className="transition-transform duration-700 group-hover:scale-105"
                    />
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-stone-900/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 backdrop-blur-[2px]">
@@ -209,23 +226,17 @@ function Portfolio() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {selectedItem.gallery.map((img, index) => (
                   <div key={index} className="aspect-[4/3] overflow-hidden bg-stone-200 rounded-xl">
-                    <img
-                      src={img}
+                    <Image
+                      baseSrc={img}
                       alt={`${selectedItem.title} - фото ${index + 1}`}
                       loading="lazy"
-                      className="w-full h-full object-cover"
+                      decoding="async"
                     />
                   </div>
                 ))}
               </div>
               
-              {selectedItem.gallery.length === 1 && (
-                <div className="mt-8 text-center p-8 bg-stone-50 border border-stone-200 rounded-xl border-dashed">
-                  <p className="text-stone-500 font-medium">
-                    Тут будуть додаткові фотографії цього проєкту.
-                  </p>
-                </div>
-              )}
+
             </div>
           </div>
         </div>
