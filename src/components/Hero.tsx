@@ -17,7 +17,7 @@ const Hero: React.FC = () => {
         <picture>
           <source
             type="image/webp"
-            srcSet="/Paint/hero-main-640w.webp 640w, /Paint/hero-main-1024w.webp 1024w, /Paint/hero-main-1920w.webp 1920w"
+            srcSet={`${import.meta.env.BASE_URL}Paint/hero-main-640w.webp 640w, ${import.meta.env.BASE_URL}Paint/hero-main-1024w.webp 1024w, ${import.meta.env.BASE_URL}Paint/hero-main-1920w.webp 1920w`}
             sizes="100vw"
           />
           <img

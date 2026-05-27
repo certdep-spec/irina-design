@@ -73,7 +73,7 @@ function About() {
                 <picture>
                   <source
                     type="image/webp"
-                    srcSet="/Paint/ira-portrait-800w.webp 800w, /Paint/ira-portrait.webp 1200w"
+                    srcSet={`${import.meta.env.BASE_URL}Paint/ira-portrait-800w.webp 800w, ${import.meta.env.BASE_URL}Paint/ira-portrait.webp 1200w`}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                   <img
