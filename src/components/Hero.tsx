@@ -37,7 +37,8 @@ const Hero: React.FC = () => {
         className={`relative z-10 text-center text-white px-6 max-w-4xl mx-auto -mt-24 ${isVisible ? 'reveal-visible' : 'reveal-hidden'}`}
       >
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-semibold mb-6 leading-tight">
-          Дизайн інтер'єру <span className="text-stone-300">та меблів</span>
+          Дизайн інтер'єру<br />
+          <span className="text-stone-300">та меблів</span>
         </h1>
         <p className="text-lg md:text-xl mb-10 font-light tracking-wide text-stone-100 max-w-2xl mx-auto">
           Створюємо інтер’єри та меблі, що відображають ваш стиль життя. Раціональне інвестування в комфорт без переробок.
