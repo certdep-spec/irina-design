@@ -10,6 +10,7 @@ import path from 'path'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig(({ mode }) => ({
+  base: process.env.GITHUB_ACTIONS ? '/irina-design/' : '/',
   plugins: [
     react(),
     ViteImageOptimizer({
