@@ -74,7 +74,7 @@ const Home: React.FC = () => {
             Професійний підхід до кожного квадратного метра
           </h2>
           <p className="text-lg text-stone-600 leading-relaxed mb-8">
-             Дизайн інтер'єру — це не тільки про колір стін, а про правильну ергономіку, технічну грамотність та відсутність дорогих помилок під час будівництва. Ми допомагаємо створити простір, де кожен елемент має своє місце.
+             Дизайн інтер'єру — це продумана ергономіка, технічна грамотність і зважені рішення, які допомагають уникнути помилок. Ми створюємо простір, у якому кожен елемент гармонійно займає своє місце.
            </p>
           <Link to="/about" className="text-stone-800 font-medium border-b-2 border-stone-800 hover:text-stone-600 hover:border-stone-600 transition-all">
             Більше про наші принципи роботи
@@ -108,9 +108,9 @@ const Home: React.FC = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { title: 'Планування', desc: 'Розробка ідеальної ергономіки та розстановки стін для тих, хто робить ремонт самостійно.' },
-              { title: 'Повний проєкт', desc: 'Фотореалістична візуалізація та повний пакет креслень для будівельників.' },
-              { title: 'Авторський супровід', desc: 'Комплектація меблями та контроль за точним виконанням кожного вузла проєкту.' }
+              { title: 'Планування', desc: 'Розробка ідеальної ергономіки та перепланування приміщення для тих, хто робить ремонт самостійно.' },
+              { title: 'Повний проєкт', desc: 'Фотореалістична візуалізація та повний пакет креслень.' },
+              { title: 'Авторський супровід', desc: 'Комплектація меблями та контроль за точним виконанням робіт.' }
             ].map((service, index) => (
               <div key={index} className="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow border border-stone-100">
                 <h3 className="text-xl font-serif font-semibold mb-3 text-stone-800">{service.title}</h3>
@@ -131,25 +131,7 @@ const Home: React.FC = () => {
             Реалізовані рішення та візуалізації
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Напрям 1: Дизайн меблів */}
-            <div className="bg-white p-8 rounded-xl border border-stone-200 hover:shadow-lg transition-all group">
-              <div className="w-16 h-16 bg-stone-100 group-hover:bg-stone-800 group-hover:text-white transition-colors rounded-full flex items-center justify-center mb-6">
-                <FiBox size={32} />
-              </div>
-              <h3 className="text-2xl font-serif font-semibold mb-4 text-stone-800">
-                Проєктування меблів
-              </h3>
-              <ul className="space-y-3 text-stone-600 mb-8 font-light">
-                <li>• Кухні за індивідуальними розмірами</li>
-                <li>• Системи зберігання та гардеробні</li>
-                <li>• Технічна документація для виробництва</li>
-                <li>• Підбір якісних матеріалів та фурнітури</li>
-              </ul>
-              <Link to="/portfolio?filter=furniture" className="btn-secondary w-full block text-center min-h-[48px] pt-3">
-                Дивитись проєкти меблів
-              </Link>
-            </div>
-            {/* Напрям 2: Дизайн інтер'єру */}
+            {/* Напрям 1: Дизайн інтер'єру */}
             <div className="bg-white p-8 rounded-xl border border-stone-200 hover:shadow-lg transition-all group">
               <div className="w-16 h-16 bg-stone-100 group-hover:bg-stone-800 group-hover:text-white transition-colors rounded-full flex items-center justify-center mb-6">
                 <FiHome size={32} />
@@ -165,6 +147,24 @@ const Home: React.FC = () => {
               </ul>
               <Link to="/portfolio?filter=interior" className="btn-secondary w-full block text-center min-h-[48px] pt-3">
                 Переглянути інтер'єри
+              </Link>
+            </div>
+            {/* Напрям 2: Дизайн меблів */}
+            <div className="bg-white p-8 rounded-xl border border-stone-200 hover:shadow-lg transition-all group">
+              <div className="w-16 h-16 bg-stone-100 group-hover:bg-stone-800 group-hover:text-white transition-colors rounded-full flex items-center justify-center mb-6">
+                <FiBox size={32} />
+              </div>
+              <h3 className="text-2xl font-serif font-semibold mb-4 text-stone-800">
+                Проєктування меблів
+              </h3>
+              <ul className="space-y-3 text-stone-600 mb-8 font-light">
+                <li>• Кухні за індивідуальними розмірами</li>
+                <li>• Системи зберігання та гардеробні</li>
+                <li>• Технічна документація для виробництва</li>
+                <li>• Підбір якісних матеріалів та фурнітури</li>
+              </ul>
+              <Link to="/portfolio?filter=furniture" className="btn-secondary w-full block text-center min-h-[48px] pt-3">
+                Дивитись проєкти меблів
               </Link>
             </div>
           </div>

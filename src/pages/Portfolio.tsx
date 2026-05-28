@@ -145,20 +145,6 @@ function Portfolio() {
                   <h3 className="text-2xl font-serif font-semibold mb-3 text-stone-800 group-hover:text-stone-600 transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-stone-400 mb-5 tracking-widest uppercase font-medium">
-                    {item.meta}
-                  </p>
-                  
-                  <div className="text-stone-600 text-sm leading-relaxed flex-grow">
-                    {item.task && item.solution ? (
-                      <div className="space-y-3">
-                        <p><span className="font-semibold text-stone-800">Завдання:</span> {item.task}</p>
-                        <p><span className="font-semibold text-stone-800">Рішення:</span> {item.solution}</p>
-                      </div>
-                    ) : (
-                      <p>{item.description}</p>
-                    )}
-                  </div>
                 </div>
               </div>
             ))}
