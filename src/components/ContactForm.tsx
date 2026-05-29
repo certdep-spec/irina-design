@@ -96,13 +96,29 @@ function ContactForm() {
     setSubmitError(null)
     
     try {
-      const response = await fetch(API_ENDPOINTS.SEND_TELEGRAM, {
+      // 1. Send to Telegram (existing)
+      const telegramPromise = fetch(API_ENDPOINTS.SEND_TELEGRAM, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
 
-      if (response.ok) {
+      // 2. Send to Netlify Forms (new)
+      const netlifyFormData = new URLSearchParams();
+      netlifyFormData.append('form-name', 'contact');
+      Object.entries(formData).forEach(([key, value]) => {
+        netlifyFormData.append(key, value as string);
+      });
+
+      const netlifyPromise = fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: netlifyFormData.toString(),
+      })
+
+      const [telegramResponse] = await Promise.all([telegramPromise, netlifyPromise]);
+
+      if (telegramResponse.ok) {
         setSubmitSuccess(true);
         setFormData({ name: '', phone: '', email: '', objectType: '', area: '', budget: '', message: '', website: '' });
         setTimeout(() => setSubmitSuccess(false), 5000)
