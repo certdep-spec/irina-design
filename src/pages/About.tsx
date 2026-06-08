@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async'
 import { FiCheck } from 'react-icons/fi'
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
@@ -39,6 +40,10 @@ function About() {
 
   return (
     <div>
+      <Helmet>
+        <title>Про мене — Дизайнер інтер'єру Ірина</title>
+        <meta name="description" content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті." />
+      </Helmet>
 
       {/* HERO */}
       <section 
@@ -63,16 +68,24 @@ function About() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
 
-            {/* IMAGE */}
             <div className="relative">
-              <div className="aspect-[4/5] bg-stone-200 overflow-hidden">
-                <img
-                  src="/Paint/2zaglushka.jpg"
-                  alt="Дизайнер інтер'єру за роботою"
-                  className="w-full h-full object-cover"
-                />
+              <div className="aspect-[4/5] bg-stone-200 overflow-hidden rounded-xl shadow-lg">
+                <picture>
+                  <source
+                    type="image/webp"
+                    srcSet="/Paint/ira-portrait-800w.webp 800w, /Paint/ira-portrait.webp 1200w"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <img
+                    src="/Paint/ira-portrait.webp"
+                    alt="Ірина — професійний дизайнер інтер'єру та меблів у Вінниці"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                  />
+                </picture>
               </div>
-              <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-stone-200 -z-10 hidden lg:block"></div>
+              <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-stone-200 rounded-xl -z-10 hidden lg:block"></div>
             </div>
 
             {/* TEXT */}
