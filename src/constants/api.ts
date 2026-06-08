@@ -4,7 +4,7 @@
  */
 
 export const API_ENDPOINTS = {
-  SEND_TELEGRAM: '/.netlify/functions/send-telegram',
+  SEND_TELEGRAM: '/api/send-telegram',
 } as const;
 
 /**
