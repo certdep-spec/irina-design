@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { FiX } from 'react-icons/fi'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -22,15 +22,8 @@ function Portfolio() {
   const [heroRef, heroVisible] = useScrollReveal()
   const [introRef, introVisible] = useScrollReveal()
   const [gridRef, gridVisible] = useScrollReveal()
-  const [cases, setCases] = useState<PortfolioCase[]>(staticCases)
+  const [cases] = useState<PortfolioCase[]>(staticCases)
   const [selectedItem, setSelectedItem] = useState<PortfolioCase | null>(null)
-
-  useEffect(() => {
-    fetch('/api/portfolio.json')
-      .then(res => res.json())
-      .then(data => setCases(data))
-      .catch(() => {/* use static fallback */})
-  }, [])
 
   const activeFilter = getFilterFromURL()
 
