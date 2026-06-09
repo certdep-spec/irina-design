@@ -1,6 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { useScrollReveal } from '../hooks/useScrollReveal'
+import React from "react";
+import { Link } from "react-router-dom";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 /**
  * Hero Component
@@ -32,26 +32,27 @@ const Hero: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div 
+      <div
         ref={ref}
-        className={`relative z-10 text-center text-white px-6 max-w-4xl mx-auto -mt-24 ${isVisible ? 'reveal-visible' : 'reveal-hidden'}`}
+        className={`relative z-10 text-center text-white px-6 max-w-4xl mx-auto -mt-24 ${isVisible ? "reveal-visible" : "reveal-hidden"}`}
       >
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-semibold mb-6 leading-tight">
-          Естетика та ергономіка <span className="text-stone-300">вашого простору</span>
+          Дизайн інтер'єру <span className="text-stone-300">та меблів</span>
         </h1>
         <p className="text-lg md:text-xl mb-10 font-light tracking-wide text-stone-100 max-w-2xl mx-auto">
-          Створюємо інтер’єри та меблі, що відображають ваш стиль життя. Раціональне інвестування в комфорт без переробок.
+          Створюємо інтер’єри та меблі, що відображають ваш стиль життя. Раціональне інвестування в
+          комфорт без переробок.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link 
-            to="/contact#contact-form" 
+          <Link
+            to="/contact#contact-form"
             data-cta-name="hero_consultation"
             className="btn-primary min-h-[52px] flex items-center justify-center shadow-lg hover:shadow-xl"
           >
             Безкоштовна консультація
           </Link>
-          <Link 
-            to="/portfolio" 
+          <Link
+            to="/portfolio"
             data-cta-name="hero_portfolio"
             className="btn-secondary border-white text-white hover:bg-white hover:text-stone-900 min-h-[52px] flex items-center justify-center"
           >
@@ -67,7 +68,7 @@ const Hero: React.FC = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;
