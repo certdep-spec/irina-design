@@ -55,9 +55,7 @@ function ContactForm() {
       newErrors.phone = 'Невірний формат телефону'
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email обов\'язковий'
-    } else if (!VALIDATION.EMAIL_PATTERN.test(formData.email)) {
+    if (formData.email.trim() && !VALIDATION.EMAIL_PATTERN.test(formData.email)) {
       newErrors.email = 'Невірний формат email'
     }
 

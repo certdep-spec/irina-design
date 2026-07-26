@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     const chatId = process.env.TELEGRAM_CHAT_ID;
 
     if (!token || !chatId) {
-      return res.status(500).json({ error: 'Telegram settings missing' });
+      return res.status(500).json({ error: 'Telegram settings missing', used_chat_id: process.env.TELEGRAM_CHAT_ID || null });
     }
 
     const translateType = (type) => {
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Telegram API error', details: err });
     }
 
-    return res.status(200).json({ success: true });
+    return res.status(200).json({ success: true, used_chat_id: process.env.TELEGRAM_CHAT_ID || null });
   } catch (err) {
     return res.status(500).json({ error: 'Internal server error' });
   }
