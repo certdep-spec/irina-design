@@ -27,7 +27,7 @@ export default function Admin() {
 
   const fetchPortfolio = async () => {
     try {
-      const response = await fetch('/api/portfolio.json');
+      const response = await fetch('/dev-api/portfolio');
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       setCases(data);
@@ -42,7 +42,7 @@ export default function Admin() {
   const savePortfolio = async (updatedCases: PortfolioCase[]) => {
     setSaving(true);
     try {
-      const response = await fetch('http://127.0.0.1:5174/dev-api/portfolio', {
+      const response = await fetch('/dev-api/portfolio', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedCases),
@@ -97,17 +97,13 @@ export default function Admin() {
       const formData = new FormData();
       formData.append('file', file);
 
-      const uploadUrl = `http://127.0.0.1:5174/dev-api/photo-upload?filename=${encodeURIComponent(file.name)}&subfolder=${subfolder}`;
-      console.log('Attempting cover upload to:', uploadUrl);
-
-      const response = await fetch(uploadUrl, {
+      const response = await fetch(`/dev-api/photo-upload?filename=${encodeURIComponent(file.name)}&subfolder=${subfolder}`, {
         method: 'POST',
         body: formData,
       });
 
       if (response.ok) {
         const result = await response.json();
-        console.log('Cover upload success:', result);
         const newImageUrl = result.url;
         const updatedCases = cases.map(c => {
           if (c.id === caseId) {
@@ -137,17 +133,13 @@ export default function Admin() {
       const formData = new FormData();
       formData.append('file', file);
       
-      const uploadUrl = `http://127.0.0.1:5174/dev-api/photo-upload?filename=${encodeURIComponent(file.name)}&subfolder=${subfolder}`;
-      console.log('Attempting upload with FormData to:', uploadUrl);
-      
-      const response = await fetch(uploadUrl, {
+      const response = await fetch(`/dev-api/photo-upload?filename=${encodeURIComponent(file.name)}&subfolder=${subfolder}`, {
         method: 'POST',
         body: formData,
       });
       
       if (response.ok) {
         const result = await response.json();
-        console.log('Upload success:', result);
         const newImageUrl = result.url;
         const updatedCases = cases.map(c => {
           if (c.id === caseId) {

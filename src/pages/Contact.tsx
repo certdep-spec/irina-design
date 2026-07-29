@@ -3,12 +3,8 @@ import { Helmet } from 'react-helmet-async'
 import { useLocation } from 'react-router-dom'
 import ContactForm from '../components/ContactForm'
 import { FiPhone, FiMail, FiMapPin, FiInstagram, FiMessageCircle, FiFacebook } from 'react-icons/fi'
-import { useScrollReveal } from '../hooks/useScrollReveal'
+import { Reveal } from '../components/Reveal'
 
-/**
- * Contact Page
- * Contact form and contact information
- */
 function Contact() {
   const location = useLocation()
 
@@ -23,8 +19,6 @@ function Contact() {
     }
   }, [location])
 
-  const [heroRef, heroVisible] = useScrollReveal()
-  const [contentRef, contentVisible] = useScrollReveal()
   return (
     <div>
       <Helmet>
@@ -69,11 +63,8 @@ function Contact() {
           `}
         </script>
       </Helmet>
-      {/* Hero Section */}
-      <section 
-        ref={heroRef}
-        className={`bg-stone-100 py-20 px-6 ${heroVisible ? 'reveal-visible' : 'reveal-hidden'}`}
-      >
+
+      <Reveal as="section" className="bg-stone-100 py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4 text-stone-800">
             Контакти
@@ -82,16 +73,11 @@ function Contact() {
             Зв'яжіться з нами для обговорення вашого проєкту
           </p>
         </div>
-      </section>
+      </Reveal>
 
-      {/* Contact Section */}
-      <section 
-        ref={contentRef}
-        className={`section-padding ${contentVisible ? 'reveal-visible' : 'reveal-hidden'}`}
-      >
+      <Reveal as="section" className="section-padding">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            {/* Contact Form */}
             <div id="contact-form" className="scroll-mt-32">
               <h2 className="text-3xl font-serif font-semibold mb-6 text-stone-800">
                 Надішліть повідомлення
@@ -102,7 +88,6 @@ function Contact() {
               <ContactForm />
             </div>
 
-            {/* Contact Info */}
             <div>
               <h2 className="text-3xl font-serif font-semibold mb-8 text-stone-800">
                 Контактна інформація
@@ -147,7 +132,6 @@ function Contact() {
                 </div>
               </div>
 
-              {/* Social Media */}
               <div className="mb-10">
                 <h3 className="font-semibold mb-4 text-stone-800">Ми в соціальних мережах</h3>
               <div className="flex space-x-4">
@@ -190,7 +174,6 @@ function Contact() {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
               <div className="bg-stone-200 h-64 rounded-sm overflow-hidden">
                 <iframe 
                   title="Офіс у Вінниці"
@@ -206,7 +189,7 @@ function Contact() {
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
     </div>
   )
 }

@@ -1,14 +1,9 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { FiHome, FiBox, FiMonitor } from 'react-icons/fi'
-import { useScrollReveal } from '../hooks/useScrollReveal'
+import { Reveal } from '../components/Reveal'
 
 function Services() {
-  const [heroRef, heroVisible] = useScrollReveal()
-  const [listRef, listVisible] = useScrollReveal()
-  const [howRef, howVisible] = useScrollReveal()
-  const [ctaRef, ctaVisible] = useScrollReveal()
-
   const services = [
     {
       icon: FiMonitor,
@@ -93,29 +88,20 @@ function Services() {
         <meta name="description" content="Ціни на дизайн інтер'єру у Вінниці. Від планування до повного дизайн-проєкту та авторського нагляду. Підберемо рішення під ваш бюджет." />
       </Helmet>
 
-      {/* HERO */}
-      <section 
-        ref={heroRef}
-        className={`bg-stone-50 py-20 px-6 border-b border-stone-200 ${heroVisible ? 'reveal-visible' : 'reveal-hidden'}`}
-      >
+      <Reveal as="section" className="bg-stone-50 py-20 px-6 border-b border-stone-200">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4 text-stone-800">
-            Скільки коштує дизайн інтер’єру?
+            Скільки коштує дизайн інтер'єру?
           </h1>
           <p className="text-xl text-stone-600">
             Ми розробили різні формати роботи, щоб ви могли обрати оптимальний варіант: від швидкого планування до повного супроводу.
           </p>
         </div>
-      </section>
+      </Reveal>
 
-      {/* SERVICES */}
-      <section 
-        ref={listRef}
-        className={`section-padding ${listVisible ? 'reveal-visible' : 'reveal-hidden'}`}
-      >
+      <Reveal as="section" className="section-padding">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
             {services.map((service, index) => (
               <div 
                 key={index} 
@@ -173,14 +159,9 @@ function Services() {
                 </div>
               </div>
             ))}
-
           </div>
 
-          {/* HOW IT WORKS */}
-          <div 
-            ref={howRef}
-            className={`mt-24 bg-stone-50 p-8 md:p-14 rounded-2xl border border-stone-200 ${howVisible ? 'reveal-visible' : 'reveal-hidden'}`}
-          >
+          <Reveal className="mt-24 bg-stone-50 p-8 md:p-14 rounded-2xl border border-stone-200">
             <h2 className="text-3xl font-serif font-semibold text-center mb-12 text-stone-800">
               Як проходить робота
             </h2>
@@ -201,13 +182,9 @@ function Services() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
 
-          {/* CTA */}
-          <div 
-            ref={ctaRef}
-            className={`mt-20 text-center ${ctaVisible ? 'reveal-visible' : 'reveal-hidden'}`}
-          >
+          <Reveal className="mt-20 text-center">
             <h2 className="text-3xl font-serif font-semibold mb-4 text-stone-800">
               Готові обговорити ваш проєкт?
             </h2>
@@ -218,10 +195,10 @@ function Services() {
             <Link to="/contact#contact-form" className="btn-primary inline-flex items-center justify-center min-w-[240px] shadow-lg hover:-translate-y-1 transition-all">
               Отримати консультацію
             </Link>
-          </div>
+          </Reveal>
 
         </div>
-      </section>
+      </Reveal>
     </div>
   )
 }

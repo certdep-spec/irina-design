@@ -3,18 +3,9 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Hero from "../components/Hero";
 import { FiBox, FiHome } from "react-icons/fi";
-import { useScrollReveal } from "../hooks/useScrollReveal";
+import { Reveal } from "../components/Reveal";
 
-/**
- * Home Page
- * Landing page with hero, trust block, intro, services preview, and portfolio preview
- */
 const Home: React.FC = () => {
-  // Refs for scroll reveal
-  const [introRef, introVisible] = useScrollReveal();
-  const [servicesRef, servicesVisible] = useScrollReveal();
-  const [workRef, workVisible] = useScrollReveal();
-
   return (
     <div>
       <Helmet>
@@ -47,7 +38,6 @@ const Home: React.FC = () => {
 
       <Hero />
 
-      {/* Trust Section - Блок довіри */}
       <section className="bg-stone-900 py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-around items-center gap-6 text-stone-300 font-medium tracking-wide text-sm md:text-base">
           <div className="flex items-center gap-3">
@@ -65,11 +55,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Brief Intro */}
-      <section
-        ref={introRef}
-        className={`section-padding bg-stone-50 ${introVisible ? "reveal-visible" : "reveal-hidden"}`}
-      >
+      <Reveal as="section" className="section-padding bg-stone-50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-6 text-stone-800">
             Професійний підхід до кожного квадратного метра
@@ -86,9 +72,8 @@ const Home: React.FC = () => {
             Більше про наші принципи роботи
           </Link>
         </div>
-      </section>
+      </Reveal>
 
-      {/* Mid-page CTA Section */}
       <section className="bg-stone-200 py-16 px-6 border-y border-stone-300">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-8 text-stone-800">
@@ -103,11 +88,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Services Highlights */}
-      <section
-        ref={servicesRef}
-        className={`section-padding ${servicesVisible ? "reveal-visible" : "reveal-hidden"}`}
-      >
+      <Reveal as="section" className="section-padding">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold text-center mb-12 text-stone-800">
             Рішення під ваші задачі
@@ -139,19 +120,14 @@ const Home: React.FC = () => {
             ))}
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      {/* Portfolio Preview */}
-      <section
-        ref={workRef}
-        className={`section-padding bg-stone-50 ${workVisible ? "reveal-visible" : "reveal-hidden"}`}
-      >
+      <Reveal as="section" className="section-padding bg-stone-50">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold text-center mb-12 text-stone-800">
             Реалізовані рішення та візуалізації
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Напрям 1: Дизайн інтер'єру */}
             <div className="bg-white p-8 rounded-xl border border-stone-200 hover:shadow-lg transition-all group">
               <div className="w-16 h-16 bg-stone-100 group-hover:bg-stone-800 group-hover:text-white transition-colors rounded-full flex items-center justify-center mb-6">
                 <FiHome size={32} />
@@ -172,7 +148,6 @@ const Home: React.FC = () => {
                 Переглянути інтер'єри
               </Link>
             </div>
-            {/* Напрям 2: Проєктування меблів */}
             <div className="bg-white p-8 rounded-xl border border-stone-200 hover:shadow-lg transition-all group">
               <div className="w-16 h-16 bg-stone-100 group-hover:bg-stone-800 group-hover:text-white transition-colors rounded-full flex items-center justify-center mb-6">
                 <FiBox size={32} />
@@ -195,9 +170,8 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </Reveal>
 
-      {/* Testimonials Section - Відгуки */}
       <section className="section-padding bg-white">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold text-center mb-12 text-stone-800">
@@ -233,7 +207,6 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Footer CTA Section */}
       <section className="section-padding bg-stone-900 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-6">

@@ -6,23 +6,71 @@
   html {
     scroll-behavior: smooth;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  .min-h-screen-dvh {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  .h-screen-dvh {
+    height: 100vh;
+    height: 100dvh;
+  }
   
   body {
     @apply font-sans text-gray-800 bg-white antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
+
+  h1 {
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    letter-spacing: -0.015em;
+  }
+
+  h3 {
+    letter-spacing: -0.01em;
+  }
+
+  @media (max-width: 768px) {
+    h1, h2, h3 {
+      letter-spacing: -0.01em;
+    }
+  }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-stone-800 text-white px-8 py-3 rounded-sm hover:bg-stone-700 active:scale-[0.98] transition-all duration-300 font-medium tracking-wide;
+    @apply bg-stone-800 text-white px-8 py-3 rounded-sm active:scale-[0.96] font-medium tracking-wide;
+    transition: transform 100ms cubic-bezier(0.16, 1, 0.3, 1), background-color 150ms ease-out;
   }
   
   .btn-secondary {
-    @apply border-2 border-stone-800 text-stone-800 px-8 py-3 rounded-sm hover:bg-stone-800 hover:text-white active:scale-[0.98] transition-all duration-300 font-medium tracking-wide;
+    @apply border-2 border-stone-800 text-stone-800 px-8 py-3 rounded-sm active:scale-[0.96] font-medium tracking-wide;
+    transition: transform 100ms cubic-bezier(0.16, 1, 0.3, 1), background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+  }
+
+  @media (hover: hover) {
+    .btn-primary {
+      @apply hover:bg-stone-700;
+    }
+
+    .btn-secondary {
+      @apply hover:bg-stone-800 hover:text-white;
+    }
   }
   
   .section-padding {
@@ -30,15 +78,56 @@
   }
   
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:scale-[0.99];
+    @apply hover:shadow-xl hover:-translate-y-1 active:scale-[0.97];
+    transition: transform 120ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 200ms ease-out;
   }
   
-  .reveal-hidden {
-    @apply opacity-0 translate-y-10 transition-all duration-1000 ease-out;
+
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 0;
   }
-  
-  .reveal-visible {
-    @apply opacity-100 translate-y-0;
+
+  .group:hover .group-hover\:scale-105 {
+    transform: none;
+  }
+
+  [class*="hover:"].hover\:-translate-y-2 {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .btn-primary, .btn-secondary, .card-hover {
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  header,
+  .toolbar,
+  .backdrop-blur-sm,
+  .backdrop-blur-md {
+    background: white !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
 

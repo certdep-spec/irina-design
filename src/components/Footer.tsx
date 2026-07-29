@@ -1,17 +1,13 @@
 import { FiExternalLink, FiMail, FiPhone, FiMapPin, FiFacebook, FiInstagram } from 'react-icons/fi'
 
-/**
- * Footer Component
- * Contains contact info, social links, and copyright
- */
 function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-stone-900 text-stone-300">
-      <div className="section-padding">
+    <footer className="relative bg-stone-900 text-stone-300">
+      <div className="absolute inset-0 bg-gradient-to-b from-stone-800/0 to-stone-950/50 pointer-events-none"></div>
+      <div className="section-padding relative z-10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-          {/* Company Info */}
           <div>
             <h3 className="text-2xl font-serif font-semibold text-white mb-4">
               INTERIOR.DESIGN
@@ -24,7 +20,7 @@ function Footer() {
                   href="https://www.facebook.com/profile.php?id=100063828644118"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors duration-100"
                   title="Facebook"
                   aria-label="Facebook - переглянути профіль"
                 >
@@ -34,7 +30,7 @@ function Footer() {
                   href="https://www.instagram.com/nova_art_design/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors duration-100"
                   title="Instagram"
                   aria-label="Instagram - переглянути профіль"
                 >
@@ -44,7 +40,7 @@ function Footer() {
                   href="https://www.olx.ua/d/uk/obyavlenie/dizayn-nterru-ta-meblv-ID8JTWR.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors duration-100"
                   title="OLX"
                   aria-label="OLX - переглянути оголошення"
                 >
@@ -53,7 +49,6 @@ function Footer() {
               </div>
           </div>
 
-          {/* Contact Info */}
           <div>
             <h4 className="text-lg font-semibold text-white mb-4">Контакти</h4>
             <ul className="space-y-3 text-sm">
@@ -63,20 +58,19 @@ function Footer() {
               </li>
                <li className="flex items-center space-x-3">
                   <FiPhone className="text-stone-500 flex-shrink-0" />
-                  <a href="tel:+380964599885" className="hover:text-white transition-colors">
+                  <a href="tel:+380964599885" className="hover:text-white transition-colors duration-100">
                     096 459 98 85 <span className="text-xs text-stone-400 ml-2">(Viber, WhatsApp, Telegram)</span>
                   </a>
                 </li>
                 <li className="flex items-center space-x-3">
                   <FiMail className="text-stone-500 flex-shrink-0" />
-                  <a href="mailto:irina26408@gmail.com" className="hover:text-white transition-colors">
+                  <a href="mailto:irina26408@gmail.com" className="hover:text-white transition-colors duration-100">
                     irina26408@gmail.com
                   </a>
                 </li>
              </ul>
           </div>
 
-          {/* Working Hours */}
           <div>
             <h4 className="text-lg font-semibold text-white mb-4">Графік роботи</h4>
             <ul className="space-y-2 text-sm text-stone-400">

@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { Suspense, lazy, useEffect } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import ErrorBoundary from './components/ErrorBoundary'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -14,7 +15,6 @@ const Admin = lazy(() => import('./pages/Admin'))
 function App() {
   const location = useLocation();
   useEffect(() => {
-    // Scroll Depth Tracking for GA4
     let trackedDepths = new Set<number>();
     const handleScroll = () => {
       const scrollPercent = Math.round((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100);
@@ -35,7 +35,6 @@ function App() {
 
     window.addEventListener('scroll', handleScroll);
     
-    // Global CTA Click Tracking
     const handleGlobalClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const ctaElement = target.closest('[data-cta-name]');
@@ -61,15 +60,24 @@ function App() {
         <Header />
         <main className="flex-grow">
           <Suspense fallback={<div className="flex justify-center items-center min-h-[50vh]">Loading...</div>}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/admin" element={<Admin />} />
-            </Routes>
-
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ type: 'spring', bounce: 0, duration: 0.35 }}
+              >
+                <Routes location={location}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/admin" element={<Admin />} />
+                </Routes>
+              </motion.div>
+            </AnimatePresence>
           </Suspense>
         </main>
         <Footer />

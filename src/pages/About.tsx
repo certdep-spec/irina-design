@@ -1,13 +1,8 @@
 import { Helmet } from "react-helmet-async";
 import { FiCheck } from "react-icons/fi";
-import { useScrollReveal } from "../hooks/useScrollReveal";
+import { Reveal } from "../components/Reveal";
 
 function About() {
-  const [heroRef, heroVisible] = useScrollReveal();
-  const [contentRef, contentVisible] = useScrollReveal();
-  const [approachRef, approachVisible] = useScrollReveal();
-  const [whyMeRef, whyMeVisible] = useScrollReveal();
-
   const skills = ["Archicad", "Enscape"];
 
   const workSteps = [
@@ -24,7 +19,7 @@ function About() {
     {
       step: "03",
       title: "Візуалізація",
-      description: "Ви бачите майбутній інтер’єр ще до початку ремонту.",
+      description: "Ви бачите майбутній інтер'єр ще до початку ремонту.",
     },
     {
       step: "04",
@@ -48,26 +43,18 @@ function About() {
         />
       </Helmet>
 
-      {/* HERO */}
-      <section
-        ref={heroRef}
-        className={`bg-stone-100 py-20 px-6 ${heroVisible ? "reveal-visible" : "reveal-hidden"}`}
-      >
+      <Reveal as="section" className="bg-stone-100 py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4 text-stone-800">
-            Дизайнер інтер’єру та меблів
+            Дизайнер інтер'єру та меблів
           </h1>
           <p className="text-xl text-stone-600">
             Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті
           </p>
         </div>
-      </section>
+      </Reveal>
 
-      {/* MAIN */}
-      <section
-        ref={contentRef}
-        className={`section-padding ${contentVisible ? "reveal-visible" : "reveal-hidden"}`}
-      >
+      <Reveal as="section" className="section-padding">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
             <div className="relative">
@@ -90,16 +77,15 @@ function About() {
               <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-stone-200 rounded-xl -z-10 hidden lg:block"></div>
             </div>
 
-            {/* TEXT */}
             <div>
               <h2 className="text-3xl font-serif font-semibold mb-6 text-stone-800">
-                Ірина — дизайнер інтер’єру та меблів
+                Ірина — дизайнер інтер'єру та меблів
               </h2>
 
               <div className="space-y-4 text-stone-600 leading-relaxed">
                 <p>
                   Я спеціалізуюся на створенні комплексних рішень: від планування простору до
-                  розробки індивідуальних меблів. Це дозволяє зробити інтер’єр не лише красивим, а й
+                  розробки індивідуальних меблів. Це дозволяє зробити інтер'єр не лише красивим, а й
                   максимально зручним у використанні.
                 </p>
 
@@ -110,14 +96,13 @@ function About() {
 
                 <p>
                   Для мене дизайн — це комфорт, продуманість і гармонія у повсякденному житті. Я
-                  створюю інтер’єри, які поєднують естетику, функціональність і реалістичний підхід
+                  створюю інтер'єри, які поєднують естетику, функціональність і реалістичний підхід
                   до реалізації.
                 </p>
 
                 <p>Працюю у Вінниці та дистанційно.</p>
               </div>
 
-              {/* SKILLS */}
               <div className="mt-8">
                 <h3 className="text-lg font-semibold mb-4 text-stone-800">Інструменти в роботі:</h3>
                 <div className="flex flex-wrap gap-3">
@@ -134,16 +119,12 @@ function About() {
             </div>
           </div>
 
-          {/* PROCESS */}
           <div className="mb-20">
             <h2 className="text-3xl font-serif font-semibold text-center mb-12 text-stone-800">
               Як проходить робота
             </h2>
 
-            <div
-              ref={approachRef}
-              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${approachVisible ? "reveal-visible" : "reveal-hidden"}`}
-            >
+            <Reveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {workSteps.map((item, index) => (
                 <div
                   key={index}
@@ -162,22 +143,18 @@ function About() {
                   </p>
                 </div>
               ))}
-            </div>
+            </Reveal>
           </div>
 
-          {/* VALUE BLOCK */}
-          <div
-            ref={whyMeRef}
-            className={`bg-stone-50 p-8 md:p-12 rounded-lg border border-stone-200 ${whyMeVisible ? "reveal-visible" : "reveal-hidden"}`}
-          >
+          <Reveal className="bg-stone-50 p-8 md:p-12 rounded-lg border border-stone-200">
             <h2 className="text-3xl font-serif font-semibold text-center mb-8 text-stone-800">
               Що ви отримуєте
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {[
-                "Інтер’єр, який реально можна реалізувати",
-                "Продумане планування без “мертвих зон”",
+                "Інтер'єр, який реально можна реалізувати",
+                "Продумане планування без \"мертвих зон\"",
                 "Індивідуальні меблі під ваш простір",
                 "Контроль бюджету без зайвих витрат",
                 "Підтримку на всіх етапах ремонту",
@@ -189,9 +166,9 @@ function About() {
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
-      </section>
+      </Reveal>
     </div>
   );
 }
