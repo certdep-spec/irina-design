@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Environment files
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+# Local Netlify folder
+.netlify
+
+# Freebuff desktop local database
+.freebuff/
+
+# Vite config timestamp artifacts
+vite.config.ts.timestamp-*.mjs

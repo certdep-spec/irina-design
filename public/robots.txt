@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://irina-design.netlify.app/sitemap.xml
