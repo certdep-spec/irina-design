@@ -34,7 +34,7 @@ function Contact() {
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
               "name": "Дизайн інтер'єру та меблів Ірини",
-              "image": "https://irina-design.netlify.app/Paint/ira-portrait.webp",
+              "image": "https://irina-design.vercel.app/Paint/ira-portrait.webp",
               "telephone": "+380964599885",
               "email": "irina26408@gmail.com",
               "address": {
@@ -50,7 +50,7 @@ function Contact() {
                 "latitude": 49.2331,
                 "longitude": 28.4682
               },
-              "url": "https://irina-design.netlify.app/contact",
+              "url": "https://irina-design.vercel.app/contact",
               "openingHoursSpecification": {
                 "@type": "OpeningHoursSpecification",
                 "dayOfWeek": [

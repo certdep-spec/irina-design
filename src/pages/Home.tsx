@@ -24,7 +24,7 @@ const Home: React.FC = () => {
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
               "name": "Дизайн інтер'єру та меблів Ірини",
-              "image": "https://irina-design.netlify.app/Paint/1image1.webp",
+              "image": "https://irina-design.vercel.app/Paint/1image1.webp",
               "description": "Професійний дизайн інтер'єру та меблів у Вінниці. Створюємо простори, в яких хочеться жити.",
               "address": {
                 "@type": "PostalAddress",
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
               },
               "telephone": "+380964599885",
               "email": "irina26408@gmail.com",
-              "url": "https://irina-design.netlify.app",
+              "url": "https://irina-design.vercel.app",
               "priceRange": "$$$"
             }
           `}

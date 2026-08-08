@@ -22,7 +22,7 @@ export default defineConfig(({ mode: _mode }) => ({
       gzipSize: true,
     }),
     Sitemap({
-      hostname: "https://irina-design.netlify.app",
+      hostname: "https://irina-design.vercel.app",
       dynamicRoutes: ["/about", "/portfolio", "/services", "/contact"],
     }),
   ].filter(Boolean),
