@@ -27,7 +27,13 @@ export default function Admin() {
 
   const fetchPortfolio = async () => {
     try {
-      const response = await fetch('/dev-api/portfolio');
+      // Local dev: proxy to the standalone API server (writable).
+      // Production (Netlify/Vercel): fall back to the static JSON so the
+      // admin panel is at least readable; saving remains a dev-only feature.
+      let response = await fetch('/dev-api/portfolio');
+      if (!response.ok || !(response.headers.get('content-type') || '').includes('application/json')) {
+        response = await fetch('/api/portfolio.json');
+      }
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
       setCases(data);
