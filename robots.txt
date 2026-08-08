@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://irina-design.netlify.app/sitemap.xml
+Sitemap: https://irina-design.vercel.app/sitemap.xml
