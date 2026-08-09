@@ -1,0 +1,1 @@
+import{m as i,j as s}from"./index-BgB-qOn2.js";function c({children:t,className:o,delay:n=0,y:e=40,as:r="div"}){const a=r==="section"?i.section:i.div;return s.jsx(a,{initial:{opacity:0,y:e},whileInView:{opacity:1,y:0},viewport:{once:!0,margin:"-50px"},transition:{type:"spring",bounce:0,duration:.6,delay:n},className:o,children:t})}export{c as R};
