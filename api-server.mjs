@@ -31,6 +31,13 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // Admin write-protection: mutating /dev-api endpoints require the password
+  // from .env.local (VITE_ADMIN_PASSWORD). If it's not set, writes stay open
+  // for local development.
+  const ADMIN_PASSWORD = process.env.VITE_ADMIN_PASSWORD;
+  const isAdminRequest = (req) =>
+    !ADMIN_PASSWORD || req.headers['x-admin-password'] === ADMIN_PASSWORD;
+
   console.log(`[API-SERVER] ${method} ${url}`);
 
   // --- GET /dev-api/portfolio ---
@@ -49,6 +56,11 @@ const server = http.createServer(async (req, res) => {
 
   // --- POST /dev-api/portfolio (save data) ---
   if (method === 'POST' && url.startsWith('/dev-api/portfolio')) {
+    if (!isAdminRequest(req)) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Unauthorized' }));
+      return;
+    }
     const chunks = [];
     req.on('data', chunk => chunks.push(chunk));
     req.on('end', async () => {
@@ -68,6 +80,11 @@ const server = http.createServer(async (req, res) => {
 
   // --- POST /dev-api/photo-upload ---
   if (method === 'POST' && url.includes('/dev-api/photo-upload')) {
+    if (!isAdminRequest(req)) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Unauthorized' }));
+      return;
+    }
     const queryPart = url.split('?')[1] || '';
     const searchParams = new URLSearchParams(queryPart);
     const filename = searchParams.get('filename') || 'unknown.jpg';

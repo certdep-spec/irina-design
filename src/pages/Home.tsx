@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Hero from "../components/Hero";
-import { FiBox, FiHome } from "react-icons/fi";
+import { FiBox, FiHome, FiCheck, FiArrowRight, FiMonitor } from "react-icons/fi";
 import { Reveal } from "../components/Reveal";
 
 /**
@@ -46,15 +46,21 @@ const Home: React.FC = () => {
       <section className="bg-stone-900 py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-around items-center gap-6 text-stone-300 font-medium tracking-wide text-sm md:text-base">
           <div className="flex items-center gap-3">
-            <span className="text-stone-100 bg-stone-800 p-2 rounded-full">✔</span>
+            <span className="text-stone-100 bg-stone-800 p-2 rounded-full">
+              <FiCheck size={16} />
+            </span>
             Реалістичні 3D-візуалізації
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-stone-100 bg-stone-800 p-2 rounded-full">✔</span>
+            <span className="text-stone-100 bg-stone-800 p-2 rounded-full">
+              <FiCheck size={16} />
+            </span>
             Раціональне використання бюджету
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-stone-100 bg-stone-800 p-2 rounded-full">✔</span>
+            <span className="text-stone-100 bg-stone-800 p-2 rounded-full">
+              <FiCheck size={16} />
+            </span>
             Супровід від ідеї до реалізації
           </div>
         </div>
@@ -130,55 +136,92 @@ const Home: React.FC = () => {
         </div>
       </Reveal>
 
-      {/* Portfolio Preview */}
+      {/* Portfolio Preview — bento grid */}
       <Reveal as="section" className="section-padding bg-stone-50">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold text-center mb-12 text-stone-800">
             Реалізовані рішення та візуалізації
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Напрям 1: Дизайн інтер'єру */}
-            <div className="bg-white p-8 rounded-xl border border-stone-200 hover:shadow-lg transition-all group">
-              <div className="w-16 h-16 bg-stone-100 group-hover:bg-stone-800 group-hover:text-white transition-colors rounded-full flex items-center justify-center mb-6">
-                <FiHome size={32} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:auto-rows-[220px]">
+            {/* Big card: Дизайн інтер'єру */}
+            <Link
+              to="/portfolio?filter=interior"
+              data-cta-name="home_bento_interior"
+              className="relative overflow-hidden rounded-2xl group min-h-[280px] md:min-h-0 md:col-span-2 md:row-span-2"
+            >
+              <img
+                src="/archives/living/001.webp"
+                alt="Дизайн інтер'єру — житлові простори"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-900/85 via-stone-900/25 to-stone-900/10"></div>
+              <div className="relative z-10 h-full flex flex-col justify-end p-8 md:p-10">
+                <div className="w-14 h-14 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-6">
+                  <FiHome className="text-white" size={28} />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-serif font-semibold text-white mb-3">
+                  Дизайн інтер'єру
+                </h3>
+                <p className="text-stone-200 text-sm md:text-base font-light mb-6 max-w-md leading-relaxed">
+                  Житлові квартири та будинки, комерційні приміщення, робочі креслення та 3D-візуалізація, авторський нагляд.
+                </p>
+                <span className="inline-flex items-center gap-2 text-white font-medium border-b-2 border-white/60 pb-1 w-fit group-hover:border-white transition-colors">
+                  Переглянути інтер'єри <FiArrowRight size={18} />
+                </span>
               </div>
-              <h3 className="text-2xl font-serif font-semibold mb-4 text-stone-800">
-                Дизайн інтер'єру
-              </h3>
-              <ul className="space-y-3 text-stone-600 mb-8 font-light">
-                <li>• Житлові квартири та будинки</li>
-                <li>• Комерційні приміщення та офіси</li>
-                <li>• Робочі креслення та 3D візуалізація</li>
-                <li>• Авторський нагляд за виконанням</li>
-              </ul>
-              <Link
-                to="/portfolio?filter=interior"
-                className="btn-secondary w-full block text-center min-h-[48px] pt-3"
-              >
-                Переглянути інтер'єри
-              </Link>
-            </div>
-            {/* Напрям 2: Проєктування меблів */}
-            <div className="bg-white p-8 rounded-xl border border-stone-200 hover:shadow-lg transition-all group">
-              <div className="w-16 h-16 bg-stone-100 group-hover:bg-stone-800 group-hover:text-white transition-colors rounded-full flex items-center justify-center mb-6">
-                <FiBox size={32} />
+            </Link>
+
+            {/* Small card: Проєктування меблів */}
+            <Link
+              to="/portfolio?filter=furniture"
+              data-cta-name="home_bento_furniture"
+              className="relative overflow-hidden rounded-2xl group min-h-[220px]"
+            >
+              <img
+                src="/archives/kitchen/001.webp"
+                alt="Проєктування меблів — кухні та системи зберігання"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-stone-900/5"></div>
+              <div className="relative z-10 h-full flex flex-col justify-end p-6">
+                <div className="w-11 h-11 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-4">
+                  <FiBox className="text-white" size={22} />
+                </div>
+                <h3 className="text-xl font-serif font-semibold text-white mb-2">Проєктування меблів</h3>
+                <span className="inline-flex items-center gap-2 text-stone-200 text-sm font-medium group-hover:text-white transition-colors">
+                  Дивитись проєкти <FiArrowRight size={16} />
+                </span>
               </div>
-              <h3 className="text-2xl font-serif font-semibold mb-4 text-stone-800">
-                Проєктування меблів
-              </h3>
-              <ul className="space-y-3 text-stone-600 mb-8 font-light">
-                <li>• Кухні за індивідуальними розмірами</li>
-                <li>• Системи зберігання та гардеробні</li>
-                <li>• Технічна документація для виробництва</li>
-                <li>• Підбір якісних матеріалів та фурнітури</li>
-              </ul>
-              <Link
-                to="/portfolio?filter=furniture"
-                className="btn-secondary w-full block text-center min-h-[48px] pt-3"
-              >
-                Дивитись проєкти меблів
-              </Link>
-            </div>
+            </Link>
+
+            {/* Small card: Авторський супровід */}
+            <Link
+              to="/services"
+              data-cta-name="home_bento_support"
+              className="relative overflow-hidden rounded-2xl group min-h-[220px]"
+            >
+              <img
+                src="/archives/comercial/001.webp"
+                alt="Авторський супровід проєкту"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-stone-900/5"></div>
+              <div className="relative z-10 h-full flex flex-col justify-end p-6">
+                <div className="w-11 h-11 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-4">
+                  <FiMonitor className="text-white" size={22} />
+                </div>
+                <h3 className="text-xl font-serif font-semibold text-white mb-2">Авторський супровід</h3>
+                <span className="inline-flex items-center gap-2 text-stone-200 text-sm font-medium group-hover:text-white transition-colors">
+                  Контроль реалізації <FiArrowRight size={16} />
+                </span>
+              </div>
+            </Link>
           </div>
         </div>
       </Reveal>

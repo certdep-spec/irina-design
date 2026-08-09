@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
-import { FiHome, FiBox, FiMonitor } from 'react-icons/fi'
+import { FiHome, FiBox, FiMonitor, FiCheck } from 'react-icons/fi'
 import { Reveal } from '../components/Reveal'
 
 function Services() {
@@ -153,7 +153,7 @@ function Services() {
                     <ul className="space-y-2">
                       {service.result.map((item, i) => (
                         <li key={i} className="text-xs text-stone-600 flex items-start gap-2">
-                          <span className="text-stone-800">✔</span>
+                          <FiCheck className="text-stone-800 mt-0.5 flex-shrink-0" size={14} />
                           <span>{item}</span>
                         </li>
                       ))}

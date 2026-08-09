@@ -2,7 +2,8 @@ import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useLocation } from 'react-router-dom'
 import ContactForm from '../components/ContactForm'
-import { FiPhone, FiMail, FiMapPin, FiInstagram, FiMessageCircle, FiFacebook } from 'react-icons/fi'
+import { FiPhone, FiMail, FiMapPin, FiInstagram, FiFacebook } from 'react-icons/fi'
+import { FaTelegramPlane, FaViber } from 'react-icons/fa'
 import { Reveal } from '../components/Reveal'
 
 /**
@@ -168,7 +169,7 @@ function Contact() {
                     className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center hover:bg-stone-200 transition-colors"
                     aria-label="Telegram"
                   >
-                    <FiMessageCircle size={20} className="text-stone-700" />
+                    <FaTelegramPlane size={20} className="text-stone-700" />
                   </a>
                   <a 
                     href="viber://chat?number=%2B380964599885" 
@@ -177,7 +178,7 @@ function Contact() {
                     className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center hover:bg-stone-200 transition-colors"
                     aria-label="Viber"
                   >
-                    <FiMessageCircle size={20} className="text-stone-700" />
+                    <FaViber size={20} className="text-stone-700" />
                   </a>
                 </div>
               </div>

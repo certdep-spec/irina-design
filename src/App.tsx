@@ -27,8 +27,31 @@ const trackEvent = (eventName: string, params: GtagEventParams) => {
   }
 };
 
+function PageLoader() {
+  return (
+    <div
+      role="status"
+      aria-busy="true"
+      className="min-h-[50vh] flex flex-col items-center justify-center gap-4 text-stone-400"
+    >
+      <div className="w-10 h-10 border-2 border-stone-200 border-t-stone-800 rounded-full animate-spin"></div>
+      <p className="font-serif text-lg tracking-wide">Завантаження...</p>
+    </div>
+  )
+}
+
 function App() {
   const location = useLocation();
+
+  // SPA navigation keeps the old scroll position, which makes a new page look
+  // cut off / "not opened". Scroll to the top on every route change, except
+  // when a hash anchor is present (the target page scrolls to it itself).
+  useEffect(() => {
+    if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    }
+  }, [location.pathname, location.hash]);
+
   // gtag('config') already fires page_view for the initial URL, so the first
   // effect run only records that path without re-sending it.
   const lastTrackedPath = useRef<string | null>(null);
@@ -91,8 +114,8 @@ function App() {
     <ErrorBoundary>
       <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-grow">
-          <Suspense fallback={<div className="flex justify-center items-center min-h-[50vh]">Loading...</div>}>
+        <main className="flex-grow overflow-x-clip">
+          <Suspense fallback={<PageLoader />}>
             <AnimatePresence mode="wait">
               <motion.div
                 key={location.pathname}

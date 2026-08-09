@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import type { FormEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { FiPlus, FiTrash2, FiSave, FiArrowLeft, FiUpload } from 'react-icons/fi';
+import { FiTrash2, FiSave, FiArrowLeft, FiUpload, FiLock, FiLogOut } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 interface PortfolioCase {
@@ -15,17 +16,102 @@ interface PortfolioCase {
   gallery: string[];
 }
 
+// Admin password from .env.local (VITE_ADMIN_PASSWORD).
+// If it's not configured, the panel stays open for local development.
+const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD as string | undefined;
+const AUTH_STORAGE_KEY = 'admin_auth';
+
+/** Simple password gate shown before the admin panel. */
+function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [attempts, setAttempts] = useState(0);
+  const [lockedUntil, setLockedUntil] = useState(0);
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (Date.now() < lockedUntil) {
+      setError('Забагато спроб. Зачекайте кілька секунд.');
+      return;
+    }
+    if (password === ADMIN_PASSWORD) {
+      sessionStorage.setItem(AUTH_STORAGE_KEY, '1');
+      onSuccess();
+    } else {
+      const nextAttempts = attempts + 1;
+      setAttempts(nextAttempts);
+      setPassword('');
+      if (nextAttempts >= 3) {
+        setLockedUntil(Date.now() + 5000);
+        setError('Забагато спроб. Спробуйте через 5 секунд.');
+      } else {
+        setError('Невірний пароль');
+      }
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-stone-50 flex items-center justify-center p-6">
+      <Helmet>
+        <title>Вхід — Панель керування</title>
+      </Helmet>
+      <div className="w-full max-w-md">
+        <Link to="/" className="flex items-center text-stone-500 hover:text-stone-800 mb-8 text-sm">
+          <FiArrowLeft className="mr-2" /> На головну
+        </Link>
+        <div className="bg-white rounded-2xl shadow-xl border border-stone-100 p-8 md:p-10">
+          <div className="w-14 h-14 bg-stone-800 text-white rounded-full flex items-center justify-center mb-6">
+            <FiLock size={24} />
+          </div>
+          <h1 className="text-2xl font-serif font-semibold text-stone-800 mb-2">Панель керування</h1>
+          <p className="text-stone-500 text-sm mb-8">Введіть пароль для доступу до портфоліо</p>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="admin-password" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">
+                Пароль
+              </label>
+              <input
+                type="password"
+                id="admin-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoFocus
+                className="w-full px-4 py-3 bg-stone-50 border rounded-lg focus:ring-2 focus:ring-stone-800 outline-none border-stone-200"
+                placeholder="••••••••"
+              />
+              {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
+            </div>
+            <button type="submit" className="btn-primary w-full flex items-center justify-center space-x-2">
+              <FiLock size={16} />
+              <span>Увійти</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Admin() {
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    if (!ADMIN_PASSWORD) return true; // no password configured → open
+    return sessionStorage.getItem(AUTH_STORAGE_KEY) === '1';
+  });
   const [cases, setCases] = useState<PortfolioCase[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    fetchPortfolio();
-  }, []);
+  // Header sent with write requests so the local API server can verify the password
+  const authHeaders: Record<string, string> = ADMIN_PASSWORD
+    ? { 'x-admin-password': ADMIN_PASSWORD }
+    : {};
 
-  const fetchPortfolio = async () => {
+  // Loads portfolio on first open (after login).
+  // Function declaration is hoisted, but the effect sits after it so lint
+  // rules that require declaration-before-use stay satisfied.
+  async function fetchPortfolio() {
     try {
       // Local dev: proxy to the standalone API server (writable).
       // Production (Netlify/Vercel): fall back to the static JSON so the
@@ -43,19 +129,28 @@ export default function Admin() {
     } finally {
       setLoading(false);
     }
-  };
+  }
+
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    // async data load: setState only happens after await, so this is safe
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchPortfolio();
+  }, [isAuthenticated]);
 
   const savePortfolio = async (updatedCases: PortfolioCase[]) => {
     setSaving(true);
     try {
       const response = await fetch('/dev-api/portfolio', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...authHeaders },
         body: JSON.stringify(updatedCases),
       });
       if (response.ok) {
         setMessage('Збережено успішно');
         setTimeout(() => setMessage(''), 3000);
+      } else {
+        setMessage(response.status === 401 ? 'Помилка авторизації' : 'Помилка збереження');
       }
     } catch (error) {
       console.error('Failed to save portfolio:', error);
@@ -107,12 +202,12 @@ export default function Admin() {
 
       const response = await fetch(uploadUrl, {
         method: 'POST',
+        headers: authHeaders,
         body: formData,
       });
 
       if (response.ok) {
         const result = await response.json();
-        console.log('Cover upload success:', result);
         const newImageUrl = result.url;
         const updatedCases = cases.map(c => {
           if (c.id === caseId) {
@@ -123,8 +218,8 @@ export default function Admin() {
         setCases(updatedCases);
         await savePortfolio(updatedCases);
       } else {
-        const errorText = await response.text();
-        setMessage('Помилка завантаження обкладинки: ' + response.status);
+        await response.text();
+        setMessage(response.status === 401 ? 'Помилка авторизації' : 'Помилка завантаження обкладинки: ' + response.status);
       }
     } catch (error) {
       console.error('Cover upload error:', error);
@@ -146,12 +241,12 @@ export default function Admin() {
       
       const response = await fetch(uploadUrl, {
         method: 'POST',
+        headers: authHeaders,
         body: formData,
       });
       
       if (response.ok) {
         const result = await response.json();
-        console.log('Upload success:', result);
         const newImageUrl = result.url;
         const updatedCases = cases.map(c => {
           if (c.id === caseId) {
@@ -170,13 +265,17 @@ export default function Admin() {
       } else {
         const errorText = await response.text();
         console.error('Upload failed with status:', response.status, errorText);
-        setMessage('Помилка завантаження: ' + response.status);
+        setMessage(response.status === 401 ? 'Помилка авторизації' : 'Помилка завантаження: ' + response.status);
       }
     } catch (error) {
       console.error('Upload error:', error);
       setMessage('Помилка завантаження файлу');
     }
   };
+
+  if (!isAuthenticated) {
+    return <AdminLogin onSuccess={() => setIsAuthenticated(true)} />;
+  }
 
   if (loading) return <div className="p-20 text-center">Завантаження...</div>;
 
@@ -204,6 +303,19 @@ export default function Admin() {
             >
               <FiSave className="mr-2" /> {saving ? 'Збереження...' : 'Зберегти всі зміни'}
             </button>
+            {ADMIN_PASSWORD && (
+              <button
+                onClick={() => {
+                  sessionStorage.removeItem(AUTH_STORAGE_KEY);
+                  setIsAuthenticated(false);
+                }}
+                title="Вийти"
+                aria-label="Вийти з панелі керування"
+                className="w-11 h-11 flex items-center justify-center rounded-full border border-stone-200 text-stone-500 hover:text-stone-800 hover:border-stone-400 transition-colors"
+              >
+                <FiLogOut size={18} />
+              </button>
+            )}
           </div>
         </div>
 

@@ -68,6 +68,8 @@ const Header: React.FC = () => {
             className="md:hidden text-stone-800 p-2 -mr-2 focus:outline-none touch-manipulation active:scale-[0.92] transition-transform duration-75"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav"
             style={{ minWidth: '44px', minHeight: '44px' }}
           >
             {isMenuOpen ? <FiX size={28} /> : <FiMenu size={28} />}
@@ -78,6 +80,7 @@ const Header: React.FC = () => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
+              id="mobile-nav"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}

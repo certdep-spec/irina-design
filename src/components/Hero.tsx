@@ -22,7 +22,6 @@ const Hero: React.FC = () => {
             src="/Paint/hero-main.webp"
             alt="Сучасний дизайн інтер'єру — студія у Вінниці"
             className="w-full h-full object-cover"
-            fetchpriority="high"
             decoding="async"
           />
         </picture>

@@ -107,7 +107,7 @@ function ContactForm() {
       } else {
         throw new Error('Помилка при відправці');
       }
-    } catch (err) {
+    } catch {
       setSubmitError('Сталася помилка. Спробуйте ще раз або зателефонуйте нам.')
     } finally {
       setIsSubmitting(false)
