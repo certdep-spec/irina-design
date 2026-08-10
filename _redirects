@@ -1,2 +1,8 @@
 /api/*  /.netlify/functions/:splat  200
-/*      /index.html                200
+/       /index.html                 200
+/about  /index.html                 200
+/portfolio /index.html              200
+/services /index.html               200
+/contact /index.html                200
+/admin  /index.html                 200
+/*      /404.html                   404
