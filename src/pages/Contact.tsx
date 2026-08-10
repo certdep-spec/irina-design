@@ -28,7 +28,13 @@ function Contact() {
     <div>
       <Helmet>
         <title>Контакти — Дизайнер інтер'єру Ірина у Вінниці</title>
+        <link rel="canonical" href="https://irina-design.vercel.app/contact" />
         <meta name="description" content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту." />
+        <meta property="og:url" content="https://irina-design.vercel.app/contact" />
+        <meta property="og:title" content="Контакти — Дизайнер інтер'єру Ірина у Вінниці" />
+        <meta property="og:description" content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту." />
+        <meta name="twitter:title" content="Контакти — Дизайнер інтер'єру Ірина у Вінниці" />
+        <meta name="twitter:description" content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту." />
         <script type="application/ld+json">
           {`
             {

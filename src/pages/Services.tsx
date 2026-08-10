@@ -85,7 +85,13 @@ function Services() {
     <div>
       <Helmet>
         <title>Послуги та ціни — Дизайнер інтер'єру Ірина</title>
+        <link rel="canonical" href="https://irina-design.vercel.app/services" />
         <meta name="description" content="Ціни на дизайн інтер'єру у Вінниці. Від планування до повного дизайн-проєкту та авторського нагляду. Підберемо рішення під ваш бюджет." />
+        <meta property="og:url" content="https://irina-design.vercel.app/services" />
+        <meta property="og:title" content="Послуги та ціни — Дизайнер інтер'єру Ірина" />
+        <meta property="og:description" content="Ціни на дизайн інтер'єру у Вінниці. Від планування до повного дизайн-проєкту та авторського нагляду. Підберемо рішення під ваш бюджет." />
+        <meta name="twitter:title" content="Послуги та ціни — Дизайнер інтер'єру Ірина" />
+        <meta name="twitter:description" content="Ціни на дизайн інтер'єру у Вінниці. Від планування до повного дизайн-проєкту та авторського нагляду. Підберемо рішення під ваш бюджет." />
       </Helmet>
 
       {/* HERO */}

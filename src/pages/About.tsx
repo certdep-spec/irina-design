@@ -37,10 +37,16 @@ function About() {
     <div>
       <Helmet>
         <title>Про мене — Дизайнер інтер'єру Ірина</title>
+        <link rel="canonical" href="https://irina-design.vercel.app/about" />
         <meta
           name="description"
           content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті."
         />
+        <meta property="og:url" content="https://irina-design.vercel.app/about" />
+        <meta property="og:title" content="Про мене — Дизайнер інтер'єру Ірина" />
+        <meta property="og:description" content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті." />
+        <meta name="twitter:title" content="Про мене — Дизайнер інтер'єру Ірина" />
+        <meta name="twitter:description" content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті." />
       </Helmet>
 
       {/* HERO */}

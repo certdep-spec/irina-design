@@ -54,6 +54,7 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
     <div className="min-h-screen bg-stone-50 flex items-center justify-center p-6">
       <Helmet>
         <title>Вхід — Панель керування</title>
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <div className="w-full max-w-md">
         <Link to="/" className="flex items-center text-stone-500 hover:text-stone-800 mb-8 text-sm">
@@ -283,6 +284,7 @@ export default function Admin() {
     <div className="bg-stone-50 min-h-screen p-8">
       <Helmet>
         <title>Панель керування — Портфоліо</title>
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
       <div className="max-w-6xl mx-auto">

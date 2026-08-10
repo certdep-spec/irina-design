@@ -166,10 +166,16 @@ function Portfolio() {
     <div className="bg-stone-50 min-h-screen">
       <Helmet>
         <title>Портфоліо — Дизайнер інтер'єру Ірина</title>
+        <link rel="canonical" href="https://irina-design.vercel.app/portfolio" />
         <meta
           name="description"
           content="Портфоліо робіт дизайнера інтер'єру та меблів. Реалізовані проекти квартир, будинків, індивідуальні меблі."
         />
+        <meta property="og:url" content="https://irina-design.vercel.app/portfolio" />
+        <meta property="og:title" content="Портфоліо — Дизайнер інтер'єру Ірина" />
+        <meta property="og:description" content="Портфоліо робіт дизайнера інтер'єру та меблів. Реалізовані проекти квартир, будинків, індивідуальні меблі." />
+        <meta name="twitter:title" content="Портфоліо — Дизайнер інтер'єру Ірина" />
+        <meta name="twitter:description" content="Портфоліо робіт дизайнера інтер'єру та меблів. Реалізовані проекти квартир, будинків, індивідуальні меблі." />
       </Helmet>
       {/* Hero Section */}
       <Reveal as="section" className="bg-white py-24 px-6 border-b border-stone-200">

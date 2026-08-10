@@ -14,10 +14,16 @@ const Home: React.FC = () => {
     <div>
       <Helmet>
         <title>Дизайн інтер'єру та меблів у Вінниці | Студія Ірини</title>
+        <link rel="canonical" href="https://irina-design.vercel.app/" />
         <meta
           name="description"
           content="Створюємо простір мрії — від технічного планування до повного дизайн-проєкту меблів та інтер'єру у Вінниці."
         />
+        <meta property="og:url" content="https://irina-design.vercel.app/" />
+        <meta property="og:title" content="Дизайн інтер'єру та меблів у Вінниці | Студія Ірини" />
+        <meta property="og:description" content="Створюємо простір мрії — від технічного планування до повного дизайн-проєкту меблів та інтер'єру у Вінниці." />
+        <meta name="twitter:title" content="Дизайн інтер'єру та меблів у Вінниці | Студія Ірини" />
+        <meta name="twitter:description" content="Створюємо простір мрії — від технічного планування до повного дизайн-проєкту меблів та інтер'єру у Вінниці." />
         <script type="application/ld+json">
           {`
             {

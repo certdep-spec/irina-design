@@ -24,6 +24,8 @@ export default defineConfig(({ mode: _mode }) => ({
     Sitemap({
       hostname: "https://irina-design.vercel.app",
       dynamicRoutes: ["/about", "/portfolio", "/services", "/contact"],
+      // Служебные страницы (404, верификация Google) не должны попадать в sitemap
+      exclude: ["/404", "/google5b6109d09ed90c5a"],
     }),
   ].filter(Boolean),
 
