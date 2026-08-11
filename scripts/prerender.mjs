@@ -39,8 +39,15 @@ async function main() {
   const { renderRoute } = await import(pathToFileURL(ssrFile).href);
   const template = fs.readFileSync(templatePath, "utf8");
 
+  // When the client build targets a sub-path (e.g. GitHub Pages at
+  // /irina-design/ via BASE_PATH), the SSR bundle inherits that basename,
+  // so the requested location must be prefixed with it or StaticRouter
+  // renders nothing. For root deployments BASE_PATH is empty and the
+  // location is used as-is.
+  const base = (process.env.BASE_PATH || "").replace(/\/+$/, "");
+
   for (const route of ROUTES) {
-    const { html, helmet } = await renderRoute(route);
+    const { html, helmet } = await renderRoute(base + route);
     if (!html.trim()) {
       throw new Error(`Prerender of "${route}" produced empty HTML`);
     }
