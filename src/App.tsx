@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { Suspense, lazy, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
+import { Helmet } from 'react-helmet-async'
 import ErrorBoundary from './components/ErrorBoundary'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -112,6 +113,16 @@ function App() {
 
   return (
     <ErrorBoundary>
+      {/* Global social-sharing defaults, merged with per-page Helmet tags.
+          Kept out of index.html so the prerendered static HTML has exactly
+          one og:image / twitter:card per page. */}
+      <Helmet>
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="uk_UA" />
+        <meta property="og:image" content="https://irina-design.vercel.app/Paint/1image1.webp" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://irina-design.vercel.app/Paint/1image1.webp" />
+      </Helmet>
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow overflow-x-clip">
