@@ -21,6 +21,9 @@ interface PortfolioCase {
 const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD as string | undefined;
 const AUTH_STORAGE_KEY = 'admin_auth';
 
+// Same limit as the local API server (api-server.mjs): 15 МБ.
+const MAX_UPLOAD_SIZE = 15 * 1024 * 1024;
+
 /** Simple password gate shown before the admin panel. */
 function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
   const [password, setPassword] = useState('');
@@ -193,6 +196,11 @@ export default function Admin() {
     const caseItem = cases.find(c => c.id === caseId);
     if (!caseItem) return;
 
+    if (file.size > MAX_UPLOAD_SIZE) {
+      setMessage('Файл завеликий (макс. 15 МБ)');
+      return;
+    }
+
     const subfolder = caseItem.gallery[0]?.split('/')[2] || (caseItem.category === 'interior' ? 'living' : 'kitchen');
 
     try {
@@ -231,6 +239,11 @@ export default function Admin() {
   const handleUploadImage = async (caseId: string, file: File) => {
     const caseItem = cases.find(c => c.id === caseId);
     if (!caseItem) return;
+
+    if (file.size > MAX_UPLOAD_SIZE) {
+      setMessage('Файл завеликий (макс. 15 МБ)');
+      return;
+    }
     
     const subfolder = caseItem.gallery[0]?.split('/')[2] || (caseItem.category === 'interior' ? 'living' : 'kitchen');
 

@@ -10,11 +10,37 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs/promises';
 import { createRequire } from 'module';
+import { buildData, validate, checkRateLimit, processSubmission } from './shared/send-message.js';
 const require = createRequire(import.meta.url);
 try { require('dotenv').config({ path: '.env.local' }); } catch {} // eslint-disable-line
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = 5174;
+
+/** Лимит загрузки одного файла — 15 МБ (фото с камеры обычно < 10 МБ). */
+const MAX_UPLOAD_BYTES = 15 * 1024 * 1024;
+
+/**
+ * Безопасное имя файла для сохранения: только [a-zA-Z0-9._-],
+ * без путей и служебных имён. Возвращает null для недопустимых значений.
+ */
+const sanitizeUploadName = input => {
+  if (typeof input !== 'string') return null;
+  // Пути (и/или обратный слэш) недопустимы — отклоняем, а не тихо режем
+  if (/[\\/]/.test(input)) return null;
+  const cleaned = input.replace(/[^a-zA-Z0-9._-]/g, '-').replace(/-+/g, '-');
+  if (!cleaned || /^\.+$/.test(cleaned)) return null;
+  return cleaned;
+};
+
+/** Безопасное имя подпапки: только [a-zA-Z0-9_-], без путей и служебных имён. */
+const sanitizeSubfolder = input => {
+  if (typeof input !== 'string') return null;
+  // Пути и обход директорий недопустимы
+  if (/[\\/]/.test(input) || input.includes('..')) return null;
+  const cleaned = input.replace(/[^a-zA-Z0-9_-]/g, '').replace(/^-+|-+$/g, '');
+  return cleaned || null;
+};
 
 const server = http.createServer(async (req, res) => {
   const url = req.url || '';
@@ -87,12 +113,39 @@ const server = http.createServer(async (req, res) => {
     }
     const queryPart = url.split('?')[1] || '';
     const searchParams = new URLSearchParams(queryPart);
-    const filename = searchParams.get('filename') || 'unknown.jpg';
-    const subfolder = searchParams.get('subfolder') || 'general';
+    const filename = sanitizeUploadName(searchParams.get('filename'));
+    const subfolder = sanitizeSubfolder(searchParams.get('subfolder'));
+
+    if (!filename || !subfolder) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Invalid filename or subfolder' }));
+      return;
+    }
+
+    // Быстрый отказ по Content-Length, если он есть
+    const contentLength = parseInt(req.headers['content-length'] || '0', 10);
+    if (contentLength > MAX_UPLOAD_BYTES) {
+      res.writeHead(413, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'File too large (max 15 MB)' }));
+      return;
+    }
 
     const chunks = [];
-    req.on('data', chunk => chunks.push(chunk));
+    let total = 0;
+    let tooLarge = false;
+    req.on('data', chunk => {
+      total += chunk.length;
+      if (total > MAX_UPLOAD_BYTES && !tooLarge) {
+        tooLarge = true;
+        res.writeHead(413, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'File too large (max 15 MB)' }));
+        req.destroy();
+      } else if (!tooLarge) {
+        chunks.push(chunk);
+      }
+    });
     req.on('end', async () => {
+      if (tooLarge) return;
       try {
         let buffer = Buffer.concat(chunks);
 
@@ -114,6 +167,11 @@ const server = http.createServer(async (req, res) => {
         const { default: sharp } = await import('sharp');
         const targetDir = path.resolve(__dirname, `./public/archives/${subfolder}`);
         const baseName = filename.substring(0, filename.lastIndexOf('.'));
+        if (!baseName || /^\.+$/.test(baseName)) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Invalid filename' }));
+          return;
+        }
         await fs.mkdir(targetDir, { recursive: true });
 
         // Save primary WebP
@@ -147,58 +205,34 @@ const server = http.createServer(async (req, res) => {
     req.on('data', chunk => chunks.push(chunk));
     req.on('end', async () => {
       try {
-        const body = JSON.parse(Buffer.concat(chunks).toString());
+        const body = JSON.parse(Buffer.concat(chunks).toString() || '{}');
 
-        const sanitize = (input) => {
-          if (typeof input !== 'string') return '';
-          return input.replace(/[<>]/g, '').trim().substring(0, 1000);
-        };
+        const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '127.0.0.1';
+        if (!checkRateLimit(clientIp)) {
+          res.writeHead(429, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Too many requests' }));
+          return;
+        }
 
-        const data = {
-          name: sanitize(body.name),
-          phone: sanitize(body.phone),
-          email: sanitize(body.email),
-          objectType: sanitize(body.objectType),
-          area: sanitize(body.area),
-          budget: sanitize(body.budget),
-          message: sanitize(body.message),
-        };
-
-        if (!data.name || !data.phone || !data.message) {
+        const data = buildData(body);
+        if (!validate(data)) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ error: 'Validation failed' }));
           return;
         }
 
-        const translateType = (type) => {
-          const types = { apartment: 'Квартира', house: 'Будинок', commercial: 'Комерція', furniture: 'Меблі' };
-          return types[type] || type;
-        };
-
-        const translateBudget = (budget) => {
-          const budgets = { economy: 'Бюджетний', standard: 'Середній', premium: 'Преміум', undecided: 'Не визначено' };
-          return budgets[budget] || budget;
-        };
-
         const token = process.env.TELEGRAM_BOT_TOKEN;
         const chatId = process.env.TELEGRAM_CHAT_ID;
 
         if (token && chatId) {
-          const text = `📬 Новий бриф із сайту!\n\n👤 Ім'я: ${data.name}\n📞 Тел: ${data.phone}\n📧 Email: ${data.email}\n\n🏠 Об'єкт: ${translateType(data.objectType)}\n📐 Площа: ${data.area || '—'} м²\n💰 Бюджет: ${translateBudget(data.budget)}\n\n📝 Завдання: ${data.message}`;
-
-          const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: chatId, text }),
-          });
-
-          if (response.ok) {
+          const { telegramOk, errors } = await processSubmission(data);
+          if (telegramOk) {
             console.log('[API-SERVER] Telegram sent successfully');
             res.writeHead(200, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ success: true }));
             return;
           }
-          console.error('[API-SERVER] Telegram send failed:', await response.text());
+          console.error('[API-SERVER] Telegram send failed:', errors);
         } else {
           console.warn('[API-SERVER] TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID not set');
         }
