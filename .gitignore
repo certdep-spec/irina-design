@@ -29,3 +29,10 @@ npm-debug.log*
 
 # Vite config timestamp artifacts
 vite.config.ts.timestamp-*.mjs
+
+# Playwright
+playwright-report/
+test-results/
+
+# Stats
+stats.html

@@ -1,46 +1,55 @@
-import { useEffect } from 'react'
-import { Helmet } from 'react-helmet-async'
-import { useLocation } from 'react-router-dom'
-import ContactForm from '../components/ContactForm'
-import { FiPhone, FiMail, FiMapPin, FiInstagram, FiFacebook } from 'react-icons/fi'
-import { FaTelegramPlane, FaViber } from 'react-icons/fa'
-import { Reveal } from '../components/Reveal'
+import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
+import ContactForm from "../components/ContactForm";
+import { FiPhone, FiMail, FiMapPin, FiInstagram, FiFacebook } from "react-icons/fi";
+import { FaTelegramPlane, FaViber } from "react-icons/fa";
+import { Reveal } from "../components/Reveal";
 
 /**
  * Contact Page
  * Contact form and contact information
  */
 function Contact() {
-  const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
     if (location.hash) {
-      const element = document.getElementById(location.hash.slice(1))
+      const element = document.getElementById(location.hash.slice(1));
       if (element) {
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }, 100)
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
       }
     }
-  }, [location])
+  }, [location]);
 
   return (
     <div>
       <Helmet>
         <title>Контакти — Дизайнер інтер'єру Ірина у Вінниці</title>
         <link rel="canonical" href="https://irina-design.vercel.app/contact" />
-        <meta name="description" content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту." />
+        <meta
+          name="description"
+          content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту."
+        />
         <meta property="og:url" content="https://irina-design.vercel.app/contact" />
         <meta property="og:title" content="Контакти — Дизайнер інтер'єру Ірина у Вінниці" />
-        <meta property="og:description" content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту." />
+        <meta
+          property="og:description"
+          content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту."
+        />
         <meta name="twitter:title" content="Контакти — Дизайнер інтер'єру Ірина у Вінниці" />
-        <meta name="twitter:description" content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту." />
+        <meta
+          name="twitter:description"
+          content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту."
+        />
         <script type="application/ld+json">
           {`
             {
               "@context": "https://schema.org",
               "@type": "LocalBusiness",
-              "name": "Дизайн інтер'єру та меблів Ірини",
+              "name": "Ірина · Interior Design",
               "image": "https://irina-design.vercel.app/Paint/ira-portrait.webp",
               "telephone": "+380964599885",
               "email": "irina26408@gmail.com",
@@ -80,9 +89,7 @@ function Contact() {
           <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4 text-stone-800">
             Контакти
           </h1>
-          <p className="text-xl text-stone-600">
-            Зв'яжіться з нами для обговорення вашого проєкту
-          </p>
+          <p className="text-xl text-stone-600">Зв'яжіться з нами для обговорення вашого проєкту</p>
         </div>
       </Reveal>
 
@@ -96,7 +103,8 @@ function Contact() {
                 Надішліть повідомлення
               </h2>
               <p className="text-stone-600 mb-8">
-                Заповніть форму, і ми зв'яжемося з вами протягом 24 годин для обговорення деталей вашого проєкту.
+                Заповніть форму, і ми зв'яжемося з вами протягом 24 годин для обговорення деталей
+                вашого проєкту.
               </p>
               <ContactForm />
             </div>
@@ -106,7 +114,7 @@ function Contact() {
               <h2 className="text-3xl font-serif font-semibold mb-8 text-stone-800">
                 Контактна інформація
               </h2>
-              
+
               <div className="space-y-6 mb-10">
                 <div className="flex items-start space-x-4">
                   <div className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -115,7 +123,9 @@ function Contact() {
                   <div>
                     <h3 className="font-semibold mb-1 text-stone-800">Адреса</h3>
                     <p className="text-stone-600">м. Вінниця, Україна</p>
-                    <p className="text-sm text-stone-500 mt-1">Працюємо по всій Вінницькій області</p>
+                    <p className="text-sm text-stone-500 mt-1">
+                      Працюємо по всій Вінницькій області
+                    </p>
                   </div>
                 </div>
 
@@ -125,7 +135,10 @@ function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1 text-stone-800">Телефон</h3>
-                    <a href="tel:+380964599885" className="text-stone-600 hover:text-stone-800 transition-colors">
+                    <a
+                      href="tel:+380964599885"
+                      className="text-stone-600 hover:text-stone-800 transition-colors"
+                    >
                       096 459 98 85
                     </a>
                     <p className="text-sm text-stone-500 mt-1">Viber, WhatsApp, Telegram</p>
@@ -139,7 +152,10 @@ function Contact() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-1 text-stone-800">Email</h3>
-                    <a href="mailto:irina26408@gmail.com" className="text-stone-600 hover:text-stone-800 transition-colors">
+                    <a
+                      href="mailto:irina26408@gmail.com"
+                      className="text-stone-600 hover:text-stone-800 transition-colors"
+                    >
                       irina26408@gmail.com
                     </a>
                   </div>
@@ -149,37 +165,37 @@ function Contact() {
               {/* Social Media */}
               <div className="mb-10">
                 <h3 className="font-semibold mb-4 text-stone-800">Ми в соціальних мережах</h3>
-              <div className="flex space-x-4">
-                  <a 
-                    href="https://www.facebook.com/profile.php?id=100063828644118" 
-                    target="_blank" 
+                <div className="flex space-x-4">
+                  <a
+                    href="https://www.facebook.com/profile.php?id=100063828644118"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center hover:bg-stone-200 transition-colors"
                     aria-label="Facebook"
                   >
                     <FiFacebook size={20} className="text-stone-700" />
                   </a>
-                  <a 
-                    href="https://www.instagram.com/nova_art_design/" 
-                    target="_blank" 
+                  <a
+                    href="https://www.instagram.com/nova_art_design/"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center hover:bg-stone-200 transition-colors"
                     aria-label="Instagram"
                   >
                     <FiInstagram size={20} className="text-stone-700" />
                   </a>
-                  <a 
-                    href="https://t.me/+380964599885" 
-                    target="_blank" 
+                  <a
+                    href="https://t.me/+380964599885"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center hover:bg-stone-200 transition-colors"
                     aria-label="Telegram"
                   >
                     <FaTelegramPlane size={20} className="text-stone-700" />
                   </a>
-                  <a 
-                    href="viber://chat?number=%2B380964599885" 
-                    target="_blank" 
+                  <a
+                    href="viber://chat?number=%2B380964599885"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-stone-100 rounded-full flex items-center justify-center hover:bg-stone-200 transition-colors"
                     aria-label="Viber"
@@ -191,14 +207,14 @@ function Contact() {
 
               {/* Map Placeholder */}
               <div className="bg-stone-200 h-64 rounded-sm overflow-hidden">
-                <iframe 
+                <iframe
                   title="Офіс у Вінниці"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d41756.23467664317!2d28.4354271!3d49.2327827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472d5b65195a6489%3A0xc311145a539111!2z0JLQuNC90L3QuNGG0LAsINCS0LjQvdC90LjRhtC60LDRjyDQvtCx0LvQsNGB0YLRjCwg0KPQutGA0LDQuNC90LAsIDIxMDAw!5e0!3m2!1suk!2sua!4v1715500000000!5m2!1suk!2sua"
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0 }} 
-                  allowFullScreen 
-                  loading="lazy" 
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
@@ -207,7 +223,7 @@ function Contact() {
         </div>
       </Reveal>
     </div>
-  )
+  );
 }
 
-export default Contact
+export default Contact;

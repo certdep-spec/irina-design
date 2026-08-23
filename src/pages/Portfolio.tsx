@@ -119,7 +119,7 @@ function Portfolio() {
       tabIndex={0}
       aria-haspopup="dialog"
       aria-label={`${item.title} — відкрити проєкт`}
-      onKeyDown={(e) => handleCardKeyDown(e, item)}
+      onKeyDown={e => handleCardKeyDown(e, item)}
       onClick={() => setSelectedItem(item)}
       className={`bg-white rounded-xl overflow-hidden transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] group relative cursor-pointer flex flex-col h-full border border-stone-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-800 focus-visible:ring-offset-2 ${
         pinned ? "w-[72vw] sm:w-[400px] lg:w-[460px] flex-shrink-0" : ""
@@ -152,6 +152,7 @@ function Portfolio() {
         <h3 className="text-2xl font-serif font-semibold text-stone-800 group-hover:text-stone-600 transition-colors">
           {item.title}
         </h3>
+        {item.meta && <p className="mt-2 text-sm text-stone-500 font-light">{item.meta}</p>}
       </div>
     </motion.div>
   );
@@ -173,9 +174,15 @@ function Portfolio() {
         />
         <meta property="og:url" content="https://irina-design.vercel.app/portfolio" />
         <meta property="og:title" content="Портфоліо — Дизайнер інтер'єру Ірина" />
-        <meta property="og:description" content="Портфоліо робіт дизайнера інтер'єру та меблів. Реалізовані проекти квартир, будинків, індивідуальні меблі." />
+        <meta
+          property="og:description"
+          content="Портфоліо робіт дизайнера інтер'єру та меблів. Реалізовані проекти квартир, будинків, індивідуальні меблі."
+        />
         <meta name="twitter:title" content="Портфоліо — Дизайнер інтер'єру Ірина" />
-        <meta name="twitter:description" content="Портфоліо робіт дизайнера інтер'єру та меблів. Реалізовані проекти квартир, будинків, індивідуальні меблі." />
+        <meta
+          name="twitter:description"
+          content="Портфоліо робіт дизайнера інтер'єру та меблів. Реалізовані проекти квартир, будинків, індивідуальні меблі."
+        />
       </Helmet>
       {/* Hero Section */}
       <Reveal as="section" className="bg-white py-24 px-6 border-b border-stone-200">
@@ -232,7 +239,11 @@ function Portfolio() {
                   Реалізовані рішення та візуалізації
                 </h2>
               </div>
-              <motion.div ref={trackRef} style={{ x: trackX }} className="flex gap-8 px-6 md:px-12 items-stretch">
+              <motion.div
+                ref={trackRef}
+                style={{ x: trackX }}
+                className="flex gap-8 px-6 md:px-12 items-stretch"
+              >
                 {filteredCases.map((item, index) => renderCard(item, index, true))}
               </motion.div>
             </div>
@@ -288,12 +299,34 @@ function Portfolio() {
                   <h2 className="text-3xl md:text-5xl font-serif font-semibold mb-4 text-stone-800 leading-tight">
                     {selectedItem.title}
                   </h2>
+                  {selectedItem.meta && (
+                    <p className="text-stone-500 text-base font-light mb-6">{selectedItem.meta}</p>
+                  )}
+                  {selectedItem.task && (
+                    <div className="mb-4">
+                      <h3 className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">
+                        Завдання
+                      </h3>
+                      <p className="text-stone-700 leading-relaxed">{selectedItem.task}</p>
+                    </div>
+                  )}
+                  {selectedItem.solution && (
+                    <div className="mb-2">
+                      <h3 className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">
+                        Рішення
+                      </h3>
+                      <p className="text-stone-700 leading-relaxed">{selectedItem.solution}</p>
+                    </div>
+                  )}
                 </div>
 
                 {/* Gallery Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {selectedItem.gallery.map((img, index) => (
-                    <div key={index} className="aspect-[4/3] overflow-hidden bg-stone-200 rounded-xl">
+                    <div
+                      key={index}
+                      className="aspect-[4/3] overflow-hidden bg-stone-200 rounded-xl"
+                    >
                       <Image
                         baseSrc={img}
                         alt={`${selectedItem.title} - photo ${index + 1}`}

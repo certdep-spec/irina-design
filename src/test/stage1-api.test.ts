@@ -7,7 +7,7 @@
  * sendTelegram на момент вызова), поэтому используется РЕАЛЬНЫЙ код пути
  * processSubmission без сети.
  */
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 
 // Fake Vercel-style response: поддерживает .status().json().end()
 function makeRes() {
@@ -33,56 +33,55 @@ function makeRes() {
   return res;
 }
 
-import sendTelegramHandler from '../../api/send-telegram.js';
-import adminAuthHandler from '../../api/admin-auth.js';
+import sendTelegramHandler from "../../api/send-telegram.js";
+import adminAuthHandler from "../../api/admin-auth.js";
 
-describe('Этап 1 — send-telegram: CORS + preflight', () => {
-  it('OPTIONS возвращает 204 и CORS-заголовки', async () => {
+describe("Этап 1 — send-telegram: CORS + preflight", () => {
+  it("OPTIONS возвращает 204 и CORS-заголовки", async () => {
     const res = makeRes();
     await sendTelegramHandler(
-      { method: 'OPTIONS', headers: { origin: 'https://certdep-spec.github.io' } } as any,
+      { method: "OPTIONS", headers: { origin: "https://certdep-spec.github.io" } } as any,
       res as any
     );
     const out = res._final();
     expect(out.statusCode).toBe(204);
-    expect(out.headers['Access-Control-Allow-Origin']).toBe('https://certdep-spec.github.io');
+    expect(out.headers["Access-Control-Allow-Origin"]).toBe("https://certdep-spec.github.io");
   });
 
-  it('неизвестный origin не получает свой origin в CORS (блок кросс-домена)', async () => {
+  it("неизвестный origin не получает свой origin в CORS (блок кросс-домена)", async () => {
     const res = makeRes();
     await sendTelegramHandler(
-      { method: 'OPTIONS', headers: { origin: 'https://evil.example.com' } } as any,
+      { method: "OPTIONS", headers: { origin: "https://evil.example.com" } } as any,
       res as any
     );
     const out = res._final();
-    expect(out.headers['Access-Control-Allow-Origin']).toBe('null');
+    expect(out.headers["Access-Control-Allow-Origin"]).toBe("null");
   });
 });
 
-describe('Этап 1 — send-telegram: honeypot', () => {
+describe("Этап 1 — send-telegram: honeypot", () => {
   let fetchMock: ReturnType<typeof vi.fn>;
   const real = { ...process.env };
   beforeEach(() => {
     // Реальный sendTelegram читает токен/chat_id и делает fetch на момент
     // вызова — задаём их и глущим fetch, чтобы путь были детерминированным
     // и без сети.
-    process.env.TELEGRAM_BOT_TOKEN = 'fake-token';
-    process.env.TELEGRAM_CHAT_ID = 'fake-chat';
-    fetchMock = vi.fn(async () => ({ ok: true } as Response));
-    // @ts-expect-error подмена global fetch в jsdom
-    globalThis.fetch = fetchMock;
+    process.env.TELEGRAM_BOT_TOKEN = "fake-token";
+    process.env.TELEGRAM_CHAT_ID = "fake-chat";
+    fetchMock = vi.fn(async () => ({ ok: true }) as Response);
+    (globalThis as any).fetch = fetchMock;
   });
   afterEach(() => {
     process.env = { ...real };
   });
 
-  it('POST с заполненным website → 200 и dropped:true (бот отброшен)', async () => {
+  it("POST с заполненным website → 200 и dropped:true (бот отброшен)", async () => {
     const res = makeRes();
     await sendTelegramHandler(
       {
-        method: 'POST',
-        headers: { 'x-forwarded-for': '1.1.1.1' },
-        body: { name: 'А', phone: '1', message: 'х', website: 'bot' },
+        method: "POST",
+        headers: { "x-forwarded-for": "1.1.1.1" },
+        body: { name: "А", phone: "1", message: "х", website: "bot" },
       } as any,
       res as any
     );
@@ -94,13 +93,13 @@ describe('Этап 1 — send-telegram: honeypot', () => {
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it('POST без honeypot → 200 (реальная заявка дошла до Telegram)', async () => {
+  it("POST без honeypot → 200 (реальная заявка дошла до Telegram)", async () => {
     const res = makeRes();
     await sendTelegramHandler(
       {
-        method: 'POST',
-        headers: { 'x-forwarded-for': '2.2.2.2' },
-        body: { name: 'А', phone: '1', message: 'х' },
+        method: "POST",
+        headers: { "x-forwarded-for": "2.2.2.2" },
+        body: { name: "А", phone: "1", message: "х" },
       } as any,
       res as any
     );
@@ -108,13 +107,13 @@ describe('Этап 1 — send-telegram: honeypot', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  it('валидация не прошла → 400 и Telegram не вызван', async () => {
+  it("валидация не прошла → 400 и Telegram не вызван", async () => {
     const res = makeRes();
     await sendTelegramHandler(
       {
-        method: 'POST',
-        headers: { 'x-forwarded-for': '3.3.3.3' },
-        body: { name: '', phone: '', message: '' },
+        method: "POST",
+        headers: { "x-forwarded-for": "3.3.3.3" },
+        body: { name: "", phone: "", message: "" },
       } as any,
       res as any
     );
@@ -123,50 +122,52 @@ describe('Этап 1 — send-telegram: honeypot', () => {
   });
 });
 
-describe('Этап 1 — admin-auth', () => {
+describe("Этап 1 — admin-auth", () => {
   const real = process.env.ADMIN_PASSWORD;
   afterEach(() => {
     if (real === undefined) delete process.env.ADMIN_PASSWORD;
     else process.env.ADMIN_PASSWORD = real;
   });
 
-  it('OPTIONS preflight отдает CORS', async () => {
+  it("OPTIONS preflight отдает CORS", async () => {
     const res = makeRes();
     await adminAuthHandler(
-      { method: 'OPTIONS', headers: { origin: 'https://certdep-spec.github.io' } } as any,
+      { method: "OPTIONS", headers: { origin: "https://certdep-spec.github.io" } } as any,
       res as any
     );
     expect(res._final().statusCode).toBe(204);
-    expect(res._final().headers['Access-Control-Allow-Origin']).toBe('https://certdep-spec.github.io');
+    expect(res._final().headers["Access-Control-Allow-Origin"]).toBe(
+      "https://certdep-spec.github.io"
+    );
   });
 
-  it('пароль не задан → 401 Auth not configured (вход невозможен)', async () => {
+  it("пароль не задан → 401 Auth not configured (вход невозможен)", async () => {
     delete process.env.ADMIN_PASSWORD;
     const res = makeRes();
     await adminAuthHandler(
-      { method: 'POST', headers: {}, body: { password: 'whatever' } } as any,
+      { method: "POST", headers: {}, body: { password: "whatever" } } as any,
       res as any
     );
     expect(res._final().statusCode).toBe(401);
   });
 
-  it('верный пароль → 200 + токен', async () => {
-    process.env.ADMIN_PASSWORD = 'topsecret';
+  it("верный пароль → 200 + токен", async () => {
+    process.env.ADMIN_PASSWORD = "topsecret";
     const res = makeRes();
     await adminAuthHandler(
-      { method: 'POST', headers: {}, body: { password: 'topsecret' } } as any,
+      { method: "POST", headers: {}, body: { password: "topsecret" } } as any,
       res as any
     );
     const out = res._final();
     expect(out.statusCode).toBe(200);
-    expect(typeof (out.body as any).token).toBe('string');
+    expect(typeof (out.body as any).token).toBe("string");
   });
 
-  it('неверный пароль → 401 Invalid password', async () => {
-    process.env.ADMIN_PASSWORD = 'topsecret';
+  it("неверный пароль → 401 Invalid password", async () => {
+    process.env.ADMIN_PASSWORD = "topsecret";
     const res = makeRes();
     await adminAuthHandler(
-      { method: 'POST', headers: {}, body: { password: 'nope' } } as any,
+      { method: "POST", headers: {}, body: { password: "nope" } } as any,
       res as any
     );
     expect(res._final().statusCode).toBe(401);

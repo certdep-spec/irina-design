@@ -21,16 +21,22 @@ const Home: React.FC = () => {
         />
         <meta property="og:url" content="https://irina-design.vercel.app/" />
         <meta property="og:title" content="Дизайн інтер'єру та меблів у Вінниці | Студія Ірини" />
-        <meta property="og:description" content="Створюємо простір мрії — від технічного планування до повного дизайн-проєкту меблів та інтер'єру у Вінниці." />
+        <meta
+          property="og:description"
+          content="Створюємо простір мрії — від технічного планування до повного дизайн-проєкту меблів та інтер'єру у Вінниці."
+        />
         <meta name="twitter:title" content="Дизайн інтер'єру та меблів у Вінниці | Студія Ірини" />
-        <meta name="twitter:description" content="Створюємо простір мрії — від технічного планування до повного дизайн-проєкту меблів та інтер'єру у Вінниці." />
+        <meta
+          name="twitter:description"
+          content="Створюємо простір мрії — від технічного планування до повного дизайн-проєкту меблів та інтер'єру у Вінниці."
+        />
         <script type="application/ld+json">
           {`
             {
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
-              "name": "Дизайн інтер'єру та меблів Ірини",
-              "image": "https://irina-design.vercel.app/Paint/1image1.webp",
+              "name": "Ірина · Interior Design",
+              "image": "https://irina-design.vercel.app/Paint/og-image.jpg",
               "description": "Професійний дизайн інтер'єру та меблів у Вінниці. Створюємо простори, в яких хочеться жити.",
               "address": {
                 "@type": "PostalAddress",
@@ -100,6 +106,7 @@ const Home: React.FC = () => {
           </h2>
           <Link
             to="/contact#contact-form"
+            data-cta-name="home_individual_offer"
             className="btn-primary inline-flex items-center justify-center min-w-[240px] shadow-lg hover:-translate-y-1 transition-all"
           >
             Обговорити ваш проєкт
@@ -171,7 +178,8 @@ const Home: React.FC = () => {
                   Дизайн інтер'єру
                 </h3>
                 <p className="text-stone-200 text-sm md:text-base font-light mb-6 max-w-md leading-relaxed">
-                  Житлові квартири та будинки, комерційні приміщення, робочі креслення та 3D-візуалізація, авторський нагляд.
+                  Житлові квартири та будинки, комерційні приміщення, робочі креслення та
+                  3D-візуалізація, авторський нагляд.
                 </p>
                 <span className="inline-flex items-center gap-2 text-white font-medium border-b-2 border-white/60 pb-1 w-fit group-hover:border-white transition-colors">
                   Переглянути інтер'єри <FiArrowRight size={18} />
@@ -197,7 +205,9 @@ const Home: React.FC = () => {
                 <div className="w-11 h-11 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-4">
                   <FiBox className="text-white" size={22} />
                 </div>
-                <h3 className="text-xl font-serif font-semibold text-white mb-2">Проєктування меблів</h3>
+                <h3 className="text-xl font-serif font-semibold text-white mb-2">
+                  Проєктування меблів
+                </h3>
                 <span className="inline-flex items-center gap-2 text-stone-200 text-sm font-medium group-hover:text-white transition-colors">
                   Дивитись проєкти <FiArrowRight size={16} />
                 </span>
@@ -222,7 +232,9 @@ const Home: React.FC = () => {
                 <div className="w-11 h-11 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center mb-4">
                   <FiMonitor className="text-white" size={22} />
                 </div>
-                <h3 className="text-xl font-serif font-semibold text-white mb-2">Авторський супровід</h3>
+                <h3 className="text-xl font-serif font-semibold text-white mb-2">
+                  Авторський супровід
+                </h3>
                 <span className="inline-flex items-center gap-2 text-stone-200 text-sm font-medium group-hover:text-white transition-colors">
                   Контроль реалізації <FiArrowRight size={16} />
                 </span>
@@ -279,6 +291,7 @@ const Home: React.FC = () => {
           </p>
           <Link
             to="/contact#contact-form"
+            data-cta-name="home_start_project"
             className="bg-white text-stone-900 px-10 py-4 rounded-sm hover:bg-stone-100 transition-all duration-300 font-bold tracking-wide inline-block shadow-lg"
           >
             Почати розробку проєкту

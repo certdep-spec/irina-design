@@ -1,0 +1,38 @@
+name: Mirror Smoke Tests
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 1'  # еженедельно в понедельник 06:00 UTC
+
+jobs:
+  mirror-smoke:
+    name: Smoke test against all three mirrors
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - name: 'Vercel (canonical)'
+            url: 'https://irina-design.vercel.app'
+          - name: 'Netlify'
+            url: 'https://irina-design.netlify.app'
+          - name: 'GitHub Pages'
+            url: 'https://certdep-spec.github.io/irina-design/'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright against ${{ matrix.target.name }}
+        run: npx playwright test --project=chromium
+        env:
+          BASE_URL: ${{ matrix.target.url }}

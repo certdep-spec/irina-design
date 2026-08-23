@@ -12,12 +12,9 @@
     "test:e2e": "playwright test",
     "dev:netlify": "netlify dev",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
-    "prepare": "husky",
-    "optimize": "node optimize-hero.js"
+    "prepare": "husky"
   },
   "dependencies": {
-    "@sentry/browser": "^10.52.0",
-    "@sentry/react": "^10.52.0",
     "framer-motion": "^11.0.0",
     "nodemailer": "^9.0.3",
     "react": "^18.2.0",
@@ -43,7 +40,6 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
     "husky": "^9.1.7",
-    "imagemin-webp": "^8.0.0",
     "jsdom": "^25.0.1",
     "lint-staged": "^17.0.4",
     "netlify-cli": "^26.0.0",
@@ -56,7 +52,6 @@
     "typescript-eslint": "^8.59.1",
     "vite": "^5.0.0",
     "vite-plugin-image-optimizer": "^2.0.3",
-    "vite-plugin-imagemin": "^0.6.1",
     "vite-plugin-sitemap": "^0.8.2",
     "vitest": "^2.1.9"
   }

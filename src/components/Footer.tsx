@@ -1,11 +1,11 @@
-import { FiExternalLink, FiMail, FiPhone, FiMapPin, FiFacebook, FiInstagram } from 'react-icons/fi'
+import { FiExternalLink, FiMail, FiPhone, FiMapPin, FiFacebook, FiInstagram } from "react-icons/fi";
 
 /**
  * Footer Component
  * Contains contact info, social links, and copyright
  */
 function Footer() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative bg-stone-900 text-stone-300">
@@ -15,10 +15,11 @@ function Footer() {
           {/* Company Info */}
           <div>
             <h3 className="text-2xl font-serif font-semibold text-white mb-4">
-              INTERIOR.DESIGN
+              ІРИНА · INTERIOR DESIGN
             </h3>
             <p className="text-stone-400 text-sm leading-relaxed mb-6">
-              Створюємо унікальні інтер'єри та меблі у Вінниці, які відображають вашу індивідуальність та стиль життя.
+              Створюємо унікальні інтер'єри та меблі у Вінниці, які відображають вашу
+              індивідуальність та стиль життя.
             </p>
             <div className="flex space-x-4">
               <a
@@ -26,31 +27,31 @@ function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors duration-100"
-                  title="Facebook"
-                  aria-label="Facebook - переглянути профіль"
-                >
-                  <FiFacebook size={20} />
-                </a>
+                title="Facebook"
+                aria-label="Facebook - переглянути профіль"
+              >
+                <FiFacebook size={20} />
+              </a>
               <a
                 href="https://www.instagram.com/nova_art_design/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors duration-100"
-                  title="Instagram"
-                  aria-label="Instagram - переглянути профіль"
-                >
-                  <FiInstagram size={20} />
-                </a>
+                title="Instagram"
+                aria-label="Instagram - переглянути профіль"
+              >
+                <FiInstagram size={20} />
+              </a>
               <a
                 href="https://www.olx.ua/d/uk/obyavlenie/dizayn-nterru-ta-meblv-ID8JTWR.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-white transition-colors duration-100"
-                  title="OLX"
-                  aria-label="OLX - переглянути оголошення"
-                >
-                  <FiExternalLink size={20} />
-                </a>
+                title="OLX"
+                aria-label="OLX - переглянути оголошення"
+              >
+                <FiExternalLink size={20} />
+              </a>
             </div>
           </div>
 
@@ -64,13 +65,20 @@ function Footer() {
               </li>
               <li className="flex items-center space-x-3">
                 <FiPhone className="text-stone-500 flex-shrink-0" />
-                <a href="tel:+380964599885" className="hover:text-white transition-colors duration-100">
-                  096 459 98 85 <span className="text-xs text-stone-400 ml-2">(Viber, WhatsApp, Telegram)</span>
+                <a
+                  href="tel:+380964599885"
+                  className="hover:text-white transition-colors duration-100"
+                >
+                  096 459 98 85{" "}
+                  <span className="text-xs text-stone-400 ml-2">(Viber, WhatsApp, Telegram)</span>
                 </a>
               </li>
               <li className="flex items-center space-x-3">
                 <FiMail className="text-stone-500 flex-shrink-0" />
-                <a href="mailto:irina26408@gmail.com" className="hover:text-white transition-colors duration-100">
+                <a
+                  href="mailto:irina26408@gmail.com"
+                  className="hover:text-white transition-colors duration-100"
+                >
                   irina26408@gmail.com
                 </a>
               </li>
@@ -89,11 +97,11 @@ function Footer() {
         </div>
 
         <div className="border-t border-stone-800 mt-12 pt-8 text-center text-sm text-stone-500">
-          <p>&copy; {currentYear} Interior Design Vinnytsia. Всі права захищено.</p>
+          <p>&copy; {currentYear} Ірина · Interior Design. Всі права захищено.</p>
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
