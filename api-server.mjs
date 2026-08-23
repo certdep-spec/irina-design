@@ -10,7 +10,17 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs/promises';
 import { createRequire } from 'module';
-import { buildData, validate, checkRateLimit, processSubmission } from './shared/send-message.js';
+import {
+  buildData,
+  validate,
+  checkRateLimit,
+  checkAdminRateLimit,
+  processSubmission,
+  adminAuth,
+  issueAdminToken,
+  adminTokenValid,
+  corsHeaders,
+} from './shared/send-message.js';
 const require = createRequire(import.meta.url);
 try { require('dotenv').config({ path: '.env.local' }); } catch {} // eslint-disable-line
 
@@ -46,10 +56,10 @@ const server = http.createServer(async (req, res) => {
   const url = req.url || '';
   const method = req.method;
 
-  // CORS headers so browser doesn't block the proxy
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  // CORS headers so browser doesn't block cross-origin requests (GH Pages).
+  const origin = req.headers.origin;
+  const cors = corsHeaders(origin);
+  for (const [k, v] of Object.entries(cors)) res.setHeader(k, v);
 
   if (method === 'OPTIONS') {
     res.writeHead(204);
@@ -57,12 +67,11 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Admin write-protection: mutating /dev-api endpoints require the password
-  // from .env.local (VITE_ADMIN_PASSWORD). If it's not set, writes stay open
-  // for local development.
-  const ADMIN_PASSWORD = process.env.VITE_ADMIN_PASSWORD;
+  // Admin write-protection: mutating /dev-api endpoints require the session
+  // token returned by POST /api/admin-auth (раньше был сырой пароль из .env).
+  // Если пароль ADMIN_PASSWORD не задан — запись запрещена (раньше открыта).
   const isAdminRequest = (req) =>
-    !ADMIN_PASSWORD || req.headers['x-admin-password'] === ADMIN_PASSWORD;
+    Boolean(req.headers['x-admin-token']) && adminTokenValid(req.headers['x-admin-token']);
 
   console.log(`[API-SERVER] ${method} ${url}`);
 
@@ -199,6 +208,42 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
+  // --- POST /api/admin-auth ---
+  // Серверная авторизация админки: пароль сверяется с ADMIN_PASSWORD.
+  if (method === 'POST' && url.startsWith('/api/admin-auth')) {
+    const chunks = [];
+    req.on('data', chunk => chunks.push(chunk));
+    req.on('end', async () => {
+      try {
+        const body = JSON.parse(Buffer.concat(chunks).toString() || '{}');
+        const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '127.0.0.1';
+        if (!checkAdminRateLimit(clientIp)) {
+          res.writeHead(429, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Too many attempts' }));
+          return;
+        }
+        const { configured, ok } = adminAuth(body.password);
+        if (!configured) {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Auth not configured' }));
+          return;
+        }
+        if (!ok) {
+          res.writeHead(401, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Invalid password' }));
+          return;
+        }
+        // Сервер выпускает токен сессии — клиент хранит его, а не пароль.
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, token: issueAdminToken() }));
+      } catch {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Internal error' }));
+      }
+    });
+    return;
+  }
+
   // --- POST /api/send-telegram ---
   if (method === 'POST' && url.startsWith('/api/send-telegram')) {
     const chunks = [];
@@ -221,29 +266,23 @@ const server = http.createServer(async (req, res) => {
           return;
         }
 
-        const token = process.env.TELEGRAM_BOT_TOKEN;
-        const chatId = process.env.TELEGRAM_CHAT_ID;
+        const { telegramOk, dropped } = await processSubmission(data);
 
-        if (token && chatId) {
-          const { telegramOk, errors } = await processSubmission(data);
-          if (telegramOk) {
-            console.log('[API-SERVER] Telegram sent successfully');
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ success: true }));
-            return;
-          }
-          console.error('[API-SERVER] Telegram send failed:', errors);
-        } else {
-          console.warn('[API-SERVER] TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID not set');
+        if (telegramOk) {
+          // Honeypot-ботам и реальным заявкам отдаём одинаковый успех.
+          console.log(`[API-SERVER] submission accepted (dropped=${dropped})`);
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ success: true, dropped: Boolean(dropped) }));
+          return;
         }
 
-        // Fallback: return success anyway for local dev
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ success: true, note: 'Simulated (no Telegram configured)' }));
-      } catch (e) {
-        console.error('[API-SERVER] send-telegram error:', e);
+        // Честный сбой отправки без утечки внутренних деталей наружу.
+        console.error('[API-SERVER] Telegram/email submission failed');
+        res.writeHead(502, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Submission failed' }));
+      } catch {
         res.writeHead(500, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: e.message }));
+        res.end(JSON.stringify({ error: 'Internal error' }));
       }
     });
     return;

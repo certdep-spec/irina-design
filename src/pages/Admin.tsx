@@ -3,6 +3,7 @@ import type { FormEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FiTrash2, FiSave, FiArrowLeft, FiUpload, FiLock, FiLogOut } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { apiUrl, API_ENDPOINTS } from '../constants/api';
 
 interface PortfolioCase {
   id: string;
@@ -16,40 +17,59 @@ interface PortfolioCase {
   gallery: string[];
 }
 
-// Admin password from .env.local (VITE_ADMIN_PASSWORD).
-// If it's not configured, the panel stays open for local development.
-const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD as string | undefined;
+// Сессия админки. Пароль БОЛЬШЕ НЕ хранится в клиенте (устранена утечка
+// через бандл). Сервер сверяет пароль с env ADMIN_PASSWORD и выдаёт токен,
+// который клиент держит в sessionStorage и шлёт на запись (x-admin-token).
 const AUTH_STORAGE_KEY = 'admin_auth';
+const AUTH_TOKEN_KEY = 'admin_auth_token';
 
 // Same limit as the local API server (api-server.mjs): 15 МБ.
 const MAX_UPLOAD_SIZE = 15 * 1024 * 1024;
 
 /** Simple password gate shown before the admin panel. */
-function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
+function AdminLogin({ onSuccess }: { onSuccess: (token: string) => void }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [attempts, setAttempts] = useState(0);
   const [lockedUntil, setLockedUntil] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (submitting) return;
     if (Date.now() < lockedUntil) {
       setError('Забагато спроб. Зачекайте кілька секунд.');
       return;
     }
-    if (password === ADMIN_PASSWORD) {
-      sessionStorage.setItem(AUTH_STORAGE_KEY, '1');
-      onSuccess();
-    } else {
+    setSubmitting(true);
+    setError(null);
+    try {
+      const response = await fetch(apiUrl(API_ENDPOINTS.ADMIN_AUTH), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      if (response.ok) {
+        const data = await response.json().catch(() => ({}));
+        const token = typeof data.token === 'string' ? data.token : '1';
+        sessionStorage.setItem(AUTH_STORAGE_KEY, '1');
+        sessionStorage.setItem(AUTH_TOKEN_KEY, token);
+        onSuccess(token);
+        return;
+      }
       const nextAttempts = attempts + 1;
       setAttempts(nextAttempts);
       setPassword('');
-      if (nextAttempts >= 3) {
+      if (response.status === 429 || nextAttempts >= 3) {
         setLockedUntil(Date.now() + 5000);
         setError('Забагато спроб. Спробуйте через 5 секунд.');
       } else {
         setError('Невірний пароль');
       }
+    } catch {
+      setError('Помилка з\'єднання з сервером');
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -86,9 +106,9 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
               />
               {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
             </div>
-            <button type="submit" className="btn-primary w-full flex items-center justify-center space-x-2">
+            <button type="submit" disabled={submitting} className="btn-primary w-full flex items-center justify-center space-x-2 disabled:opacity-50">
               <FiLock size={16} />
-              <span>Увійти</span>
+              <span>{submitting ? 'Перевірка...' : 'Увійти'}</span>
             </button>
           </form>
         </div>
@@ -98,18 +118,20 @@ function AdminLogin({ onSuccess }: { onSuccess: () => void }) {
 }
 
 export default function Admin() {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    if (!ADMIN_PASSWORD) return true; // no password configured → open
-    return sessionStorage.getItem(AUTH_STORAGE_KEY) === '1';
-  });
+  const [isAuthenticated, setIsAuthenticated] = useState(() =>
+    sessionStorage.getItem(AUTH_STORAGE_KEY) === '1'
+  );
+  const [token, setToken] = useState<string | null>(() =>
+    sessionStorage.getItem(AUTH_TOKEN_KEY)
+  );
   const [cases, setCases] = useState<PortfolioCase[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Header sent with write requests so the local API server can verify the password
-  const authHeaders: Record<string, string> = ADMIN_PASSWORD
-    ? { 'x-admin-password': ADMIN_PASSWORD }
+  // Заголовок авторизации записи: серверный токен сессии (без пароля в бандле).
+  const authHeaders: Record<string, string> = token
+    ? { 'x-admin-token': token }
     : {};
 
   // Loads portfolio on first open (after login).
@@ -288,7 +310,7 @@ export default function Admin() {
   };
 
   if (!isAuthenticated) {
-    return <AdminLogin onSuccess={() => setIsAuthenticated(true)} />;
+    return <AdminLogin onSuccess={(tok) => { setToken(tok); setIsAuthenticated(true); }} />;
   }
 
   if (loading) return <div className="p-20 text-center">Завантаження...</div>;
@@ -318,10 +340,12 @@ export default function Admin() {
             >
               <FiSave className="mr-2" /> {saving ? 'Збереження...' : 'Зберегти всі зміни'}
             </button>
-            {ADMIN_PASSWORD && (
+            {token && (
               <button
                 onClick={() => {
                   sessionStorage.removeItem(AUTH_STORAGE_KEY);
+                  sessionStorage.removeItem(AUTH_TOKEN_KEY);
+                  setToken(null);
                   setIsAuthenticated(false);
                 }}
                 title="Вийти"

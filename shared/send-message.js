@@ -8,8 +8,48 @@
  *
  * Раньше эта логика была продублирована в трёх файлах — правки могли
  * разойтись. Теперь всё живёт здесь.
+ *
+ * Дополнительно (жёсткая безопасность):
+ *   - honeypotDrop(): серверная проверка скрытого поля "website"
+ *   - adminAuth(): серверная сверка пароля админки (ADMIN_PASSWORD, без VITE_)
+ *   - checkAdminRateLimit(): защита эндпоинта входа от перебора
+ *   - corsHeaders(): безопасные CORS-заголовки для кросс-ориджин (GH Pages)
  */
 import nodemailer from 'nodemailer';
+
+/**
+ * TEST_MODE=1 (задаётся CI/локальным прогоном E2E) отключает реальную
+ * отправку в Telegram/SMTP — вместо сети логируем и возвращаем успех.
+ * Это позволяет проверять форму без реальных заявок.
+ */
+const TEST_MODE = process.env.TEST_MODE === '1' || process.env.TEST_MODE === 'true';
+
+/**
+ * Разрешённые origin для CORS. Нужен GH Pages (certdep-spec.github.io),
+ * который шлёт запросы на API Vercel. localhost — для локальной разработки.
+ * Можно расширить через env ALLOWED_ORIGINS (через запятую).
+ */
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ||
+  'http://127.0.0.1:5173,http://localhost:5173,https://certdep-spec.github.io')
+  .split(',')
+  .map(s => s.trim())
+  .filter(Boolean);
+
+/** Безопасные CORS-заголовки: зеркально отдаём только разрешённый origin. */
+const corsHeaders = reqOrigin => {
+  const headers = {
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
+  if (reqOrigin && ALLOWED_ORIGINS.includes(reqOrigin)) {
+    headers['Access-Control-Allow-Origin'] = reqOrigin;
+    headers['Vary'] = 'Origin';
+  } else {
+    // Браузеры отвергнут запрос с "null" origin → кросс-домен заблокирован.
+    headers['Access-Control-Allow-Origin'] = 'null';
+  }
+  return headers;
+};
 
 const translateType = type => {
   const types = {
@@ -65,11 +105,16 @@ const buildData = body => {
     area: sanitize(source.area),
     budget: sanitize(source.budget),
     message: sanitize(source.message),
+    // Honeypot-поле: должно оставаться пустым для реальных людей.
+    website: sanitize(source.website),
   };
 };
 
 /** Проверка обязательных полей. */
 const validate = data => Boolean(data.name && data.phone && data.message);
+
+/** Honeypot: заполнено скрытое поле → это бот, тихо отбрасываем. */
+const honeypotDrop = data => Boolean(data.website && data.website.trim() !== '');
 
 /**
  * Простейший rate-limit (in-memory): до 5 запросов в минуту с одного IP.
@@ -77,7 +122,19 @@ const validate = data => Boolean(data.name && data.phone && data.message);
  * тупой спам с одного соединения.
  */
 const checkRateLimit = clientIp => {
-  const key = clientIp || 'unknown';
+  const key = 'submit:' + (clientIp || 'unknown');
+  const requestLog = globalThis.requestLog || (globalThis.requestLog = new Map());
+  const now = Date.now();
+  const recent = (requestLog.get(key) || []).filter(time => now - time < 60000);
+  if (recent.length >= 5) return false;
+  recent.push(now);
+  requestLog.set(key, recent);
+  return true;
+};
+
+/** Rate-limit для эндпоинта входа админки: 5 попыток/мин с IP. */
+const checkAdminRateLimit = clientIp => {
+  const key = 'admin:' + (clientIp || 'unknown');
   const requestLog = globalThis.requestLog || (globalThis.requestLog = new Map());
   const now = Date.now();
   const recent = (requestLog.get(key) || []).filter(time => now - time < 60000);
@@ -107,6 +164,11 @@ const sendEmail = async data => {
 };
 
 const sendTelegram = async data => {
+  if (TEST_MODE) {
+    // E2E/локальный прогон: не шлём реально, просто подтверждаем успех.
+    console.log('[TEST_MODE] Telegram send skipped:', JSON.stringify(data));
+    return true;
+  }
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
   if (!token || !chatId) return false;
@@ -122,9 +184,15 @@ const sendTelegram = async data => {
   return response.ok;
 };
 
-/** Отправка во все каналы; возвращает { telegramOk, errors }. */
+/**
+ * Отправка во все каналы; возвращает { telegramOk, dropped, errors }.
+ * Если сработал honeypot — возвращаем успех без отправки (dropped: true).
+ */
 const processSubmission = async data => {
   const errors = [];
+  if (honeypotDrop(data)) {
+    return { telegramOk: true, dropped: true, errors: [] };
+  }
   const [telegramOk] = await Promise.all([
     sendTelegram(data).catch(e => {
       errors.push(`Telegram: ${e.message}`);
@@ -134,18 +202,60 @@ const processSubmission = async data => {
       errors.push(`Email: ${e.message}`);
     }),
   ]);
-  return { telegramOk, errors };
+  return { telegramOk, dropped: false, errors };
 };
 
+/**
+ * Серверная авторизация админки.
+ * Пароль берётся из ADMIN_PASSWORD (без префикса VITE_ — не попадает в бандл).
+ * Возвращает { configured, ok }. Сравнение посимвольное (constant-time),
+ * чтобы не дать тайминг-атаку на перебор.
+ */
+const adminAuth = password => {
+  const expected = process.env.ADMIN_PASSWORD;
+  if (!expected) return { configured: false, ok: false };
+  const a = String(password ?? '');
+  const b = String(expected);
+  if (a.length !== b.length) return { configured: true, ok: false };
+  let mismatch = 0;
+  for (let i = 0; i < b.length; i++) {
+    mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return { configured: true, ok: mismatch === 0 };
+};
+
+/** Выданные сервером сессионные токены админки (in-memory, на рантайм). */
+const adminTokens = new Set();
+
+/** Выпускает случайный токен сессии (клиент использует его для записи). */
+const issueAdminToken = () => {
+  const bytes = new Uint8Array(24);
+  globalThis.crypto.getRandomValues(bytes);
+  const token = Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+  adminTokens.add(token);
+  return token;
+};
+
+/** Проверяет валидность токена сессии (для авторизации записи в dev). */
+const adminTokenValid = token => Boolean(token) && adminTokens.has(String(token));
+
 export {
+  ALLOWED_ORIGINS,
+  corsHeaders,
+  TEST_MODE,
   translateType,
   translateBudget,
   formatEmailHtml,
   sanitize,
   buildData,
   validate,
+  honeypotDrop,
   checkRateLimit,
+  checkAdminRateLimit,
   sendEmail,
   sendTelegram,
   processSubmission,
+  adminAuth,
+  issueAdminToken,
+  adminTokenValid,
 };
