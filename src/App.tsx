@@ -119,9 +119,12 @@ function App() {
       <Helmet>
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="uk_UA" />
-        <meta property="og:image" content="https://irina-design.vercel.app/Paint/1image1.webp" />
+        <meta property="og:image" content="https://irina-design.vercel.app/Paint/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://irina-design.vercel.app/Paint/1image1.webp" />
+        <meta name="twitter:image" content="https://irina-design.vercel.app/Paint/og-image.jpg" />
       </Helmet>
       <div className="min-h-screen flex flex-col">
         <Header />
@@ -133,7 +136,7 @@ function App() {
                 remount still plays the enter animation. */}
             <motion.div
               key={location.pathname}
-              initial={{ opacity: 0, y: 12 }}
+              initial={import.meta.env.SSR ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ type: 'spring', bounce: 0, duration: 0.35 }}
             >

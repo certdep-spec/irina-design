@@ -12,9 +12,14 @@ interface RevealProps {
 export function Reveal({ children, className, delay = 0, y = 40, as = 'div' }: RevealProps) {
   const MotionTag = as === 'section' ? motion.section : motion.div
 
+  // На сервере (пререндер) не прячем контент — иначе статический HTML
+  // уходит с opacity:0 и контент невидим до гидрации. На клиенте
+  // анимация появления работает как раньше.
+  const SSR = import.meta.env.SSR
+
   return (
     <MotionTag
-      initial={{ opacity: 0, y }}
+      initial={SSR ? false : { opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{

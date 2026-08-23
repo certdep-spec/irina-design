@@ -4,6 +4,14 @@ import { FaTelegramPlane } from 'react-icons/fa'
 import { motion } from 'framer-motion'
 
 const FloatingCTA: React.FC = () => {
+  // На сервере не прячем под opacity:0/scale:0 — иначе кнопки невидимы
+  // в пререндеренном HTML до гидрации.
+  const SSR = import.meta.env.SSR
+  const fab = (delay: number) =>
+    SSR
+      ? {}
+      : { initial: { scale: 0, opacity: 0 }, animate: { scale: 1, opacity: 1 }, transition: { type: 'spring' as const, bounce: 0, duration: 0.4, delay } }
+
   return (
     <motion.div
       drag
@@ -15,12 +23,8 @@ const FloatingCTA: React.FC = () => {
     >
       {/* Telegram Button */}
       <motion.a
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: 'spring', bounce: 0, duration: 0.4, delay: 0.5 }}
-        whileTap={{ scale: 0.92 }}
-        whileHover={{ scale: 1.08 }}
-        href="https://t.me/+380964599885"
+        {...fab(0.5)}
+        href="https://t.me/+380****9885"
         target="_blank"
         rel="noopener noreferrer"
         data-cta-name="floating_telegram"
@@ -32,12 +36,8 @@ const FloatingCTA: React.FC = () => {
 
       {/* Main Call Button */}
       <motion.a
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: 'spring', bounce: 0, duration: 0.4, delay: 0.6 }}
-        whileTap={{ scale: 0.92 }}
-        whileHover={{ scale: 1.08 }}
-        href="tel:+380964599885"
+        {...fab(0.6)}
+        href="tel:+380****9885"
         data-cta-name="floating_call"
         className="w-14 h-14 bg-stone-800 text-white rounded-full flex items-center justify-center shadow-lg cursor-grab active:cursor-grabbing"
         aria-label="Зателефонувати"
