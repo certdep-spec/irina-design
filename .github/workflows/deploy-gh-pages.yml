@@ -26,7 +26,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
       - run: npm ci --ignore-scripts
       # GH Pages живёт по под-пути /irina-design/ и шлёт API-запросы
       # на канонический домен Vercel (там serverless + Telegram).
