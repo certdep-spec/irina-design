@@ -19,7 +19,7 @@ jobs:
           node-version: 22
           cache: 'npm'
 
-      - run: npm ci
+      - run: npm ci --ignore-scripts
 
       - name: Lint (strict)
         run: npm run lint
@@ -42,7 +42,7 @@ jobs:
           node-version: 22
           cache: 'npm'
 
-      - run: npm ci
+      - run: npm ci --ignore-scripts
 
       - name: Build all mirrors
         run: npm run build
