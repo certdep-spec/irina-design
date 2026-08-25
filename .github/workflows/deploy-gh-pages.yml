@@ -5,6 +5,9 @@ on:
     branches: [main]
   workflow_dispatch:
 
+env:
+  HUSKY: 0
+
 # Разрешения для публикации в Pages.
 permissions:
   contents: read
@@ -22,7 +25,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
       - run: npm ci
       # GH Pages живёт по под-пути /irina-design/ и шлёт API-запросы
