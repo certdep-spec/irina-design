@@ -4,6 +4,9 @@ on:
   push:
     branches: [ main, master ]
 
+env:
+  HUSKY: 0
+
 jobs:
   quality:
     name: Quality (lint, typecheck, tests)
@@ -13,7 +16,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - run: npm ci
@@ -36,7 +39,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - run: npm ci
