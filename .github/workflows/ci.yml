@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 22
 
-      - run: npm ci --ignore-scripts
+      - run: npm install --ignore-scripts
 
       - name: Lint (strict)
         run: npm run lint
@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: 22
 
-      - run: npm ci --ignore-scripts
+      - run: npm install --ignore-scripts
 
       - name: Build all mirrors
         run: npm run build
