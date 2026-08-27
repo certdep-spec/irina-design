@@ -222,7 +222,7 @@ const Home: React.FC = () => {
               className="relative overflow-hidden rounded-2xl group min-h-[220px]"
             >
               <img
-                src={assetUrl("/archives/comercial/001.webp")}
+                src={assetUrl("/archives/comercial/к001.webp")}
                 alt="Авторський супровід проєкту"
                 loading="lazy"
                 decoding="async"
