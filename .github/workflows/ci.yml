@@ -62,11 +62,7 @@ jobs:
           path: dist
           retention-days: 1
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: dist-ghpages
-          path: dist
-          retention-days: 1
+
 
   deploy-vercel:
     name: Deploy to Vercel
@@ -113,32 +109,5 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
-  deploy-github-pages:
-    name: Deploy to GitHub Pages
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: dist-ghpages
-          path: dist
-
-      - name: SPA fallback for GitHub Pages
-        run: cp dist/index.html dist/404.html
-
-      - uses: actions/configure-pages@v5
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
-      - id: deployment
-        uses: actions/deploy-pages@v4
+  # GitHub Pages деплоится отдельным воркфлоу deploy-gh-pages.yml
+  # (с BASE_PATH=/irina-design/ для правильных путей к ассетам)

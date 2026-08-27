@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { FiCheck } from "react-icons/fi";
 import { Reveal } from "../components/Reveal";
+import { assetUrl } from "../lib/asset";
 
 function About() {
   const skills = ["Archicad", "Enscape"];
@@ -44,9 +45,15 @@ function About() {
         />
         <meta property="og:url" content="https://irina-design.vercel.app/about" />
         <meta property="og:title" content="Про мене — Дизайнер інтер'єру Ірина" />
-        <meta property="og:description" content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті." />
+        <meta
+          property="og:description"
+          content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті."
+        />
         <meta name="twitter:title" content="Про мене — Дизайнер інтер'єру Ірина" />
-        <meta name="twitter:description" content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті." />
+        <meta
+          name="twitter:description"
+          content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті."
+        />
       </Helmet>
 
       {/* HERO */}
@@ -70,11 +77,11 @@ function About() {
                 <picture>
                   <source
                     type="image/webp"
-                    srcSet="/Paint/ira-portrait-800w.webp 800w, /Paint/ira-portrait.webp 1200w"
+                    srcSet={`${assetUrl("/Paint/ira-portrait-800w.webp")} 800w, ${assetUrl("/Paint/ira-portrait.webp")} 1200w`}
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                   <img
-                    src="/Paint/ira-portrait.webp"
+                    src={assetUrl("/Paint/ira-portrait.webp")}
                     alt="Ірина — професійний дизайнер інтер'єру та меблів у Вінниці"
                     loading="lazy"
                     decoding="async"
@@ -166,7 +173,7 @@ function About() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {[
                 "Інтер'єр, який реально можна реалізувати",
-                "Продумане планування без \"мертвих зон\"",
+                'Продумане планування без "мертвих зон"',
                 "Індивідуальні меблі під ваш простір",
                 "Контроль бюджету без зайвих витрат",
                 "Підтримку на всіх етапах ремонту",

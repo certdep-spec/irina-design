@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import Hero from "../components/Hero";
 import { FiBox, FiHome, FiCheck, FiArrowRight, FiMonitor } from "react-icons/fi";
 import { Reveal } from "../components/Reveal";
+import { assetUrl } from "../lib/asset";
 
 /**
  * Home Page
@@ -163,7 +164,7 @@ const Home: React.FC = () => {
               className="relative overflow-hidden rounded-2xl group min-h-[280px] md:min-h-0 md:col-span-2 md:row-span-2"
             >
               <img
-                src="/archives/living/001.webp"
+                src={assetUrl("/archives/living/001.webp")}
                 alt="Дизайн інтер'єру — житлові простори"
                 loading="lazy"
                 decoding="async"
@@ -194,7 +195,7 @@ const Home: React.FC = () => {
               className="relative overflow-hidden rounded-2xl group min-h-[220px]"
             >
               <img
-                src="/archives/kitchen/001.webp"
+                src={assetUrl("/archives/kitchen/001.webp")}
                 alt="Проєктування меблів — кухні та системи зберігання"
                 loading="lazy"
                 decoding="async"
@@ -221,7 +222,7 @@ const Home: React.FC = () => {
               className="relative overflow-hidden rounded-2xl group min-h-[220px]"
             >
               <img
-                src="/archives/comercial/001.webp"
+                src={assetUrl("/archives/comercial/001.webp")}
                 alt="Авторський супровід проєкту"
                 loading="lazy"
                 decoding="async"
