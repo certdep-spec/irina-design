@@ -1,5 +1,5 @@
 import React from "react";
-import { createRoot, hydrateRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import App from "./App.tsx";
@@ -26,8 +26,8 @@ const app = (
   </React.StrictMode>
 );
 
-if (root.hasChildNodes()) {
-  hydrateRoot(root, app);
-} else {
-  createRoot(root).render(app);
-}
+// The prerenderer resolves lazy Suspense boundaries differently from the browser,
+// so hydrating that markup can produce a mismatch. Clear the SEO snapshot before
+// mounting to guarantee one interactive tree (and no duplicate links/listeners).
+root.replaceChildren();
+createRoot(root).render(app);
