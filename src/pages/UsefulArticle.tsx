@@ -68,6 +68,10 @@ const UsefulArticle: React.FC = () => {
         <meta property="og:url" content={canonical} />
         <meta property="og:title" content={article.title} />
         <meta property="og:description" content={article.excerpt} />
+        {article.cover && <meta property="og:image" content={`${SITE_URL}${article.cover}`} />}
+        <meta name="twitter:title" content={article.title} />
+        <meta name="twitter:description" content={article.excerpt} />
+        {article.cover && <meta name="twitter:image" content={`${SITE_URL}${article.cover}`} />}
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
       </Helmet>

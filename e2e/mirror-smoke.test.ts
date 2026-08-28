@@ -13,22 +13,23 @@ test.describe("Mirror smoke tests", () => {
     test.info().errors = errors;
   });
 
-  test("Home: H1, логотип, 5 ссылок навигации", async ({ page }) => {
+  test("Home: H1, логотип, 6 ссылок навигации", async ({ page }) => {
     await page.goto(BASE_URL + "/");
-    await expect(page.locator("h1")).toContainText("Інтер'єрні та меблеві рішення");
+    await expect(page.locator("h1")).toContainText("Дизайн інтер'єру");
     await expect(page.locator("text=Ірина · Interior Design")).toBeVisible();
     const navLinks = page
       .locator("nav a, header a")
-      .filter({ hasText: /головна|портфоліо|послуги|про мене|контакти/i });
-    await expect(navLinks).toHaveCount(5);
+      .filter({ hasText: /головна|портфоліо|послуги|про мене|корисне|контакти/i });
+    await expect(navLinks).toHaveCount(6);
   });
 
-  test("Все 5 маршрутов: свой h1 и per-page title/canonical", async ({ page }) => {
+  test("Все 6 основных маршрутов: свой h1 и per-page title/canonical", async ({ page }) => {
     const routes = [
-      { path: "/", h1: /інтер'?єрні/i },
+      { path: "/", h1: /дизайн інтер'?єру/i },
       { path: "/about", h1: /про мене/i },
       { path: "/portfolio", h1: /портфоліо/i },
       { path: "/services", h1: /послуги/i },
+      { path: "/useful", h1: /корисне про дизайн інтер’єру/i },
       { path: "/contact", h1: /контакти/i },
     ];
 
@@ -47,6 +48,31 @@ test.describe("Mirror smoke tests", () => {
         )
       );
     }
+  });
+
+  test("Корисне: пошук, категорії та опубліковані матеріали", async ({ page }) => {
+    await page.goto(BASE_URL + "/useful");
+    await expect(page.locator("h1")).toContainText("Корисне про дизайн інтер’єру");
+    await expect(page.getByRole("searchbox", { name: "Пошук корисних матеріалів" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Дизайн і планування" })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Читати: Що таке дизайн-проєкт/ })).toBeVisible();
+
+    await page.getByRole("searchbox", { name: "Пошук корисних матеріалів" }).fill("розетки");
+    await expect(
+      page.getByRole("heading", { name: /Скільки розеток потрібно у квартирі/ })
+    ).toBeVisible();
+  });
+
+  test("Опублікована стаття: контент, canonical та JSON-LD", async ({ page }) => {
+    const path = "/useful/skilky-rozetok-potribno-u-kvartyri";
+    await page.goto(BASE_URL + path);
+    await expect(page.locator("h1")).toContainText("Скільки розеток потрібно у квартирі");
+    await expect(page.getByRole("heading", { name: "Основний принцип розрахунку" })).toBeVisible();
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      `https://irina-design.vercel.app${path}`
+    );
+    await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(2);
   });
 
   test("Портфолио: фильтры, кейс открывается, в модалке описание + фото", async ({ page }) => {
@@ -103,14 +129,14 @@ test.describe("Mirror smoke tests", () => {
     if (BASE_URL.includes("github.io")) {
       // GH Pages SPA fallback
       await expect(page).toHaveURL(BASE_URL + "/");
-      await expect(page.locator("h1")).toContainText("Інтер'єрні");
+      await expect(page.locator("h1")).toContainText("Дизайн інтер'єру");
     } else {
       expect(response?.status()).toBe(404);
       await expect(page.locator("text=404")).toBeVisible();
     }
   });
 
-  test("Статика: favicon 200, sitemap.xml 200 с 5 URL, robots.txt 200", async ({ page }) => {
+  test("Статика: favicon, sitemap с опубликованными статьями и robots", async ({ page }) => {
     const favicon = await page.request.get(BASE_URL + "/favicon.svg");
     expect(favicon.status()).toBe(200);
 
@@ -118,7 +144,8 @@ test.describe("Mirror smoke tests", () => {
     expect(sitemap.status()).toBe(200);
     const sitemapText = await sitemap.text();
     const urls = (sitemapText.match(/<url>/g) || []).length;
-    expect(urls).toBeGreaterThanOrEqual(5);
+    expect(urls).toBeGreaterThanOrEqual(16);
+    expect(sitemapText).toContain("/useful/skilky-rozetok-potribno-u-kvartyri");
 
     const robots = await page.request.get(BASE_URL + "/robots.txt");
     expect(robots.status()).toBe(200);
@@ -138,7 +165,15 @@ test.describe("Mirror smoke tests", () => {
   });
 
   test("Нет JS-ошибок на любой странице", async ({ page }) => {
-    const routes = ["/", "/about", "/portfolio", "/services", "/contact"];
+    const routes = [
+      "/",
+      "/about",
+      "/portfolio",
+      "/services",
+      "/useful",
+      "/useful/skilky-rozetok-potribno-u-kvartyri",
+      "/contact",
+    ];
     for (const route of routes) {
       await page.goto(BASE_URL + route);
       const errors = test.info().errors || [];

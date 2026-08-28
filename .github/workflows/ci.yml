@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
 
 env:
   HUSKY: 0
@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 22
 
-      - run: npm install
+      - run: npm ci
 
       - name: Lint (strict)
         run: npm run lint
@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: 22
 
-      - run: npm install
+      - run: npm ci
 
       - name: Build all mirrors
         run: npm run build
@@ -49,21 +49,16 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: E2E smoke against local preview
-        run: |
-          npm run preview -- --port 4173 &
-          sleep 5
-          npm run test:e2e
+        run: npm run test:e2e
         env:
-          TEST_MODE: '1'
+          TEST_MODE: "1"
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload production build
+        uses: actions/upload-artifact@v4
         with:
           name: dist-root
           path: dist
           retention-days: 1
-
-
-
   deploy-vercel:
     name: Deploy to Vercel
     runs-on: ubuntu-latest
@@ -86,7 +81,7 @@ jobs:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: '--prod'
+          vercel-args: "--prod"
           working-directory: ./
 
   deploy-netlify:
