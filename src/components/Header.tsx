@@ -36,6 +36,7 @@ const Header: React.FC = () => {
     { path: "/about", label: "Про мене" },
     { path: "/portfolio", label: "Портфоліо" },
     { path: "/services", label: "Послуги" },
+    { path: "/useful", label: "Корисне" },
     { path: "/contact", label: "Контакти" },
   ];
 
@@ -48,7 +49,6 @@ const Header: React.FC = () => {
     >
       <nav className="section-padding py-5 md:py-6">
         <div className="flex justify-between items-center max-w-7xl mx-auto">
-          {/* Logo */}
           <Link
             to="/"
             className="text-xl md:text-2xl font-serif font-semibold text-stone-800 tracking-wider active:scale-[0.97] transition-transform duration-75"
@@ -56,8 +56,7 @@ const Header: React.FC = () => {
             ІРИНА<span className="text-stone-400"> · </span>INTERIOR DESIGN
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-10">
+          <div className="hidden md:flex space-x-6 lg:space-x-8">
             {navLinks.map(link => (
               <Link
                 key={link.path}
@@ -73,7 +72,6 @@ const Header: React.FC = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="md:hidden text-stone-800 p-2 -mr-2 focus:outline-none touch-manipulation active:scale-[0.92] transition-transform duration-75"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -86,7 +84,6 @@ const Header: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
