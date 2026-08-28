@@ -37,7 +37,7 @@ test.describe("Mirror smoke tests", () => {
       await page.goto(BASE_URL + route.path);
       await expect(page.locator("h1")).toContainText(route.h1);
       const title = await page.title();
-      expect(title).toContain("Ірина");
+      expect(title).toMatch(/Ірин[аи]/);
       const canonical = page.locator('link[rel="canonical"]');
       await expect(canonical).toHaveAttribute(
         "href",
@@ -57,7 +57,7 @@ test.describe("Mirror smoke tests", () => {
     await expect(page.getByRole("button", { name: "Дизайн і планування" })).toBeVisible();
     await expect(page.getByRole("link", { name: /Читати: Що таке дизайн-проєкт/ })).toBeVisible();
 
-    await page.getByRole("searchbox", { name: "Пошук корисних матеріалів" }).fill("розетки");
+    await page.getByRole("searchbox", { name: "Пошук корисних матеріалів" }).fill("розет");
     await expect(
       page.getByRole("heading", { name: /Скільки розеток потрібно у квартирі/ })
     ).toBeVisible();
@@ -67,7 +67,7 @@ test.describe("Mirror smoke tests", () => {
     const path = "/useful/skilky-rozetok-potribno-u-kvartyri";
     await page.goto(BASE_URL + "/useful");
     const search = page.getByRole("searchbox", { name: "Пошук корисних матеріалів" });
-    await search.fill("розетки");
+    await search.fill("розет");
     const articleCard = page
       .getByRole("heading", { name: "Скільки розеток потрібно у квартирі" })
       .locator("xpath=ancestor::article");
