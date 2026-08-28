@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { FiArrowRight, FiSearch } from "react-icons/fi";
 import { Reveal } from "../components/Reveal";
+import { Image } from "../components/Image";
 import {
   publishedUsefulArticles,
   usefulArticles,
@@ -10,11 +11,12 @@ import {
   type UsefulCategoryId,
 } from "../data/usefulArticles";
 
-const SITE_URL = "https://irina-design.netlify.app";
+const SITE_URL = "https://irina-design.vercel.app";
 
 const Useful: React.FC = () => {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<UsefulCategoryId | "all">("all");
+  const [expandedCategories, setExpandedCategories] = useState<Set<UsefulCategoryId>>(new Set());
   const normalizedQuery = query.trim().toLocaleLowerCase("uk-UA");
 
   const filteredArticles = useMemo(
@@ -123,15 +125,32 @@ const Useful: React.FC = () => {
               {featured.map(article => (
                 <article
                   key={article.id}
-                  className="min-h-[230px] rounded-2xl border border-stone-200 bg-stone-50 p-7 flex flex-col"
+                  className="group min-h-[390px] rounded-2xl border border-stone-200 bg-stone-50 overflow-hidden flex flex-col"
                 >
-                  <span className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-5">
-                    Матеріал {String(article.id).padStart(2, "0")}
-                  </span>
-                  <h3 className="text-xl font-serif font-semibold leading-snug text-stone-800 mb-4">
-                    {article.title}
-                  </h3>
-                  <ArticleState article={article} />
+                  <Link
+                    to={`/useful/${article.slug}`}
+                    className="block h-44 overflow-hidden"
+                    aria-label={`Читати: ${article.title}`}
+                  >
+                    <Image
+                      baseSrc={article.cover ?? ""}
+                      alt=""
+                      loading="lazy"
+                      className="transition-transform duration-700 group-hover:scale-[1.04]"
+                    />
+                  </Link>
+                  <div className="p-6 flex flex-col flex-1">
+                    <span className="text-xs tracking-[0.2em] uppercase text-stone-400 mb-4">
+                      {usefulCategories.find(category => category.id === article.category)?.title}
+                    </span>
+                    <h3 className="text-xl font-serif font-semibold leading-snug text-stone-800 mb-3">
+                      {article.title}
+                    </h3>
+                    <p className="text-sm text-stone-500 leading-relaxed line-clamp-3">
+                      {article.excerpt}
+                    </p>
+                    <ArticleState article={article} />
+                  </div>
                 </article>
               ))}
             </div>
@@ -192,6 +211,9 @@ const Useful: React.FC = () => {
             <div className="space-y-16">
               {usefulCategories.map(category => {
                 const articles = usefulArticles.filter(article => article.category === category.id);
+                const visibleArticles = expandedCategories.has(category.id)
+                  ? articles
+                  : articles.slice(0, 6);
                 return (
                   <section key={category.id} id={category.id} className="scroll-mt-32">
                     <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 lg:gap-12">
@@ -205,7 +227,7 @@ const Useful: React.FC = () => {
                         <p className="text-stone-600 leading-relaxed">{category.description}</p>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-stone-200 border border-stone-200 rounded-2xl overflow-hidden">
-                        {articles.map(article => (
+                        {visibleArticles.map(article => (
                           <article
                             key={article.id}
                             className="bg-white p-6 md:p-7 min-h-[170px] flex gap-5"
@@ -221,6 +243,27 @@ const Useful: React.FC = () => {
                             </div>
                           </article>
                         ))}
+                        {articles.length > 6 && (
+                          <div className="bg-white p-6 md:p-7 flex items-center justify-center">
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setExpandedCategories(current => {
+                                  const next = new Set(current);
+                                  next.has(category.id)
+                                    ? next.delete(category.id)
+                                    : next.add(category.id);
+                                  return next;
+                                })
+                              }
+                              className="text-sm font-medium underline underline-offset-4 text-stone-600 hover:text-stone-950"
+                            >
+                              {expandedCategories.has(category.id)
+                                ? "Згорнути список"
+                                : `Показати всі ${articles.length} тем`}
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </section>

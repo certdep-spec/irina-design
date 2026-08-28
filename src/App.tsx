@@ -18,7 +18,11 @@ const Admin = lazy(() => import("./pages/Admin"));
 
 function PageLoader() {
   return (
-    <div role="status" aria-busy="true" className="min-h-[50vh] flex flex-col items-center justify-center gap-4 text-stone-400">
+    <div
+      role="status"
+      aria-busy="true"
+      className="min-h-[50vh] flex flex-col items-center justify-center gap-4 text-stone-400"
+    >
       <div className="w-10 h-10 border-2 border-stone-200 border-t-stone-800 rounded-full animate-spin"></div>
       <p className="font-serif text-lg tracking-wide">Завантаження...</p>
     </div>
@@ -32,10 +36,15 @@ function App() {
   }, [location.pathname, location.hash]);
 
   const lastTrackedPath = useRef<string | null>(null);
-  useEffect(() => { initAnalytics(); }, []);
+  useEffect(() => {
+    initAnalytics();
+  }, []);
   useEffect(() => {
     const path = `${location.pathname}${location.search}`;
-    if (lastTrackedPath.current === null) { lastTrackedPath.current = path; return; }
+    if (lastTrackedPath.current === null) {
+      lastTrackedPath.current = path;
+      return;
+    }
     if (lastTrackedPath.current === path) return;
     lastTrackedPath.current = path;
     trackPageView(path);
@@ -46,18 +55,23 @@ function App() {
       <Helmet>
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="uk_UA" />
-        <meta property="og:image" content="https://irina-design.netlify.app/Paint/og-image.jpg" />
+        <meta property="og:image" content="https://irina-design.vercel.app/Paint/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://irina-design.netlify.app/Paint/og-image.jpg" />
+        <meta name="twitter:image" content="https://irina-design.vercel.app/Paint/og-image.jpg" />
       </Helmet>
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow overflow-x-clip">
           <Suspense fallback={<PageLoader />}>
-            <motion.div key={location.pathname} initial={import.meta.env.SSR ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ type: "spring", bounce: 0, duration: 0.35 }}>
+            <motion.div
+              key={location.pathname}
+              initial={import.meta.env.SSR ? false : { opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", bounce: 0, duration: 0.35 }}
+            >
               <Routes location={location}>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />

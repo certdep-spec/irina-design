@@ -5,7 +5,7 @@ import { FiArrowLeft, FiArrowRight, FiCheck } from "react-icons/fi";
 import { getUsefulCategory, usefulArticles } from "../data/usefulArticles";
 import { usefulArticleContent } from "../data/usefulArticleContent";
 
-const SITE_URL = "https://irina-design.netlify.app";
+const SITE_URL = "https://irina-design.vercel.app";
 
 const UsefulArticle: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();

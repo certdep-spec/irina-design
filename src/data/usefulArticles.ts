@@ -21,6 +21,7 @@ export interface UsefulArticle {
   featured?: boolean;
   published?: boolean;
   updatedAt?: string;
+  cover?: string;
 }
 export const usefulCategories: UsefulCategory[] = [
   {
@@ -177,30 +178,34 @@ const slugify = (value: string) =>
     .replace(/['’]/g, "")
     .replace(/[^a-zа-яіїєґ0-9]+/giu, "-")
     .replace(/^-+|-+$/g, "");
-const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "updatedAt">> = {
+const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "updatedAt" | "cover">> = {
   1: {
     slug: "shcho-take-dyzain-proiekt-interieru",
     excerpt:
       "Розбираємо, з яких етапів складається дизайн-проєкт і які матеріали потрібні, щоб ремонт був передбачуваним.",
     updatedAt: "2026-08-28",
+    cover: "/archives/living/001.webp",
   },
   3: {
     slug: "skilky-koshtuie-dyzain-interieru-u-vinnytsi",
     excerpt:
       "Пояснюємо, від чого залежить вартість дизайн-проєкту, що входить у ціну та як коректно порівнювати пропозиції дизайнерів.",
     updatedAt: "2026-08-28",
+    cover: "/archives/comercial/к001.webp",
   },
   28: {
     slug: "z-choho-pochaty-remont-kvartyry",
     excerpt:
       "Практична послідовність перших рішень: від обмірів і бюджету до планування, кошторису та старту будівельних робіт.",
     updatedAt: "2026-08-28",
+    cover: "/archives/kitchen/001.webp",
   },
   98: {
     slug: "avtorskyi-nahliad-shcho-tse-i-navishcho",
     excerpt:
       "Що контролює дизайнер під час реалізації, які питання вирішує на об’єкті та чим авторський нагляд не є технічним наглядом.",
     updatedAt: "2026-08-28",
+    cover: "/archives/wardrobe/001.webp",
   },
 };
 
@@ -213,6 +218,7 @@ export const usefulArticles: UsefulArticle[] = raw.map(([id, category, title, fe
   excerpt: published[id]?.excerpt ?? "Тема запланована в редакційному календарі.",
   published: Boolean(published[id]),
   updatedAt: published[id]?.updatedAt,
+  cover: published[id]?.cover,
 }));
 export const publishedUsefulArticles = usefulArticles.filter(article => article.published);
 export const getUsefulCategory = (id: UsefulCategoryId) =>
