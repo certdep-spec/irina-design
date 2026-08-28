@@ -16,7 +16,7 @@ test.describe("Mirror smoke tests", () => {
   test("Home: H1, логотип, 6 ссылок навигации", async ({ page }) => {
     await page.goto(BASE_URL + "/");
     await expect(page.locator("h1")).toContainText("Дизайн інтер'єру");
-    await expect(page.locator("text=Ірина · Interior Design")).toBeVisible();
+    await expect(page.locator("header").getByText("Ірина · Interior Design").first()).toBeVisible();
     const navLinks = page
       .locator("nav a, header a")
       .filter({ hasText: /головна|портфоліо|послуги|про мене|корисне|контакти/i });
@@ -66,7 +66,12 @@ test.describe("Mirror smoke tests", () => {
   test("Опублікована стаття: контент, canonical та JSON-LD", async ({ page }) => {
     const path = "/useful/skilky-rozetok-potribno-u-kvartyri";
     await page.goto(BASE_URL + "/useful");
-    await page.getByRole("link", { name: /Читати: Скільки розеток потрібно у квартирі/i }).click();
+    const search = page.getByRole("searchbox", { name: "Пошук корисних матеріалів" });
+    await search.fill("розетки");
+    const articleCard = page
+      .getByRole("heading", { name: "Скільки розеток потрібно у квартирі" })
+      .locator("xpath=ancestor::article");
+    await articleCard.getByRole("link", { name: "Читати статтю" }).click();
     await expect(page).toHaveURL(new RegExp(`${path.replaceAll("/", "\\/")}$`));
     await expect(page.getByText("Щось пішло не так")).toHaveCount(0);
     await expect(page.locator("h1")).toContainText("Скільки розеток потрібно у квартирі");
@@ -93,15 +98,15 @@ test.describe("Mirror smoke tests", () => {
     // Модалка открылась
     await expect(page.locator('[role="dialog"]')).toBeVisible();
     await expect(page.locator('[role="dialog"] h2')).toBeVisible();
-    await expect(page.locator('[role="dialog"] img')).toBeVisible();
+    await expect(page.locator('[role="dialog"] img').first()).toBeVisible();
   });
 
-  test("Услуги: 4 тарифа с ценами; блок FAQ присутствует", async ({ page }) => {
+  test("Услуги: тарифы с ценами; блок FAQ присутствует", async ({ page }) => {
     await page.goto(BASE_URL + "/services");
 
-    // 4 тарифа
+    // 5 актуальных тарифов
     const prices = page.locator("text=/від \\d+|за запитом/");
-    await expect(prices).toHaveCount(4);
+    await expect(prices).toHaveCount(5);
 
     // FAQ
     await expect(page.locator("text=Часті запитання")).toBeVisible();
@@ -112,7 +117,7 @@ test.describe("Mirror smoke tests", () => {
     await page.goto(BASE_URL + "/contact");
 
     await expect(page.locator("form")).toBeVisible();
-    await expect(page.locator('a[href^="tel:"]')).toBeVisible();
+    await expect(page.locator('a[href^="tel:"]').first()).toBeVisible();
     // Карта (iframe или div с картой)
     const map = page.locator('iframe[src*="maps"], .map-container, [data-map]');
     await expect(map.first()).toBeVisible();
@@ -133,6 +138,10 @@ test.describe("Mirror smoke tests", () => {
       // GH Pages SPA fallback
       await expect(page).toHaveURL(BASE_URL + "/");
       await expect(page.locator("h1")).toContainText("Дизайн інтер'єру");
+    } else if (BASE_URL.includes("localhost")) {
+      // Vite preview emulates the SPA fallback and therefore returns index.html.
+      expect(response?.status()).toBe(200);
+      await expect(page.locator("#root")).toBeVisible();
     } else {
       expect(response?.status()).toBe(404);
       await expect(page.locator("text=404")).toBeVisible();
@@ -164,7 +173,7 @@ test.describe("Mirror smoke tests", () => {
     ).toBeVisible();
 
     // Плавающие CTA
-    await expect(page.locator("[data-cta-name]")).toBeVisible();
+    await expect(page.locator('[data-cta-name="floating_telegram"]')).toBeVisible();
   });
 
   test("Нет JS-ошибок на любой странице", async ({ page }) => {
