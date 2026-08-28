@@ -23,8 +23,7 @@ export default defineConfig(({ mode: _mode }) => ({
     }),
     Sitemap({
       hostname: "https://irina-design.vercel.app",
-      dynamicRoutes: ["/about", "/portfolio", "/services", "/contact"],
-      // Служебные страницы (404, верификация Google) не должны попадать в sitemap
+      dynamicRoutes: ["/about", "/portfolio", "/services", "/useful", "/contact"],
       exclude: ["/404", "/google5b6109d09ed90c5a"],
     }),
   ].filter(Boolean),
@@ -39,7 +38,6 @@ export default defineConfig(({ mode: _mode }) => ({
     host: "127.0.0.1",
     port: 5173,
     proxy: {
-      // /dev-api → standalone API server on port 5174 (avoids collision with public/api/ folder)
       "/dev-api": {
         target: "http://127.0.0.1:5174",
         changeOrigin: true,
