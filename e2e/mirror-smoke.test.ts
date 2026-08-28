@@ -26,7 +26,7 @@ test.describe("Mirror smoke tests", () => {
   test("Все 6 основных маршрутов: свой h1 и per-page title/canonical", async ({ page }) => {
     const routes = [
       { path: "/", h1: /дизайн інтер'?єру/i },
-      { path: "/about", h1: /про мене/i },
+      { path: "/about", h1: /дизайнер інтер'?єру та меблів/i },
       { path: "/portfolio", h1: /портфоліо/i },
       { path: "/services", h1: /послуги/i },
       { path: "/useful", h1: /корисне про дизайн інтер’єру/i },
