@@ -15,12 +15,11 @@ const ssrDir = path.join(root, "dist-ssr");
 
 // Public routes only. /admin is intentionally excluded: it's noindex and
 // its login screen touches sessionStorage, which doesn't exist in Node.
-const ROUTES = ["/", "/about", "/portfolio", "/services", "/contact"];
+const ROUTES = ["/", "/about", "/portfolio", "/services", "/useful", "/contact"];
 
 const ROOT_DIV = '<div id="root"></div>';
 
 async function main() {
-  // Locate the built SSR bundle (extension depends on the Vite version).
   const ssrCandidates = ["ssr-entry.mjs", "ssr-entry.js", "ssr-entry.cjs"].map((f) =>
     path.join(ssrDir, f)
   );
@@ -38,12 +37,6 @@ async function main() {
 
   const { renderRoute } = await import(pathToFileURL(ssrFile).href);
   const template = fs.readFileSync(templatePath, "utf8");
-
-  // When the client build targets a sub-path (e.g. GitHub Pages at
-  // /irina-design/ via BASE_PATH), the SSR bundle inherits that basename,
-  // so the requested location must be prefixed with it or StaticRouter
-  // renders nothing. For root deployments BASE_PATH is empty and the
-  // location is used as-is.
   const base = (process.env.BASE_PATH || "").replace(/\/+$/, "");
 
   for (const route of ROUTES) {
@@ -52,13 +45,8 @@ async function main() {
       throw new Error(`Prerender of "${route}" produced empty HTML`);
     }
 
-    // All replacements use functions so `$` in the content (e.g. JSON-LD
-    // priceRange "$$$") is never interpreted as a String.replace pattern.
     let outHtml = template.replace(ROOT_DIV, () => `<div id="root">${html}</div>`);
 
-    // react-helmet-async returns its own <title>; drop the template's
-    // default one and let the page title (with the rest of the head tags)
-    // be injected before </head>, so there is exactly one <title> per page.
     const titleTag = helmet.match(/<title[^>]*>[\s\S]*?<\/title>/i);
     if (titleTag) {
       outHtml = outHtml.replace(/<title[^>]*>[\s\S]*?<\/title>/i, "");
@@ -84,7 +72,7 @@ async function main() {
     );
   }
 
-  console.log("\nPrerendering complete: 5 pages written to dist/.");
+  console.log(`\nPrerendering complete: ${ROUTES.length} pages written to dist/.`);
 }
 
 main().catch((err) => {
