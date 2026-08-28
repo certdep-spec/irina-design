@@ -65,7 +65,10 @@ test.describe("Mirror smoke tests", () => {
 
   test("Опублікована стаття: контент, canonical та JSON-LD", async ({ page }) => {
     const path = "/useful/skilky-rozetok-potribno-u-kvartyri";
-    await page.goto(BASE_URL + path);
+    await page.goto(BASE_URL + "/useful");
+    await page.getByRole("link", { name: /Читати: Скільки розеток потрібно у квартирі/i }).click();
+    await expect(page).toHaveURL(new RegExp(`${path.replaceAll("/", "\\/")}$`));
+    await expect(page.getByText("Щось пішло не так")).toHaveCount(0);
     await expect(page.locator("h1")).toContainText("Скільки розеток потрібно у квартирі");
     await expect(page.getByRole("heading", { name: "Основний принцип розрахунку" })).toBeVisible();
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(

@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 22
 
-      - run: npm ci
+      - run: npm install
 
       - name: Lint (strict)
         run: npm run lint
@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: 22
 
-      - run: npm ci
+      - run: npm install
 
       - name: Build all mirrors
         run: npm run build
