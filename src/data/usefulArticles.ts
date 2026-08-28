@@ -186,6 +186,13 @@ const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "update
     updatedAt: "2026-08-28",
     cover: "/archives/living/001.webp",
   },
+  2: {
+    slug: "navishcho-potriben-dyzainer-interieru-pered-remontom",
+    excerpt:
+      "Коли участь дизайнера справді економить час і бюджет та які рішення важливо прийняти ще до виходу будівельної бригади.",
+    updatedAt: "2026-08-28",
+    cover: "/archives/living/7305e93e-7380-4095-8d4d-22183c01824e.webp",
+  },
   3: {
     slug: "skilky-koshtuie-dyzain-interieru-u-vinnytsi",
     excerpt:
@@ -193,12 +200,47 @@ const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "update
     updatedAt: "2026-08-28",
     cover: "/archives/comercial/к001.webp",
   },
+  4: {
+    slug: "yak-formuietsia-tsina-dyzain-proiektu",
+    excerpt:
+      "З яких етапів складається вартість роботи дизайнера та чому однакова ціна за квадратний метр не означає однаковий обсяг послуг.",
+    updatedAt: "2026-08-28",
+    cover: "/archives/comercial/к003.webp",
+  },
+  6: {
+    slug: "yak-prokhodyt-robota-nad-dyzain-proiektom",
+    excerpt:
+      "Послідовно показуємо шлях від першої розмови й обмірів до готових креслень, специфікацій та реалізації інтер’єру.",
+    updatedAt: "2026-08-28",
+    cover: "/archives/living/4200d396-0e13-4b59-9a8c-759f17e28669.webp",
+  },
+  12: {
+    slug: "yak-dyzain-proiekt-dopomahaie-kontroliuvaty-biudzhet",
+    excerpt:
+      "Як зафіксовані рішення, специфікації та послідовність закупівель зменшують ризик випадкових витрат і дорогих переробок.",
+    updatedAt: "2026-08-28",
+    cover: "/archives/wardrobe/13c9182b-e3f7-4f71-9ff4-edb4871684b9.webp",
+  },
   28: {
     slug: "z-choho-pochaty-remont-kvartyry",
     excerpt:
       "Практична послідовність перших рішень: від обмірів і бюджету до планування, кошторису та старту будівельних робіт.",
     updatedAt: "2026-08-28",
     cover: "/archives/kitchen/001.webp",
+  },
+  31: {
+    slug: "skilky-koshtuie-remont-kvartyry-u-vinnytsi",
+    excerpt:
+      "Чому немає універсальної ціни ремонту за квадратний метр і як скласти реалістичний кошторис для квартири у Вінниці.",
+    updatedAt: "2026-08-28",
+    cover: "/archives/kitchen/1779016473fe58.webp",
+  },
+  40: {
+    slug: "skilky-rozetok-potribno-u-kvartyri",
+    excerpt:
+      "Практичний розрахунок розеток за кімнатами, технікою та щоденними сценаріями, щоб після ремонту не жити з подовжувачами.",
+    updatedAt: "2026-08-28",
+    cover: "/archives/living/изображение_viber_2026-05-03_12-08-07-501.webp",
   },
   98: {
     slug: "avtorskyi-nahliad-shcho-tse-i-navishcho",
