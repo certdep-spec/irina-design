@@ -7,7 +7,13 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const distDir = path.join(root, "dist");
 const ssrDir = path.join(root, "dist-ssr");
-const ROUTES = ["/", "/about", "/portfolio", "/services", "/useful", "/useful/shcho-take-dyzain-proiekt-interieru", "/contact"];
+const ROUTES = [
+  "/", "/about", "/portfolio", "/services", "/useful", "/contact",
+  "/useful/shcho-take-dyzain-proiekt-interieru",
+  "/useful/skilky-koshtuie-dyzain-interieru-u-vinnytsi",
+  "/useful/z-choho-pochaty-remont-kvartyry",
+  "/useful/avtorskyi-nahliad-shcho-tse-i-navishcho",
+];
 const ROOT_DIV = '<div id="root"></div>';
 
 async function main() {
