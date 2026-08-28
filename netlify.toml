@@ -55,6 +55,16 @@
   status = 200
 
 [[redirects]]
+  from = "/useful"
+  to = "/useful/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/useful/*"
+  to = "/useful/:splat/index.html"
+  status = 200
+
+[[redirects]]
   from = "/contact"
   to = "/index.html"
   status = 200

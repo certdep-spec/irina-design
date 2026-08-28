@@ -3,6 +3,8 @@
 /about  /index.html                 200
 /portfolio /index.html              200
 /services /index.html               200
+/useful /useful/index.html          200
+/useful/* /useful/:splat/index.html 200
 /contact /index.html                200
 /admin  /index.html                 200
 /*      /404.html                   404
