@@ -375,12 +375,82 @@ const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "update
     updatedAt: "2026-08-28",
     cover: "/archives/kitchen/001.webp",
   },
+  29: {
+    slug: "pravylna-poslidovnist-remontu-kvartyry",
+    excerpt:
+      "Покрокова черговість ремонту квартири — від обмірів і демонтажу до чистового монтажу меблів та освітлення.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к008.webp",
+  },
+  30: {
+    slug: "roboty-do-pochatku-ozdoblennia",
+    excerpt:
+      "Які приховані, інженерні та підготовчі роботи потрібно завершити й перевірити до фарбування, плитки та підлоги.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к009.webp",
+  },
   31: {
     slug: "skilky-koshtuie-remont-kvartyry-u-vinnytsi",
     excerpt:
       "Чому немає універсальної ціни ремонту за квадратний метр і як скласти реалістичний кошторис для квартири у Вінниці.",
     updatedAt: "2026-08-28",
     cover: "/archives/kitchen/1779016473fe58.webp",
+  },
+  32: {
+    slug: "yak-sklasty-biudzhet-remontu-kvartyry",
+    excerpt:
+      "Як перетворити приблизну суму на робочий бюджет із категоріями витрат, пріоритетами, графіком закупівель і резервом.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к002.webp",
+  },
+  33: {
+    slug: "yak-ne-vyity-za-mezhi-biudzhetu-remontu",
+    excerpt:
+      "Практичні правила контролю кошторису, змін і закупівель, які допомагають не втратити фінансову керованість ремонту.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к004.webp",
+  },
+  34: {
+    slug: "na-chomu-mozhna-ekonomyty-pid-chas-remontu",
+    excerpt:
+      "Де спрощення не шкодить результату, а де економія створює ризик протікань, переробок і швидкого зношення.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к005.webp",
+  },
+  35: {
+    slug: "pomylky-yaki-zbilshuiut-vartist-remontu",
+    excerpt:
+      "Десять типових рішень, через які ремонт дорожчає: старт без проєкту, пізні зміни, поспішні закупівлі та подвійна робота.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к010.webp",
+  },
+  36: {
+    slug: "skilky-chasu-zaimaie-remont-kvartyry",
+    excerpt:
+      "Від чого залежать строки ремонту, які етапи не можна прискорювати та як скласти реалістичний календар робіт.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-22-14-665.webp",
+  },
+  37: {
+    slug: "yak-kontroliuvaty-yakist-remontu",
+    excerpt:
+      "Як організувати поетапне приймання робіт, фотофіксацію, перевірку прихованих систем і коректну комунікацію з бригадою.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-23-39-495.webp",
+  },
+  38: {
+    slug: "shcho-robyty-yakshcho-remont-perevyshchyv-biudzhet",
+    excerpt:
+      "Антикризовий алгоритм: як зупинити неконтрольовані витрати, переглянути залишок робіт і завершити ремонт без хаосу.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-23-43-786.webp",
+  },
+  39: {
+    slug: "yak-pidhotuvaty-kvartyru-do-remontu",
+    excerpt:
+      "Документи, обміри, демонтаж, тимчасові комунікації та організація об’єкта перед приходом будівельної бригади.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-22-51-647.webp",
   },
   40: {
     slug: "skilky-rozetok-potribno-u-kvartyri",
