@@ -459,6 +459,83 @@ const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "update
     updatedAt: "2026-08-28",
     cover: "/archives/living/изображение_viber_2026-05-03_12-08-07-501.webp",
   },
+  41: {
+    slug: "yak-pravylno-splanuvaty-elektryku-u-kvartyri",
+    excerpt:
+      "Як пов’язати електрощит, кабельні групи, розетки, вимикачі та техніку з реальним плануванням квартири.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-24-11-262.webp",
+  },
+  42: {
+    slug: "de-roztashovuvaty-rozetky-ta-vymykachi",
+    excerpt:
+      "Практичний алгоритм розміщення розеток і вимикачів відносно меблів, дверей та щоденних сценаріїв.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-17_14-12-39-128.webp",
+  },
+  43: {
+    slug: "rozetky-na-kukhni-skilky-i-de",
+    excerpt:
+      "Окремі лінії для техніки, розетки робочої зони та доступ до підключень без конфліктів із кухонними меблями.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-05_09-44-31-938.webp",
+  },
+  44: {
+    slug: "elektryka-u-vannii-kimnati",
+    excerpt:
+      "Що передбачити у ванній: вологі зони, захисне відключення, зрівнювання потенціалів, світло та техніка.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-05_09-44-44-118.webp",
+  },
+  45: {
+    slug: "yak-splanuvaty-elektryku-u-spalni",
+    excerpt:
+      "Розетки біля ліжка, прохідні вимикачі, освітлення шафи, телевізор і заряджання без подовжувачів.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-17_14-12-39-704.webp",
+  },
+  46: {
+    slug: "yak-pravylno-splanuvaty-osvitlennia-kvartyry",
+    excerpt:
+      "Як створити загальне, робоче, акцентне й нічне світло та пов’язати сценарії з плануванням кімнат.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-12_11-32-20-399.webp",
+  },
+  47: {
+    slug: "skilky-svitylnykiv-potribno-dlia-kimnaty",
+    excerpt:
+      "Чому світильники рахують не лише за площею та як оцінити світловий потік, функції й рівномірність.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-34-16-931.webp",
+  },
+  48: {
+    slug: "teple-chy-kholodne-svitlo-v-interieri",
+    excerpt:
+      "Колірна температура, передача кольору та доречні діапазони світла для кухні, вітальні, спальні й ванної.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-04-30_11-17-45-342.webp",
+  },
+  49: {
+    slug: "tochkovi-svitylnyky-treky-chy-liustra",
+    excerpt:
+      "Порівняння точкових світильників, треків і люстр за функцією, монтажем, гнучкістю та візуальним ефектом.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к001.webp",
+  },
+  50: {
+    slug: "yak-splanuvaty-pidsvichuvannia-kukhni",
+    excerpt:
+      "Робоче світло без тіней, розміщення LED-профілю, живлення, керування та узгодження з кухонними меблями.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/Gemini_Generated_Image_1x4nuo1x4nuo1x4n.webp",
+  },
+  51: {
+    slug: "pomylky-planuvannia-elektryky-ta-osvitlennia",
+    excerpt:
+      "Типові конфлікти електрики з меблями, нестача ліній, сліпуче світло й інші помилки, які складно виправити після ремонту.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/001.webp",
+  },
   98: {
     slug: "avtorskyi-nahliad-shcho-tse-i-navishcho",
     excerpt:

@@ -54,6 +54,17 @@ const ROUTES = [
   "/useful/shcho-robyty-yakshcho-remont-perevyshchyv-biudzhet",
   "/useful/yak-pidhotuvaty-kvartyru-do-remontu",
   "/useful/skilky-rozetok-potribno-u-kvartyri",
+  "/useful/yak-pravylno-splanuvaty-elektryku-u-kvartyri",
+  "/useful/de-roztashovuvaty-rozetky-ta-vymykachi",
+  "/useful/rozetky-na-kukhni-skilky-i-de",
+  "/useful/elektryka-u-vannii-kimnati",
+  "/useful/yak-splanuvaty-elektryku-u-spalni",
+  "/useful/yak-pravylno-splanuvaty-osvitlennia-kvartyry",
+  "/useful/skilky-svitylnykiv-potribno-dlia-kimnaty",
+  "/useful/teple-chy-kholodne-svitlo-v-interieri",
+  "/useful/tochkovi-svitylnyky-treky-chy-liustra",
+  "/useful/yak-splanuvaty-pidsvichuvannia-kukhni",
+  "/useful/pomylky-planuvannia-elektryky-ta-osvitlennia",
   "/useful/avtorskyi-nahliad-shcho-tse-i-navishcho",
 ];
 const ROOT_DIV = '<div id="root"></div>';
