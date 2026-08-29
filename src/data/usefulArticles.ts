@@ -615,6 +615,280 @@ const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "update
   },
 };
 
+const finalPublished: Record<
+  number,
+  Pick<UsefulArticle, "slug" | "excerpt" | "updatedAt" | "cover">
+> = {
+  62: {
+    slug: "mebli-na-zamovlennia-chy-hotovi",
+    excerpt:
+      "Порівнюємо готові та індивідуальні меблі за ціною, строками, якістю, місткістю й можливістю адаптації до приміщення.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/001.webp",
+  },
+  63: {
+    slug: "koly-varto-zamovliaty-indyvidualni-mebli",
+    excerpt:
+      "Ситуації, у яких меблі на замовлення справді виправдані: складна геометрія, ніші, мала площа та особливі сценарії.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/13c9182b-e3f7-4f71-9ff4-edb4871684b9.webp",
+  },
+  64: {
+    slug: "yak-pravylno-sproiektuvaty-shafu",
+    excerpt:
+      "Як розрахувати місткість шафи, секції, глибину, фасади й внутрішнє наповнення під конкретний склад речей.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/Gemini_Generated_Image_3wz17e3wz17e3wz1.webp",
+  },
+  65: {
+    slug: "yak-splanuvaty-harderobnu-systemu",
+    excerpt:
+      "Полиці, штанги, ящики, взуття та сезонне зберігання: практичне наповнення гардеробної без мертвих зон.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/Gemini_Generated_Image_5gsw6e5gsw6e5gsw.webp",
+  },
+  66: {
+    slug: "yak-sproiektuvaty-zruchnu-vbudovanu-kukhniu",
+    excerpt:
+      "Від обмірів і техніки до модулів, фасадів та комунікацій: що перевірити перед виробництвом вбудованої кухні.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/Gemini_Generated_Image_nqs0wtnqs0wtnqs0.webp",
+  },
+  67: {
+    slug: "yak-splanuvaty-mebli-u-vitalni",
+    excerpt:
+      "Як розмістити диван, телевізор, зберігання й додаткові місця так, щоб вітальня залишалася зручною та вільною.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/4200d396-0e13-4b59-9a8c-759f17e28669.webp",
+  },
+  68: {
+    slug: "mebli-do-steli-perevahy-ta-nedoliky",
+    excerpt:
+      "Коли шафи до стелі збільшують місткість і покращують інтер’єр, а коли ускладнюють монтаж, вентиляцію та доступ.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/Gemini_Generated_Image_sa0qdisa0qdisa0q.webp",
+  },
+  69: {
+    slug: "yak-vybraty-materialy-dlia-korpusnykh-mebliv",
+    excerpt:
+      "Що врахувати у виборі плитних матеріалів, фасадів, крайок і задніх стінок для різних приміщень та навантажень.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/изображение_viber_2026-05-04_15-23-14-710.webp",
+  },
+  70: {
+    slug: "furnitura-dlia-mebliv-de-ne-varto-ekonomyty",
+    excerpt:
+      "Петлі, напрямні, підйомники й механізми: які елементи визначають щоденну надійність та де можна спростити конструкцію.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/изображение_viber_2026-05-04_15-23-52-057.webp",
+  },
+  71: {
+    slug: "yak-dyzainer-stvoriuie-indyvidualni-mebli",
+    excerpt:
+      "Як потреби, обміри, матеріали, ергономіка й технологія перетворюються на точний меблевий проєкт.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/изображение_viber_2026-05-04_15-55-53-468.webp",
+  },
+  72: {
+    slug: "yak-vybraty-pidlohove-pokryttia",
+    excerpt:
+      "Порівнюємо підлогові покриття за зносостійкістю, вологою, акустикою, теплою підлогою, ремонтом і доглядом.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/7305e93e-7380-4095-8d4d-22183c01824e.webp",
+  },
+  73: {
+    slug: "kvarts-vinil-laminat-chy-parket",
+    excerpt:
+      "Чесне порівняння кварц-вінілу, ламінату та паркету для квартири: комфорт, вода, стабільність і бюджет.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-03_11-49-13-422.webp",
+  },
+  74: {
+    slug: "yak-vybraty-plytku-dlia-vannoi",
+    excerpt:
+      "Формат, поверхня, ковзання, стики, запас і розкладка плитки для безпечної та практичної ванної кімнати.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/Gemini_Generated_Image_98qsfx98qsfx98qs.webp",
+  },
+  75: {
+    slug: "yak-vybraty-plytku-dlia-kukhni",
+    excerpt:
+      "Як підібрати плитку для підлоги й фартуха кухні з урахуванням плям, стиків, очищення та сусідніх матеріалів.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-08_13-22-15-962.webp",
+  },
+  76: {
+    slug: "farba-chy-shpalery-dlia-stin",
+    excerpt:
+      "Порівнюємо фарбу та шпалери за підготовкою стін, ремонтопридатністю, фактурою, строком служби й бюджетом.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-03_12-12-59-459.webp",
+  },
+  77: {
+    slug: "yak-pravylno-vybraty-kolir-stin",
+    excerpt:
+      "Як оцінити колір стін за освітленням, площею, підлогою та меблями й чому потрібні великі пробні викраси.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-03_12-52-03-731.webp",
+  },
+  78: {
+    slug: "yak-poiednuvaty-kolory-v-interieri",
+    excerpt:
+      "Практична система базових, підтримувальних і акцентних кольорів без жорстких універсальних формул.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-03_13-04-23-313.webp",
+  },
+  79: {
+    slug: "yak-poiednuvaty-derevo-kamin-metal-i-tekstyl",
+    excerpt:
+      "Як збалансувати теплі й холодні фактури, масштаб малюнка, блиск та повторення матеріалів у цілісному інтер’єрі.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-04_17-06-06-579.webp",
+  },
+  80: {
+    slug: "materialy-yaki-vyhliadaiut-doroho",
+    excerpt:
+      "Як створити виразний інтер’єр без зайвих витрат завдяки пропорціям, великим площинам, світлу та акуратним стикам.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к003.webp",
+  },
+  81: {
+    slug: "yak-vybraty-dveri-dlia-suchasnoho-interieru",
+    excerpt:
+      "Висота, тип відкривання, короб, лиштва, покриття, фурнітура й монтажні зазори сучасних міжкімнатних дверей.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-05_16-09-47-142.webp",
+  },
+  82: {
+    slug: "materialy-dlia-kvartyry-z-ditmy",
+    excerpt:
+      "Безпечні, ремонтопридатні та прості в догляді підлоги, стіни, тканини й меблеві поверхні для сім’ї з дітьми.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kids/5df2a686-9a89-4f59-af06-6febc83d4fd6.webp",
+  },
+  83: {
+    slug: "yak-vybraty-styl-interieru",
+    excerpt:
+      "Як знайти напрям інтер’єру через спосіб життя, архітектуру, бюджет і довгострокові вподобання, а не випадковий тренд.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/001.webp",
+  },
+  84: {
+    slug: "suchasnyi-styl-interieru-pryntsypy",
+    excerpt:
+      "Функціональність, чисті пропорції, натуральні фактури й продумане світло як основа сучасного інтер’єру.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/Gemini_Generated_Image_xuj256xuj256xuj2.webp",
+  },
+  85: {
+    slug: "minimalizm-v-interieri-koly-pratsiuie",
+    excerpt:
+      "Чому мінімалізм потребує місткого зберігання, дисципліни деталей і якісних матеріалів, а не просто порожніх кімнат.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/изображение_viber_2026-05-04_15-56-06-023.webp",
+  },
+  86: {
+    slug: "skandynavskyi-styl-osnovni-pryntsypy",
+    excerpt:
+      "Світло, практичність, дерево, текстиль і прості форми скандинавського інтер’єру без декоративних кліше.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-20-58-111.webp",
+  },
+  87: {
+    slug: "japandi-spokiinyi-suchasnyi-interier",
+    excerpt:
+      "Як поєднати японську стриманість і скандинавський комфорт через пропорції, фактури та усвідомлений вибір речей.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-21-13-100.webp",
+  },
+  88: {
+    slug: "neoklasyka-v-suchasnomu-interieri",
+    excerpt:
+      "Як використовувати симетрію, молдинги, камінь і класичні пропорції без перевантаження та театральності.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к006.webp",
+  },
+  89: {
+    slug: "yak-ne-zrobyty-interier-zastarilym",
+    excerpt:
+      "Рішення, які допомагають інтер’єру довше залишатися актуальним: нейтральна база, якісні пропорції та змінні акценти.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-22-14-665.webp",
+  },
+  90: {
+    slug: "trendy-dyzainu-interieru-2026",
+    excerpt:
+      "Які тренди 2026 року мають практичну основу й можуть залишитися актуальними після завершення модного циклу.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к007.webp",
+  },
+  91: {
+    slug: "yak-dyzainer-pryimaie-rishennia",
+    excerpt:
+      "Як дизайнер балансує функцію, естетику, бюджет, технічні обмеження й потреби кількох користувачів.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к008.webp",
+  },
+  92: {
+    slug: "yak-dyzainer-dopomahaie-zaoshchadyty",
+    excerpt:
+      "Де робота дизайнера скорочує переробки, зайві закупівлі та втрати часу, а де не створює чарівної економії.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к009.webp",
+  },
+  93: {
+    slug: "shcho-dyzainer-vrakhovuie-u-planuvanni",
+    excerpt:
+      "Потреби сім’ї, маршрути, зберігання, меблі, інженерія та майбутні зміни, які стоять за хорошим планом квартири.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-23-39-495.webp",
+  },
+  94: {
+    slug: "yak-pidbyraiutsia-materialy-dlia-interieru",
+    excerpt:
+      "Послідовність підбору матеріалів за функцією, бюджетом, сумісністю, зразками, строками постачання й доглядом.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к004.webp",
+  },
+  95: {
+    slug: "yak-pidbyraiutsia-mebli-ta-osvitlennia",
+    excerpt:
+      "Як дизайнер узгоджує габарити, комфорт, світлові сценарії, стилістику та реальну доступність предметів.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-23-43-786.webp",
+  },
+  96: {
+    slug: "chomu-interier-na-foto-ne-zavzhdy-zruchnyi",
+    excerpt:
+      "Що приховує ефектна фотографія: маршрути, зберігання, акустику, догляд, техніку та повсякденний безлад.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-22-51-647.webp",
+  },
+  97: {
+    slug: "yak-zrobyty-interier-krasyvym-i-praktychnym",
+    excerpt:
+      "Як поєднати естетику з міцними матеріалами, зручними маршрутами, доступним обслуговуванням і реальним побутом.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-12_11-32-20-399.webp",
+  },
+  99: {
+    slug: "yak-unyknuty-pomylok-pid-chas-realizatsii",
+    excerpt:
+      "Проєкт, відповідальність, поетапні перевірки та контроль змін, які захищають реалізацію від дорогих помилок.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к010.webp",
+  },
+  100: {
+    slug: "vid-idei-do-hotovoho-interieru",
+    excerpt:
+      "Повний шлях проєкту: від першої розмови й концепції до креслень, закупівель, будівництва та готового простору.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-34-16-931.webp",
+  },
+};
+
+Object.assign(published, finalPublished);
+
 export const usefulArticles: UsefulArticle[] = raw.map(([id, category, title, featured]) => ({
   id,
   category,

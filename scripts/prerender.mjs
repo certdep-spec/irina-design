@@ -7,7 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const distDir = path.join(root, "dist");
 const ssrDir = path.join(root, "dist-ssr");
-const ROUTES = [
+const LEGACY_ROUTES = [
   "/",
   "/about",
   "/portfolio",
@@ -77,6 +77,13 @@ const ROUTES = [
   "/useful/typovi-pomylky-proiektuvannia-kukhni",
   "/useful/avtorskyi-nahliad-shcho-tse-i-navishcho",
 ];
+const sitemapPath = path.join(distDir, "sitemap.xml");
+const articleRoutes = fs.existsSync(sitemapPath)
+  ? [...fs.readFileSync(sitemapPath, "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)]
+      .map(([, url]) => new URL(url).pathname)
+      .filter(route => route.startsWith("/useful/"))
+  : [];
+const ROUTES = [...new Set([...LEGACY_ROUTES, ...articleRoutes])];
 const ROOT_DIV = '<div id="root"></div>';
 
 async function main() {
