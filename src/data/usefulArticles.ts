@@ -207,6 +207,13 @@ const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "update
     updatedAt: "2026-08-28",
     cover: "/archives/comercial/к003.webp",
   },
+  5: {
+    slug: "yak-pravylno-postavyty-zavdannia-dyzaineru-interieru",
+    excerpt:
+      "Як підготувати побажання, пріоритети та обмеження, щоб дизайнер запропонував точні рішення без зайвих переробок.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-03_11-49-13-422.webp",
+  },
   6: {
     slug: "yak-prokhodyt-robota-nad-dyzain-proiektom",
     excerpt:
@@ -214,12 +221,75 @@ const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "update
     updatedAt: "2026-08-28",
     cover: "/archives/living/4200d396-0e13-4b59-9a8c-759f17e28669.webp",
   },
+  7: {
+    slug: "skilky-chasu-zaimaie-rozrobka-dyzain-proiektu",
+    excerpt:
+      "Реальні строки дизайн-проєкту: з яких етапів складається робота та що допомагає уникнути затримок.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-03_12-12-59-459.webp",
+  },
+  8: {
+    slug: "dyzain-proiekt-chy-samostiinyi-remont",
+    excerpt:
+      "Порівнюємо самостійний ремонт і роботу за дизайн-проєктом за витратами, часом, ризиками та якістю результату.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-05_08-48-28-634.webp",
+  },
+  9: {
+    slug: "planuvannia-chy-povnyi-dyzain-proiekt",
+    excerpt:
+      "Коли достатньо планувального рішення, а коли потрібні візуалізації, креслення та специфікації повного проєкту.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-03_12-52-03-731.webp",
+  },
+  10: {
+    slug: "3d-vizualizatsiia-interieru-navishcho-potribna",
+    excerpt:
+      "Що можна перевірити на 3D-візуалізації, чого вона не замінює та як використовувати її під час ремонту.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/Gemini_Generated_Image_xuj256xuj256xuj2.webp",
+  },
+  11: {
+    slug: "robochi-kreslennia-dyzainera",
+    excerpt:
+      "Які креслення входять до робочого альбому та як вони допомагають будівельникам реалізувати задум без здогадок.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-05_08-48-37-102.webp",
+  },
   12: {
     slug: "yak-dyzain-proiekt-dopomahaie-kontroliuvaty-biudzhet",
     excerpt:
       "Як зафіксовані рішення, специфікації та послідовність закупівель зменшують ризик випадкових витрат і дорогих переробок.",
     updatedAt: "2026-08-28",
     cover: "/archives/wardrobe/13c9182b-e3f7-4f71-9ff4-edb4871684b9.webp",
+  },
+  13: {
+    slug: "yak-pravylno-splanuvaty-kvartyru-pered-remontom",
+    excerpt:
+      "Покроковий алгоритм планування квартири: потреби сім’ї, меблі, проходи, зберігання та інженерні точки.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-03_13-04-23-313.webp",
+  },
+  14: {
+    slug: "typovi-pomylky-planuvannia-kvartyry",
+    excerpt:
+      "Помилки, через які квартира стає незручною: вузькі проходи, конфлікти дверей, нестача зберігання та випадкова електрика.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-04_17-06-06-579.webp",
+  },
+  15: {
+    slug: "yak-pravylno-zonuvaty-prostir-kvartyry",
+    excerpt:
+      "Як розділити квартиру на функціональні зони світлом, меблями й оздобленням без зайвих перегородок.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-05_16-09-47-142.webp",
+  },
+  16: {
+    slug: "yak-zrobyty-malenku-kvartyru-zruchnoiu",
+    excerpt:
+      "Практичні прийоми для малої площі: пріоритети, зберігання, компактні меблі, світло та візуальна цілісність.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/изображение_viber_2026-05-04_15-12-57-396.webp",
   },
   28: {
     slug: "z-choho-pochaty-remont-kvartyry",
