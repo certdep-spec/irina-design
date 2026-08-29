@@ -7,13 +7,13 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FloatingCTA from "./components/FloatingCTA";
 import { initAnalytics, trackPageView } from "./lib/analytics";
-import UsefulArticle from "./pages/UsefulArticle";
 const Home = lazy(() => import("./pages/Home"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
 const Services = lazy(() => import("./pages/Services"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Useful = lazy(() => import("./pages/Useful"));
+const UsefulArticle = lazy(() => import("./pages/UsefulArticle"));
 const Admin = lazy(() => import("./pages/Admin"));
 
 function PageLoader() {

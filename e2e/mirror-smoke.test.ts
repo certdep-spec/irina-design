@@ -75,12 +75,14 @@ test.describe("Mirror smoke tests", () => {
     await expect(page).toHaveURL(new RegExp(`${path.replaceAll("/", "\\/")}$`));
     await expect(page.getByText("Щось пішло не так")).toHaveCount(0);
     await expect(page.locator("h1")).toContainText("Скільки розеток потрібно у квартирі");
-    await expect(page.getByRole("heading", { name: "Основний принцип розрахунку" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Постійна техніка" })).toBeVisible();
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",
       `https://irina-design.vercel.app${path}`
     );
-    await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(2);
+    expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThanOrEqual(
+      2
+    );
   });
 
   test("Портфолио: фильтры, кейс открывается, в модалке описание + фото", async ({ page }) => {
@@ -156,11 +158,30 @@ test.describe("Mirror smoke tests", () => {
     expect(sitemap.status()).toBe(200);
     const sitemapText = await sitemap.text();
     const urls = (sitemapText.match(/<url>/g) || []).length;
-    expect(urls).toBeGreaterThanOrEqual(16);
+    expect(urls).toBe(106);
     expect(sitemapText).toContain("/useful/skilky-rozetok-potribno-u-kvartyri");
+    expect(sitemapText).toContain("/useful/vid-idei-do-hotovoho-interieru");
 
     const robots = await page.request.get(BASE_URL + "/robots.txt");
     expect(robots.status()).toBe(200);
+  });
+
+  test("Усі 100 статей мають статичний HTML, H1 та canonical", async ({ page }) => {
+    const sitemap = await page.request.get(BASE_URL + "/sitemap.xml");
+    const sitemapText = await sitemap.text();
+    const articlePaths = [...sitemapText.matchAll(/<loc>[^<]+(\/useful\/[^<]+)<\/loc>/g)].map(
+      match => match[1]
+    );
+    expect(articlePaths).toHaveLength(100);
+
+    for (const path of articlePaths) {
+      const response = await page.request.get(BASE_URL + path);
+      expect(response.status(), path).toBe(200);
+      const html = await response.text();
+      expect(html, path).toMatch(/<h1[\s>]/i);
+      expect(html, path).toContain(`<link data-rh="true" rel="canonical"`);
+      expect(html, path).not.toContain("Щось пішло не так");
+    }
   });
 
   test("Мобильный вид 390×844: гамбургер, плавающие CTA", async ({ page }) => {

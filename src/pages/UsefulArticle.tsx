@@ -2,8 +2,9 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight, FiCheck } from "react-icons/fi";
-import { getUsefulCategory, usefulArticles } from "../data/usefulArticles";
+import { getUsefulCategory, publishedUsefulArticles, usefulArticles } from "../data/usefulArticles";
 import { usefulArticleContent } from "../data/usefulArticleContent";
+import { getArticleSeoDescription, getArticleSeoTitle } from "../lib/articleSeo";
 
 const SITE_URL = "https://irina-design.vercel.app";
 
@@ -36,11 +37,13 @@ const UsefulArticle: React.FC = () => {
   const category = getUsefulCategory(article.category);
   const content = usefulArticleContent[article.id];
   const canonical = `${SITE_URL}/useful/${article.slug}`;
+  const seoTitle = getArticleSeoTitle(article.id, article.title);
+  const seoDescription = getArticleSeoDescription(article.excerpt);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: article.title,
-    description: article.excerpt,
+    description: seoDescription,
     datePublished: article.updatedAt,
     dateModified: article.updatedAt,
     author: { "@type": "Person", name: "Ірина" },
@@ -57,23 +60,38 @@ const UsefulArticle: React.FC = () => {
       { "@type": "ListItem", position: 3, name: article.title, item: canonical },
     ],
   };
+  const faqLd = content?.faq?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: content.faq.map(item => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      }
+    : null;
+  const relatedArticles = publishedUsefulArticles
+    .filter(item => item.id !== article.id && item.category === article.category)
+    .slice(0, 3);
 
   return (
     <article className="bg-white text-stone-800">
       <Helmet>
-        <title>{article.title} | Дизайнер інтер’єру Ірина</title>
-        <meta name="description" content={article.excerpt} />
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
         <link rel="canonical" href={canonical} />
         <meta property="og:type" content="article" />
         <meta property="og:url" content={canonical} />
         <meta property="og:title" content={article.title} />
-        <meta property="og:description" content={article.excerpt} />
+        <meta property="og:description" content={seoDescription} />
         {article.cover && <meta property="og:image" content={`${SITE_URL}${article.cover}`} />}
         <meta name="twitter:title" content={article.title} />
-        <meta name="twitter:description" content={article.excerpt} />
+        <meta name="twitter:description" content={seoDescription} />
         {article.cover && <meta name="twitter:image" content={`${SITE_URL}${article.cover}`} />}
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
+        {faqLd && <script type="application/ld+json">{JSON.stringify(faqLd)}</script>}
       </Helmet>
 
       <header className="section-padding bg-stone-50 border-b border-stone-200">
@@ -167,6 +185,23 @@ const UsefulArticle: React.FC = () => {
                   ))}
                 </div>
               </section>
+              {content.faq && content.faq.length > 0 && (
+                <section className="border-t border-stone-200 pt-10">
+                  <h2 className="text-3xl md:text-4xl font-serif font-semibold text-stone-900 mb-7">
+                    Часті запитання
+                  </h2>
+                  <div className="space-y-7">
+                    {content.faq.map(item => (
+                      <div key={item.question}>
+                        <h3 className="text-xl font-serif font-semibold text-stone-900 mb-2">
+                          {item.question}
+                        </h3>
+                        <p>{item.answer}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
             </>
           ) : (
             <>
@@ -319,6 +354,30 @@ const UsefulArticle: React.FC = () => {
           )}
         </div>
       </div>
+
+      {relatedArticles.length > 0 && (
+        <section className="px-6 md:px-12 py-14 bg-stone-50 border-t border-stone-200">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-8">Читайте також</h2>
+            <div className="grid gap-4 md:grid-cols-3">
+              {relatedArticles.map(item => (
+                <Link
+                  key={item.id}
+                  to={`/useful/${item.slug}`}
+                  className="rounded-xl border border-stone-200 bg-white p-5 hover:border-stone-400 transition"
+                >
+                  <span className="text-xs uppercase tracking-wider text-stone-400">
+                    {category?.title}
+                  </span>
+                  <h3 className="font-serif text-lg font-semibold leading-snug mt-3">
+                    {item.title}
+                  </h3>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="bg-stone-900 text-white px-6 md:px-12 py-16 md:py-20">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-8">
