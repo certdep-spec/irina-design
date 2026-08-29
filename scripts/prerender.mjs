@@ -65,6 +65,16 @@ const ROUTES = [
   "/useful/tochkovi-svitylnyky-treky-chy-liustra",
   "/useful/yak-splanuvaty-pidsvichuvannia-kukhni",
   "/useful/pomylky-planuvannia-elektryky-ta-osvitlennia",
+  "/useful/yak-pravylno-splanuvaty-kukhniu",
+  "/useful/priama-kutova-chy-p-podibna-kukhnia",
+  "/useful/yakoiu-maie-buty-zruchna-kukhnia",
+  "/useful/pravylna-vysota-kukhonnoi-stilnytsi",
+  "/useful/yak-rozmistyty-kholodylnyk-myiku-ta-plytu",
+  "/useful/robochyi-trykutnyk-na-kukhni",
+  "/useful/vidstani-mizh-kukhonnymy-mebliamy",
+  "/useful/yak-splanuvaty-kukhniu-vitalniu",
+  "/useful/yaku-stilnytsiu-vybraty-dlia-kukhni",
+  "/useful/typovi-pomylky-proiektuvannia-kukhni",
   "/useful/avtorskyi-nahliad-shcho-tse-i-navishcho",
 ];
 const ROOT_DIV = '<div id="root"></div>';

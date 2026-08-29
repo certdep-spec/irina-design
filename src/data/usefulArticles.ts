@@ -536,6 +536,76 @@ const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "update
     updatedAt: "2026-08-29",
     cover: "/archives/living/001.webp",
   },
+  52: {
+    slug: "yak-pravylno-splanuvaty-kukhniu",
+    excerpt:
+      "Покрокове планування кухні: потреби сім’ї, зони зберігання, техніка, робоча поверхня, проходи та комунікації.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/001.webp",
+  },
+  53: {
+    slug: "priama-kutova-chy-p-podibna-kukhnia",
+    excerpt:
+      "Як вибрати форму кухні за розміром приміщення, розташуванням комунікацій, кількістю техніки та сценаріями руху.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/1779016473fe58.webp",
+  },
+  54: {
+    slug: "yakoiu-maie-buty-zruchna-kukhnia",
+    excerpt:
+      "Ознаки кухні, якою зручно користуватися щодня: логічні зони, достатня стільниця, доступне зберігання та правильне світло.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-03_12-01-15-584.webp",
+  },
+  55: {
+    slug: "pravylna-vysota-kukhonnoi-stilnytsi",
+    excerpt:
+      "Як підібрати висоту кухонної стільниці під зріст користувачів, техніку, товщину матеріалу й різні робочі процеси.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-05_08-48-28-634.webp",
+  },
+  56: {
+    slug: "yak-rozmistyty-kholodylnyk-myiku-ta-plytu",
+    excerpt:
+      "Безпечна й зручна послідовність холодильника, мийки та плити з робочими проміжками й місцем для розвантаження продуктів.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-05_08-48-37-102.webp",
+  },
+  57: {
+    slug: "robochyi-trykutnyk-na-kukhni",
+    excerpt:
+      "Чи актуальне правило робочого трикутника та чому сучасну кухню краще проєктувати як послідовність функціональних зон.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-05_08-49-54-931.webp",
+  },
+  58: {
+    slug: "vidstani-mizh-kukhonnymy-mebliamy",
+    excerpt:
+      "Які проходи залишати між рядами, островом, столом і відкритими фасадами, щоб кухня не стала тісною.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-05_09-44-31-938.webp",
+  },
+  59: {
+    slug: "yak-splanuvaty-kukhniu-vitalniu",
+    excerpt:
+      "Як поєднати готування, обід і відпочинок в одному просторі та контролювати запахи, шум і візуальний безлад.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-05_09-44-44-118.webp",
+  },
+  60: {
+    slug: "yaku-stilnytsiu-vybraty-dlia-kukhni",
+    excerpt:
+      "Порівняння популярних матеріалів стільниць за вологостійкістю, термостійкістю, ремонтом, стиками та бюджетом.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/Gemini_Generated_Image_98qsfx98qsfx98qs.webp",
+  },
+  61: {
+    slug: "typovi-pomylky-proiektuvannia-kukhni",
+    excerpt:
+      "Помилки планування кухні, через які бракує робочої поверхні, конфліктують фасади, техніка й комунікації.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-12_11-32-20-399.webp",
+  },
   98: {
     slug: "avtorskyi-nahliad-shcho-tse-i-navishcho",
     excerpt:
