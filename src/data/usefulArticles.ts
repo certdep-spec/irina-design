@@ -291,6 +291,83 @@ const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "update
     updatedAt: "2026-08-29",
     cover: "/archives/wardrobe/изображение_viber_2026-05-04_15-12-57-396.webp",
   },
+  17: {
+    slug: "yak-splanuvaty-kvartyru-studiiu",
+    excerpt:
+      "Як організувати квартиру-студію, відокремити сон, кухню та відпочинок і не перевантажити невелику площу.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-20-58-111.webp",
+  },
+  18: {
+    slug: "yak-obiednaty-kukhniu-ta-vitalniu",
+    excerpt:
+      "Що перевірити перед об’єднанням кухні з вітальнею: законність, вентиляцію, зонування, світло й побутові сценарії.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-03_12-01-15-584.webp",
+  },
+  19: {
+    slug: "kukhnia-vitalnia-perevahy-nedoliky-planuvannia",
+    excerpt:
+      "Чесно про кухню-вітальню: коли відкритий простір зручний, які має недоліки та як правильно його спланувати.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-05_08-49-54-931.webp",
+  },
+  20: {
+    slug: "yak-pravylno-splanuvaty-spalniu",
+    excerpt:
+      "Розміри проходів, положення ліжка, шафи, розетки й освітлення для тихої та зручної спальні.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/living/изображение_viber_2026-05-08_13-21-13-100.webp",
+  },
+  21: {
+    slug: "yak-splanuvaty-dytiachu-kimnatu-na-vyrist",
+    excerpt:
+      "Як створити дитячу, що адаптується до віку дитини без повного ремонту кожні кілька років.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kids/001.webp",
+  },
+  22: {
+    slug: "yak-pravylno-splanuvaty-harderobnu",
+    excerpt:
+      "Мінімальні розміри, типи наповнення, проходи, освітлення та вентиляція зручної гардеробної.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/Gemini_Generated_Image_3wz17e3wz17e3wz1.webp",
+  },
+  23: {
+    slug: "yak-orhanizuvaty-zberihannia-u-nevelykii-kvartyri",
+    excerpt:
+      "Системний підхід до зберігання на малій площі: інвентаризація речей, вбудовані шафи й зручні побутові зони.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/wardrobe/Gemini_Generated_Image_5gsw6e5gsw6e5gsw.webp",
+  },
+  24: {
+    slug: "yak-splanuvaty-vannu-kimnatu",
+    excerpt:
+      "Як розмістити сантехніку, зберігання, пральну техніку та світло у ванній без тісноти й випадкових рішень.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/изображение_viber_2026-05-08_13-22-15-962.webp",
+  },
+  25: {
+    slug: "yak-pravylno-roztashuvaty-santekhniku-u-vannii",
+    excerpt:
+      "Практичні відстані, інсталяції, ухили та точки підключення, які потрібно погодити до монтажу сантехніки.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/kitchen/Gemini_Generated_Image_98qsfx98qsfx98qs.webp",
+  },
+  26: {
+    slug: "yak-splanuvaty-pryvatnyi-budynok",
+    excerpt:
+      "Від ділянки й входу до технічних приміщень: як побудувати логічне планування приватного будинку.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к006.webp",
+  },
+  27: {
+    slug: "planuvannia-kvartyry-ta-pryvatnoho-budynku",
+    excerpt:
+      "Чим проєктування будинку відрізняється від квартири та які додаткові рішення потрібно передбачити заздалегідь.",
+    updatedAt: "2026-08-29",
+    cover: "/archives/comercial/к007.webp",
+  },
   28: {
     slug: "z-choho-pochaty-remont-kvartyry",
     excerpt:
