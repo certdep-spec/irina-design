@@ -27,7 +27,7 @@ test.describe("Mirror smoke tests", () => {
       { path: "/", h1: /дизайн інтер'?єру/i },
       { path: "/about", h1: /дизайнер інтер'?єру та меблів/i },
       { path: "/portfolio", h1: /інтер'?єрні та меблеві рішення/i },
-      { path: "/services", h1: /скільки коштує дизайн інтер'?єру/i },
+      { path: "/services", h1: /послуги та вартість/i },
       { path: "/useful", h1: /корисне про дизайн інтер’єру/i },
       { path: "/contact", h1: /контакти/i },
     ];
