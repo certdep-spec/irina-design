@@ -19,7 +19,7 @@ export default function PortfolioCaseLinks() {
           {portfolioCases.map(item => (
             <Link
               key={item.id}
-              to={`/portfolio/${item.id}`}
+              to={`/portfolio/${item.slug}`}
               data-cta-name={`portfolio_case_link_${item.id}`}
               className="group bg-white border border-stone-200 rounded-xl p-5 hover:shadow-md transition"
             >
