@@ -11,7 +11,7 @@ import { portfolioCases } from "./src/data/portfolio";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL = "https://irina-design.vercel.app";
 const ARTICLE_ROUTES = publishedUsefulArticles.map(article => `/useful/${article.slug}`);
-const CASE_ROUTES = portfolioCases.map(item => `/portfolio/${item.id}`);
+const CASE_ROUTES = portfolioCases.map(item => `/portfolio/${item.slug}`);
 
 export default defineConfig(() => ({
   base: process.env.BASE_PATH || "/",
