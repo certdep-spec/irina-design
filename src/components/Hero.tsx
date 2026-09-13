@@ -67,7 +67,7 @@ const Hero: React.FC = () => {
           {...appear(0.5)}
           className="text-lg md:text-xl mb-4 font-light tracking-wide text-stone-100 max-w-3xl mx-auto"
         >
-          Допомагаю продумати простір від планування і візуалізації до креслень та меблів під ваш інтер'єр.
+          Створюю інтер’єри від першого планування до креслень, візуалізацій і меблів на замовлення.
         </motion.p>
         <motion.p
           {...appear(0.58)}
