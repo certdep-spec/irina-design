@@ -55,25 +55,25 @@ const Hero: React.FC = () => {
           {...appear(0.2)}
           className="text-xs md:text-sm uppercase tracking-[0.24em] text-stone-200 mb-5"
         >
-          Вінниця · Вінницька область · дистанційно по Україні
+          Вінниця та область. Працюю також дистанційно по Україні
         </motion.p>
         <motion.h1
           {...appear(0.3)}
           className="text-4xl md:text-6xl lg:text-7xl font-serif font-semibold mb-6 leading-tight"
         >
-          Дизайн інтер'єру <span className="text-stone-300">від планування до реалізації</span>
+          Дизайн інтер'єру <span className="text-stone-300">та меблів</span>
         </motion.h1>
         <motion.p
           {...appear(0.5)}
           className="text-lg md:text-xl mb-4 font-light tracking-wide text-stone-100 max-w-3xl mx-auto"
         >
-          Продумуємо планування, візуалізацію, креслення та меблі так, щоб ремонт був зрозумілим ще до початку робіт.
+          Допомагаю продумати простір від планування і візуалізації до креслень та меблів під ваш інтер'єр.
         </motion.p>
         <motion.p
           {...appear(0.58)}
           className="text-sm md:text-base mb-9 text-stone-200 max-w-2xl mx-auto"
         >
-          Надішліть площу й тип об'єкта — підкажемо відповідний формат роботи та орієнтир за вартістю.
+          Розкажіть, який у вас об'єкт і його площа. Я підкажу, з чого краще почати і скільки приблизно коштуватиме робота.
         </motion.p>
         <motion.div {...appear(0.7)} className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
@@ -81,18 +81,18 @@ const Hero: React.FC = () => {
             data-cta-name="hero_estimate"
             className="btn-primary min-h-[52px] flex items-center justify-center shadow-lg hover:shadow-xl"
           >
-            Розрахувати вартість
+            Дізнатися вартість
           </Link>
           <Link
             to="/portfolio"
             data-cta-name="hero_portfolio"
             className="btn-secondary border-white text-white hover:bg-white hover:text-stone-900 min-h-[52px] flex items-center justify-center"
           >
-            Подивитися проєкти
+            Переглянути проєкти
           </Link>
         </motion.div>
         <motion.p {...appear(0.85)} className="mt-5 text-xs md:text-sm text-stone-200">
-          Коротка первинна консультація — безкоштовно
+          Перша консультація безкоштовна
         </motion.p>
       </motion.div>
 
