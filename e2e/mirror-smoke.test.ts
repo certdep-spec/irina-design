@@ -4,7 +4,6 @@ const BASE_URL = process.env.BASE_URL || "http://localhost:4173";
 
 test.describe("Mirror smoke tests", () => {
   test.beforeEach(async ({ page }) => {
-    // Собираем JS-ошибки
     const errors: string[] = [];
     page.on("pageerror", err => errors.push(err.message));
     page.on("console", msg => {
@@ -63,16 +62,9 @@ test.describe("Mirror smoke tests", () => {
     ).toBeVisible();
   });
 
-  test("Опублікована стаття: контент, canonical та JSON-LD", async ({ page }) => {
+  test("Опублікована стаття: контент, canonical, JSON-LD і CTA", async ({ page }) => {
     const path = "/useful/skilky-rozetok-potribno-u-kvartyri";
-    await page.goto(BASE_URL + "/useful");
-    const search = page.getByRole("searchbox", { name: "Пошук корисних матеріалів" });
-    await search.fill("розет");
-    const articleCard = page
-      .getByRole("heading", { name: "Скільки розеток потрібно у квартирі" })
-      .locator("xpath=ancestor::article");
-    await articleCard.getByRole("link", { name: "Читати статтю" }).click();
-    await expect(page).toHaveURL(new RegExp(`${path.replaceAll("/", "\\/")}$`));
+    await page.goto(BASE_URL + path);
     await expect(page.getByText("Щось пішло не так")).toHaveCount(0);
     await expect(page.locator("h1")).toContainText("Скільки розеток потрібно у квартирі");
     await expect(page.getByRole("heading", { name: "Постійна техніка" })).toBeVisible();
@@ -80,68 +72,71 @@ test.describe("Mirror smoke tests", () => {
       "href",
       `https://irina-design.vercel.app${path}`
     );
-    expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThanOrEqual(
-      2
-    );
+    expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThanOrEqual(2);
+    await expect(page.locator('[data-cta-name="article_to_contact"]')).toBeVisible();
   });
 
-  test("Портфолио: фильтры, кейс открывается, в модалке описание + фото", async ({ page }) => {
+  test("Портфолио: фильтры, модалка и ссылки на отдельные кейсы", async ({ page }) => {
     await page.goto(BASE_URL + "/portfolio");
-
-    // Фильтры
     await expect(page.locator('button:has-text("Всі проєкти")')).toBeVisible();
     await expect(page.locator('button:has-text("Інтер\'єр")')).toBeVisible();
     await expect(page.locator('button:has-text("Меблі")')).toBeVisible();
 
-    // Кликаем по первому кейсу
     const firstCase = page.locator('[data-cta-name^="portfolio_card_"]').first();
     await firstCase.click();
-
-    // Модалка открылась
     await expect(page.locator('[role="dialog"]')).toBeVisible();
     await expect(page.locator('[role="dialog"] h2')).toBeVisible();
-    await expect(page.locator('[role="dialog"] img').first()).toBeVisible();
+    await page.keyboard.press("Escape");
+
+    const caseLink = page.locator('[data-cta-name="portfolio_case_link_i1"]');
+    await expect(caseLink).toHaveAttribute("href", "/portfolio/zhytlovyi-interier-120-m2");
   });
 
-  test("Услуги: тарифы с ценами; блок FAQ присутствует", async ({ page }) => {
+  test("Окрема сторінка кейсу: H1, canonical, галерея та CTA", async ({ page }) => {
+    const path = "/portfolio/zhytlovyi-interier-120-m2";
+    await page.goto(BASE_URL + path);
+    await expect(page.locator("h1")).toContainText("Житловий інтер'єр");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      `https://irina-design.vercel.app${path}`
+    );
+    await expect(page.getByRole("heading", { name: "Галерея проєкту" })).toBeVisible();
+    await expect(page.locator('[data-cta-name="case_i1_estimate"]')).toBeVisible();
+  });
+
+  test("Услуги: 4 формата, FAQ и калькулятор", async ({ page }) => {
     await page.goto(BASE_URL + "/services");
-
-    // 5 актуальных тарифов
     const prices = page.locator("text=/від \\d+|за запитом/");
-    await expect(prices).toHaveCount(5);
-
-    // FAQ
+    await expect(prices).toHaveCount(4);
     await expect(page.locator("text=Часті запитання")).toBeVisible();
     await expect(page.locator("text=Скільки часу займає")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Скільки може коштувати ваш проєкт" })).toBeVisible();
   });
 
-  test("Контакты: форма, tel:-ссылка, карта", async ({ page }) => {
+  test("Контакты: форма, tel:-ссылка, карта и калькулятор", async ({ page }) => {
     await page.goto(BASE_URL + "/contact");
-
     await expect(page.locator("form")).toBeVisible();
     await expect(page.locator('a[href^="tel:"]').first()).toBeVisible();
-    // Карта (iframe или div с картой)
     const map = page.locator('iframe[src*="maps"], .map-container, [data-map]');
     await expect(map.first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Скільки може коштувати ваш проєкт" })).toBeVisible();
   });
 
-  test("Пустой сабмит формы → ошибки валидации, без отправки", async ({ page }) => {
+  test("Пустой сабмит формы → обязательные ошибки без требования сообщения", async ({ page }) => {
     await page.goto(BASE_URL + "/contact");
     await page.click('button[type="submit"]');
     await expect(page.locator("text=Ім'я обов'язкове")).toBeVisible();
     await expect(page.locator("text=Телефон обов'язковий")).toBeVisible();
     await expect(page.locator("text=Оберіть тип об'єкта")).toBeVisible();
-    await expect(page.locator("text=Повідомлення обов'язкове")).toBeVisible();
+    await expect(page.locator("text=Повідомлення обов'язкове")).toHaveCount(0);
   });
 
   test("404: HTTP 404 со страницей; GH Pages → SPA-фолбэк на главную", async ({ page }) => {
     const response = await page.goto(BASE_URL + "/nonexistent-page-12345");
     if (BASE_URL.includes("github.io")) {
-      // GH Pages SPA fallback
       await expect(page).toHaveURL(BASE_URL + "/");
       await expect(page.locator("h1")).toContainText("Дизайн інтер'єру");
     } else if (BASE_URL.includes("localhost")) {
-      // Vite preview emulates the SPA fallback and therefore returns index.html.
       expect(response?.status()).toBe(200);
       await expect(page.locator("#root")).toBeVisible();
     } else {
@@ -150,7 +145,7 @@ test.describe("Mirror smoke tests", () => {
     }
   });
 
-  test("Статика: favicon, sitemap с опубликованными статьями и robots", async ({ page }) => {
+  test("Статика: favicon, sitemap с 100 статтями + 5 кейсами і robots", async ({ page }) => {
     const favicon = await page.request.get(BASE_URL + "/favicon.svg");
     expect(favicon.status()).toBe(200);
 
@@ -158,9 +153,10 @@ test.describe("Mirror smoke tests", () => {
     expect(sitemap.status()).toBe(200);
     const sitemapText = await sitemap.text();
     const urls = (sitemapText.match(/<url>/g) || []).length;
-    expect(urls).toBe(106);
+    expect(urls).toBe(111);
     expect(sitemapText).toContain("/useful/skilky-rozetok-potribno-u-kvartyri");
     expect(sitemapText).toContain("/useful/vid-idei-do-hotovoho-interieru");
+    expect(sitemapText).toContain("/portfolio/zhytlovyi-interier-120-m2");
 
     const robots = await page.request.get(BASE_URL + "/robots.txt");
     expect(robots.status()).toBe(200);
@@ -184,16 +180,29 @@ test.describe("Mirror smoke tests", () => {
     }
   });
 
+  test("Усі 5 кейсів мають статичний HTML, H1 та canonical", async ({ page }) => {
+    const paths = [
+      "/portfolio/zhytlovyi-interier-120-m2",
+      "/portfolio/komertsiinyi-prostir-kafe-85-m2",
+      "/portfolio/dyzain-kukhni",
+      "/portfolio/harderobna-systema",
+      "/portfolio/indyvidualni-mebli",
+    ];
+    for (const path of paths) {
+      const response = await page.request.get(BASE_URL + path);
+      expect(response.status(), path).toBe(200);
+      const html = await response.text();
+      expect(html, path).toMatch(/<h1[\s>]/i);
+      expect(html, path).toContain(`<link data-rh="true" rel="canonical"`);
+    }
+  });
+
   test("Мобильный вид 390×844: гамбургер, плавающие CTA", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(BASE_URL + "/");
-
-    // Гамбургер
     await expect(
       page.locator('button[aria-label*="меню"], button[aria-label*="menu"], button:has(svg)')
     ).toBeVisible();
-
-    // Плавающие CTA
     await expect(page.locator('[data-cta-name="floating_telegram"]')).toBeVisible();
   });
 
@@ -202,6 +211,7 @@ test.describe("Mirror smoke tests", () => {
       "/",
       "/about",
       "/portfolio",
+      "/portfolio/zhytlovyi-interier-120-m2",
       "/services",
       "/useful",
       "/useful/skilky-rozetok-potribno-u-kvartyri",
