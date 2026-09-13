@@ -6,10 +6,12 @@ import Sitemap from "vite-plugin-sitemap";
 import { fileURLToPath } from "url";
 import path from "path";
 import { publishedUsefulArticles } from "./src/data/usefulArticles";
+import { portfolioCases } from "./src/data/portfolio";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL = "https://irina-design.vercel.app";
 const ARTICLE_ROUTES = publishedUsefulArticles.map(article => `/useful/${article.slug}`);
+const CASE_ROUTES = portfolioCases.map(item => `/portfolio/${item.slug}`);
 
 export default defineConfig(() => ({
   base: process.env.BASE_PATH || "/",
@@ -22,6 +24,7 @@ export default defineConfig(() => ({
       dynamicRoutes: Array.from(
         new Set([
           ...ARTICLE_ROUTES,
+          ...CASE_ROUTES,
           "/about",
           "/portfolio",
           "/services",
@@ -50,7 +53,7 @@ export default defineConfig(() => ({
           "/useful/yak-pravylno-splanuvaty-harderobnu",
           "/useful/yak-orhanizuvaty-zberihannia-u-nevelykii-kvartyri",
           "/useful/yak-splanuvaty-vannu-kimnatu",
-          "/useful/yak-pravylno-roztashuvaty-santekhniku-u-vannii",
+          "/useful/yak-pravylno-roztashovuvaty-santekhniku-u-vannii",
           "/useful/yak-splanuvaty-pryvatnyi-budynok",
           "/useful/planuvannia-kvartyry-ta-pryvatnoho-budynku",
           "/useful/z-choho-pochaty-remont-kvartyry",

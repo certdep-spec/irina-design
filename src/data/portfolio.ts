@@ -2,6 +2,7 @@ import portfolioData from './portfolio.json';
 
 export type PortfolioCase = {
   id: string
+  slug: string
   title: string
   category: 'interior' | 'furniture'
   meta: string

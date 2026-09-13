@@ -1,15 +1,6 @@
 /**
- * src/lib/analytics.ts
- * Централизованная GA4-аналитика (вынесена из App.tsx).
- *
- * События:
- *  - page_view        — при SPA-навигации (вместо дубля начального gtag config)
- *  - scroll_depth      — на отметках 25/50/75/100% прокрутки
- *  - cta_click         — клики по элементам с data-cta-name
- *  - form_start        — первое взаимодействие с формой (оживлён hasStartedFilling)
- *  - form_submit       — успешная отправка брифа
- *
- * gtag загружается из index.html (gtag.js). Если его нет — вызовы тихо игнорируются.
+ * Централізована GA4-аналітика.
+ * Події: page_view, scroll_depth, cta_click, contact_click, form_start, form_submit, cost_estimate.
  */
 
 type GtagParams = Record<string, string | number | undefined>;
@@ -27,18 +18,16 @@ const trackEvent = (eventName: string, params: GtagParams = {}) => {
   }
 };
 
-/** Инициализация глобальных слушателей (scroll_depth + cta_click). Один раз. */
 export function initAnalytics(): void {
   if (typeof window === "undefined") return;
-  if (window.__analyticsScrollDepths) return; // уже инициализировано
+  if (window.__analyticsScrollDepths) return;
   window.__analyticsScrollDepths = new Set<number>();
 
   const handleScroll = () => {
-    const scrollPercent = Math.round(
-      ((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight) * 100
-    );
-    const milestones = [25, 50, 75, 100];
-    milestones.forEach(milestone => {
+    const pageHeight = document.documentElement.scrollHeight;
+    if (!pageHeight) return;
+    const scrollPercent = Math.round(((window.scrollY + window.innerHeight) / pageHeight) * 100);
+    [25, 50, 75, 100].forEach(milestone => {
       const seen = window.__analyticsScrollDepths!;
       if (scrollPercent >= milestone && !seen.has(milestone)) {
         seen.add(milestone);
@@ -48,8 +37,8 @@ export function initAnalytics(): void {
   };
   window.addEventListener("scroll", handleScroll, { passive: true });
 
-  const handleGlobalClick = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
+  const handleGlobalClick = (event: MouseEvent) => {
+    const target = event.target as HTMLElement;
     const ctaElement = target.closest("[data-cta-name]");
     if (ctaElement) {
       trackEvent("cta_click", {
@@ -57,21 +46,36 @@ export function initAnalytics(): void {
         page_path: location.pathname,
       });
     }
+
+    const link = target.closest("a") as HTMLAnchorElement | null;
+    if (!link) return;
+    const href = link.getAttribute("href") || "";
+    let contactType = "";
+    if (href.startsWith("tel:")) contactType = "phone";
+    else if (href.startsWith("mailto:")) contactType = "email";
+    else if (/t\.me|telegram/i.test(href)) contactType = "telegram";
+    else if (/viber/i.test(href)) contactType = "viber";
+    else if (/instagram/i.test(href)) contactType = "instagram";
+
+    if (contactType) {
+      trackEvent("contact_click", {
+        contact_type: contactType,
+        page_path: location.pathname,
+      });
+    }
   };
   window.addEventListener("click", handleGlobalClick);
 }
 
-/** SPA-навигация: шлём page_view для нового пути (кроме первого, который уже учтён gtag config). */
 export function trackPageView(path: string): void {
+  window.__analyticsScrollDepths?.clear();
   trackEvent("page_view", { page_path: path });
 }
 
-/** Первое взаимодействие с формой брифа. */
 export function trackFormStart(pagePath: string): void {
   trackEvent("form_start", { page_path: pagePath });
 }
 
-/** Успешная отправка брифа. */
 export function trackFormSubmit(pagePath: string): void {
   trackEvent("form_submit", { page_path: pagePath });
 }
