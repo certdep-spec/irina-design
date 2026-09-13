@@ -9,6 +9,7 @@ import FloatingCTA from "./components/FloatingCTA";
 import { initAnalytics, trackPageView } from "./lib/analytics";
 const Home = lazy(() => import("./pages/Home"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
+const PortfolioCase = lazy(() => import("./pages/PortfolioCase"));
 const Services = lazy(() => import("./pages/Services"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -76,6 +77,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/portfolio/:id" element={<PortfolioCase />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/useful" element={<Useful />} />
                 <Route path="/useful/:slug" element={<UsefulArticle />} />
