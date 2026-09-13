@@ -5,8 +5,8 @@ import { assetUrl } from "../lib/asset";
 
 /**
  * Hero Component
- * Main landing section with call-to-action and SEO improvements
- * Uses responsive WebP images for performance (640w/1024w/1920w)
+ * Main landing section focused on a clear local offer and conversion.
+ * Uses responsive WebP images for performance (640w/1024w/1920w).
  */
 const Hero: React.FC = () => {
   // На сервере (пререндер) не прячем контент под opacity:0 —
@@ -30,7 +30,6 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative h-screen-dvh min-h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Background Image — responsive WebP with fallback */}
       <div className="absolute inset-0">
         <picture>
           <source
@@ -45,46 +44,58 @@ const Hero: React.FC = () => {
             decoding="async"
           />
         </picture>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/50"></div>
       </div>
 
-      {/* Content */}
       <motion.div
         {...appearSlow}
-        className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto -mt-24"
+        className="relative z-10 text-center text-white px-6 max-w-5xl mx-auto -mt-16"
       >
+        <motion.p
+          {...appear(0.2)}
+          className="text-xs md:text-sm uppercase tracking-[0.24em] text-stone-200 mb-5"
+        >
+          Вінниця · Вінницька область · дистанційно по Україні
+        </motion.p>
         <motion.h1
           {...appear(0.3)}
           className="text-4xl md:text-6xl lg:text-7xl font-serif font-semibold mb-6 leading-tight"
         >
-          Дизайн інтер'єру <span className="text-stone-300">та меблів</span>
+          Дизайн інтер'єру <span className="text-stone-300">від планування до реалізації</span>
         </motion.h1>
         <motion.p
           {...appear(0.5)}
-          className="text-lg md:text-xl mb-10 font-light tracking-wide text-stone-100 max-w-2xl mx-auto"
+          className="text-lg md:text-xl mb-4 font-light tracking-wide text-stone-100 max-w-3xl mx-auto"
         >
-          Створюємо інтер'єри та меблі, що відображають ваш стиль життя. Раціональне інвестування в
-          комфорт без переробок.
+          Продумуємо планування, візуалізацію, креслення та меблі так, щоб ремонт був зрозумілим ще до початку робіт.
+        </motion.p>
+        <motion.p
+          {...appear(0.58)}
+          className="text-sm md:text-base mb-9 text-stone-200 max-w-2xl mx-auto"
+        >
+          Надішліть площу й тип об'єкта — підкажемо відповідний формат роботи та орієнтир за вартістю.
         </motion.p>
         <motion.div {...appear(0.7)} className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             to="/contact#contact-form"
-            data-cta-name="hero_consultation"
+            data-cta-name="hero_estimate"
             className="btn-primary min-h-[52px] flex items-center justify-center shadow-lg hover:shadow-xl"
           >
-            Безкоштовна консультація
+            Розрахувати вартість
           </Link>
           <Link
             to="/portfolio"
             data-cta-name="hero_portfolio"
             className="btn-secondary border-white text-white hover:bg-white hover:text-stone-900 min-h-[52px] flex items-center justify-center"
           >
-            Переглянути проєкти
+            Подивитися проєкти
           </Link>
         </motion.div>
+        <motion.p {...appear(0.85)} className="mt-5 text-xs md:text-sm text-stone-200">
+          Коротка первинна консультація — безкоштовно
+        </motion.p>
       </motion.div>
 
-      {/* Scroll Indicator */}
       <motion.div
         {...(SSR
           ? {}
