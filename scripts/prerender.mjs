@@ -38,7 +38,7 @@ const LEGACY_ROUTES = [
   "/useful/yak-pravylno-splanuvaty-harderobnu",
   "/useful/yak-orhanizuvaty-zberihannia-u-nevelykii-kvartyri",
   "/useful/yak-splanuvaty-vannu-kimnatu",
-  "/useful/yak-pravylno-roztashuvaty-santekhniku-u-vannii",
+  "/useful/yak-pravylno-roztashovuvaty-santekhniku-u-vannii",
   "/useful/yak-splanuvaty-pryvatnyi-budynok",
   "/useful/planuvannia-kvartyry-ta-pryvatnoho-budynku",
   "/useful/z-choho-pochaty-remont-kvartyry",
@@ -78,12 +78,12 @@ const LEGACY_ROUTES = [
   "/useful/avtorskyi-nahliad-shcho-tse-i-navishcho",
 ];
 const sitemapPath = path.join(distDir, "sitemap.xml");
-const articleRoutes = fs.existsSync(sitemapPath)
+const sitemapRoutes = fs.existsSync(sitemapPath)
   ? [...fs.readFileSync(sitemapPath, "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)]
       .map(([, url]) => new URL(url).pathname)
-      .filter(route => route.startsWith("/useful/"))
+      .filter(route => route.startsWith("/useful/") || route.startsWith("/portfolio/"))
   : [];
-const ROUTES = [...new Set([...LEGACY_ROUTES, ...articleRoutes])];
+const ROUTES = [...new Set([...LEGACY_ROUTES, ...sitemapRoutes])];
 const ROOT_DIV = '<div id="root"></div>';
 
 async function main() {
