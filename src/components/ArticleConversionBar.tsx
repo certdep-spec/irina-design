@@ -20,7 +20,7 @@ export default function ArticleConversionBar() {
             Подивитися послуги
           </Link>
           <Link
-            to="/portfolio/i1"
+            to="/portfolio/zhytlovyi-interier-120-m2"
             data-cta-name="article_to_case"
             className="btn-secondary min-h-[48px] inline-flex items-center justify-center"
           >
