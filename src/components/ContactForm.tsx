@@ -120,7 +120,7 @@ function ContactForm() {
         throw new Error("Помилка при відправці");
       }
     } catch {
-      setSubmitError("Сталася помилка. Спробуйте ще раз або зателефонуйте нам.");
+      setSubmitError("Не вдалося надіслати заявку. Спробуйте ще раз або зателефонуйте мені.");
     } finally {
       setIsSubmitting(false);
     }
@@ -129,9 +129,9 @@ function ContactForm() {
   if (submitSuccess) {
     return (
       <div className="bg-stone-900 text-white p-10 rounded-2xl text-center animate-fade-in shadow-2xl">
-        <h3 className="text-3xl font-serif font-semibold mb-4">Дякуємо! Заявку отримано.</h3>
+        <h3 className="text-3xl font-serif font-semibold mb-4">Дякую, заявку отримала.</h3>
         <p className="text-stone-300 text-lg">
-          Переглянемо площу та формат об'єкта і зв'яжемося з вами для уточнення задачі та вартості.
+          Перегляну ваші дані й зв'яжуся з вами, щоб уточнити деталі та зорієнтувати по вартості.
         </p>
       </div>
     );
@@ -143,10 +143,10 @@ function ContactForm() {
       className="space-y-6 bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-stone-100"
     >
       <div className="mb-2">
-        <p className="text-xs uppercase tracking-[0.2em] text-stone-400 mb-2">Короткий бриф</p>
-        <h3 className="text-2xl font-serif font-semibold text-stone-900">Отримати розрахунок</h3>
+        <p className="text-xs uppercase tracking-[0.2em] text-stone-400 mb-2">Коротко про ваш проєкт</p>
+        <h3 className="text-2xl font-serif font-semibold text-stone-900">Дізнатися орієнтовну вартість</h3>
         <p className="text-stone-600 mt-2">
-          Заповніть основні дані. Детальний опис не обов'язковий — уточнимо все під час контакту.
+          Залиште кілька деталей про об'єкт. Якщо з чимось ще не визначилися, це нормально, уточнимо під час розмови.
         </p>
       </div>
 
@@ -227,7 +227,7 @@ function ContactForm() {
 
         <div>
           <label htmlFor="budget" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">
-            Бюджет реалізації
+            Бюджет на реалізацію
           </label>
           <select
             id="budget"
@@ -246,7 +246,7 @@ function ContactForm() {
 
       {areaNumber && formData.objectType !== "furniture" && (
         <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 text-sm text-stone-600">
-          Площа <strong className="text-stone-900">{areaNumber} м²</strong> допоможе одразу зорієнтуватися у форматі та обсязі робіт. Точну вартість підтвердимо після короткого уточнення задачі.
+          За площею <strong className="text-stone-900">{areaNumber} м²</strong> я зможу швидше зорієнтувати вас по обсягу роботи. Точну вартість скажу після короткого уточнення деталей.
         </div>
       )}
 
@@ -269,7 +269,7 @@ function ContactForm() {
 
       <div>
         <label htmlFor="message" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">
-          Що важливо врахувати?
+          Що ще варто знати?
         </label>
         <textarea
           id="message"
@@ -278,7 +278,7 @@ function ContactForm() {
           value={formData.message}
           onChange={handleChange}
           className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-lg focus:ring-2 focus:ring-stone-800 transition-all resize-none"
-          placeholder="Наприклад: новобудова, потрібне перепланування і кухня на замовлення. Можна залишити порожнім."
+          placeholder="Наприклад: новобудова, хочемо перепланування і кухню на замовлення. Поле можна залишити порожнім."
         />
       </div>
 
@@ -308,11 +308,11 @@ function ContactForm() {
         className="btn-primary w-full min-h-[52px] flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
       >
         <FiSend className={`group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform ${isSubmitting ? "animate-pulse" : ""}`} />
-        <span>{isSubmitting ? "Відправка..." : "Отримати розрахунок"}</span>
+        <span>{isSubmitting ? "Відправка..." : "Дізнатися орієнтовну вартість"}</span>
       </button>
 
       <p className="text-xs text-stone-500 text-center">
-        Після заявки зв'яжемося, уточнимо задачу та запропонуємо відповідний формат роботи.
+        Після заявки я зв'яжуся з вами і уточню деталі проєкту.
       </p>
     </form>
   );
