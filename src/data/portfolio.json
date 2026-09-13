@@ -1,6 +1,7 @@
 [
   {
     "id": "i1",
+    "slug": "zhytlovyi-interier-120-m2",
     "title": "Житловий інтер'єр",
     "category": "interior",
     "meta": "120 м² • мінімалізм",
@@ -35,6 +36,7 @@
   },
   {
     "id": "i2",
+    "slug": "komertsiinyi-prostir-kafe-85-m2",
     "title": "Комерційний простір",
     "category": "interior",
     "meta": "кафе • 85 м²",
@@ -55,6 +57,7 @@
   },
   {
     "id": "f1",
+    "slug": "dyzain-kukhni",
     "title": "Кухні",
     "category": "furniture",
     "meta": "65 м² • сучасний стиль",
@@ -80,6 +83,7 @@
   },
   {
     "id": "f2",
+    "slug": "harderobna-systema",
     "title": "Гардеробна система",
     "category": "furniture",
     "meta": "квартира • індивідуальний проєкт",
@@ -100,6 +104,7 @@
   },
   {
     "id": "f3",
+    "slug": "indyvidualni-mebli",
     "title": "Інші меблі",
     "category": "furniture",
     "meta": "нестандартне планування",
