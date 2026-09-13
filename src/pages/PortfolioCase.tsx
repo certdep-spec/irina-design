@@ -4,9 +4,11 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { Image } from "../components/Image";
 import { portfolioCases } from "../data/portfolio";
 
+const SITE_URL = "https://irina-design.vercel.app";
+
 function PortfolioCase() {
   const { id } = useParams();
-  const item = portfolioCases.find(project => project.id === id);
+  const item = portfolioCases.find(project => project.slug === id || project.id === id);
 
   if (!item) return <Navigate to="/portfolio" replace />;
 
@@ -14,7 +16,26 @@ function PortfolioCase() {
     item.description ||
     [item.task, item.solution].filter(Boolean).join(" ") ||
     `${item.title}. Приклад роботи дизайнера інтер'єру та меблів Ірини.`;
-  const canonical = `https://irina-design.vercel.app/portfolio/${item.id}`;
+  const canonical = `${SITE_URL}/portfolio/${item.slug}`;
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Головна", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Портфоліо", item: `${SITE_URL}/portfolio` },
+      { "@type": "ListItem", position: 3, name: item.title, item: canonical },
+    ],
+  };
+  const creativeWorkLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: item.title,
+    description,
+    image: `${SITE_URL}${item.coverImage}`,
+    url: canonical,
+    creator: { "@type": "Person", name: "Ірина" },
+    inLanguage: "uk-UA",
+  };
 
   return (
     <article className="bg-white min-h-screen">
@@ -26,7 +47,12 @@ function PortfolioCase() {
         <meta property="og:url" content={canonical} />
         <meta property="og:title" content={`${item.title} — портфоліо Ірини`} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={`https://irina-design.vercel.app${item.coverImage}`} />
+        <meta property="og:image" content={`${SITE_URL}${item.coverImage}`} />
+        <meta name="twitter:title" content={`${item.title} — портфоліо Ірини`} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={`${SITE_URL}${item.coverImage}`} />
+        <script type="application/ld+json">{JSON.stringify(breadcrumbLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(creativeWorkLd)}</script>
       </Helmet>
 
       <header className="px-6 md:px-12 pt-12 md:pt-16 pb-10 bg-stone-50 border-b border-stone-200">
@@ -73,13 +99,22 @@ function PortfolioCase() {
               <p className="text-stone-300 mb-5">
                 Напишіть тип об'єкта та площу. Я підкажу, з чого можна почати і скільки приблизно коштуватиме робота.
               </p>
-              <Link
-                to="/contact#contact-form"
-                data-cta-name={`case_${item.id}_estimate`}
-                className="inline-flex items-center gap-2 bg-white text-stone-900 px-6 py-3"
-              >
-                Дізнатися вартість <FiArrowRight />
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link
+                  to="/contact#contact-form"
+                  data-cta-name={`case_${item.id}_estimate`}
+                  className="inline-flex items-center justify-center gap-2 bg-white text-stone-900 px-6 py-3"
+                >
+                  Дізнатися вартість <FiArrowRight />
+                </Link>
+                <Link
+                  to="/services"
+                  data-cta-name={`case_${item.id}_services`}
+                  className="inline-flex items-center justify-center px-6 py-3 border border-stone-600 text-white hover:border-white transition"
+                >
+                  Послуги та ціни
+                </Link>
+              </div>
             </div>
           </div>
 
