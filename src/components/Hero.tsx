@@ -42,6 +42,7 @@ const Hero: React.FC = () => {
             alt="Сучасний дизайн інтер'єру у Вінниці"
             className="w-full h-full object-cover"
             decoding="async"
+            fetchPriority="high"
           />
         </picture>
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/25 to-black/50"></div>
