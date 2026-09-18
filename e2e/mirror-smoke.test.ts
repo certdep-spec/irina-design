@@ -145,7 +145,7 @@ test.describe("Mirror smoke tests", () => {
     }
   });
 
-  test("Статика: sitemap містить щонайменше 100 статей, 5 кейсів і robots", async ({ page }) => {
+  test("Статика: sitemap містить 100 статей, 5 кейсів і robots", async ({ page }) => {
     const favicon = await page.request.get(BASE_URL + "/favicon.svg");
     expect(favicon.status()).toBe(200);
 
@@ -153,7 +153,7 @@ test.describe("Mirror smoke tests", () => {
     expect(sitemap.status()).toBe(200);
     const sitemapText = await sitemap.text();
     const urls = (sitemapText.match(/<url>/g) || []).length;
-    expect(urls).toBe(112);
+    expect(urls).toBe(111);
     expect(sitemapText).toContain("/useful/skilky-rozetok-potribno-u-kvartyri");
     expect(sitemapText).toContain("/useful/vid-idei-do-hotovoho-interieru");
     expect(sitemapText).toContain("/portfolio/zhytlovyi-interier-120-m2");
@@ -168,7 +168,7 @@ test.describe("Mirror smoke tests", () => {
     const articlePaths = [...sitemapText.matchAll(/<loc>[^<]+(\/useful\/[^<]+)<\/loc>/g)].map(
       match => match[1]
     );
-    expect(articlePaths.length).toBeGreaterThanOrEqual(100);
+    expect(articlePaths).toHaveLength(100);
 
     for (const path of articlePaths) {
       const response = await page.request.get(BASE_URL + path);
