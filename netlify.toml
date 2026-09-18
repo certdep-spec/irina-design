@@ -40,42 +40,8 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
-# SPA: только реальные маршруты отдают index.html, остальное — настоящий 404
-[[redirects]]
-  from = "/"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/about"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/portfolio"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/services"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/useful"
-  to = "/useful/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/useful/*"
-  to = "/useful/:splat/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/contact"
-  to = "/index.html"
-  status = 200
-
+# Public routes are prerendered to dist/<route>/index.html.
+# Keep only the admin SPA fallback and a real 404 for unknown paths.
 [[redirects]]
   from = "/admin"
   to = "/index.html"
