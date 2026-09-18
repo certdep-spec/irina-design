@@ -7,7 +7,7 @@ Updated: 2026-09-18
 ### List.in.ua
 The business appears in multiple Vinnytsia category/search pages under the name **«Дизайн інтер'єру та меблів»** with phone **+38 (096) 459-98-85**.
 
-Current issue: the listing still points to the old site:
+Current issue confirmed again by public search on 2026-09-18: the listing still points to the old site:
 - `irina-design.netlify.app`
 
 Action:
@@ -22,7 +22,7 @@ Public examples:
 - https://list.in.ua/Вінниця/дизайн-студія
 
 ### vinnicya.vn.ua
-The local directory shows **«Дизайнер інтер'єру та меблів»** with phone **(096) 459-98-85** in its interior-design and construction categories.
+Public search on 2026-09-18 confirmed the local directory still shows **«Дизайнер інтер'єру та меблів»** with phone **(096) 459-98-85** in its interior-design and construction categories.
 
 Action:
 - claim/edit the listing if possible;
@@ -34,6 +34,8 @@ Public example:
 - https://vinnicya.vn.ua/company/dyzayn-interyera-landshaftnyy-dyzayn
 
 ## Google Business Profile
+A structured local-business search on 2026-09-18 did not surface a profile matching the exact business name/phone used on the site. This is not proof that a profile does not exist; local search can miss or rank profiles differently.
+
 Public web search is not sufficient to confirm account ownership or profile settings.
 
 Manual account check required:
