@@ -82,10 +82,10 @@ function Contact() {
                     <FiMapPin className="text-stone-700" size={20} />
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-1 text-stone-800">Адреса</h3>
-                    <p className="text-stone-600">м. Вінниця, Україна</p>
+                    <h3 className="font-semibold mb-1 text-stone-800">Географія роботи</h3>
+                    <p className="text-stone-600">Вінниця та Вінницька область</p>
                     <p className="text-sm text-stone-500 mt-1">
-                      Працюємо по всій Вінницькій області
+                      Дистанційно працюю з проєктами по Україні
                     </p>
                   </div>
                 </div>
@@ -103,7 +103,6 @@ function Contact() {
                       096 459 98 85
                     </a>
                     <p className="text-sm text-stone-500 mt-1">Viber, WhatsApp, Telegram</p>
-                    <p className="text-sm text-stone-500">Пн-Пт: 9:00 - 18:00</p>
                   </div>
                 </div>
 
@@ -125,7 +124,7 @@ function Contact() {
 
               {/* Social Media */}
               <div className="mb-10">
-                <h3 className="font-semibold mb-4 text-stone-800">Ми в соціальних мережах</h3>
+                <h3 className="font-semibold mb-4 text-stone-800">Соціальні мережі</h3>
                 <div className="flex space-x-4">
                   <a
                     href="https://www.facebook.com/profile.php?id=100063828644118"
@@ -166,18 +165,11 @@ function Contact() {
                 </div>
               </div>
 
-              {/* Map Placeholder */}
-              <div className="bg-stone-200 h-64 rounded-sm overflow-hidden">
-                <iframe
-                  title="Офіс у Вінниці"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d41756.23467664317!2d28.4354271!3d49.2327827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472d5b65195a6489%3A0xc311145a539111!2z0JLQuNC90L3QuNGG0LAsINCS0LjQvdC90LjRhtC60LDRjyDQvtCx0LvQsNGB0YLRjCwg0KPQutGA0LDQuNC90LAsIDIxMDAw!5e0!3m2!1suk!2sua!4v1715500000000!5m2!1suk!2sua"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
+              <div className="rounded-xl bg-stone-100 border border-stone-200 p-6">
+                <h3 className="font-semibold text-stone-800 mb-2">Як можна працювати</h3>
+                <p className="text-stone-600 leading-relaxed">
+                  У Вінниці та області можливі зустрічі й виїзди на об'єкт за домовленістю. Інші проєкти можна вести дистанційно.
+                </p>
               </div>
             </div>
           </div>
