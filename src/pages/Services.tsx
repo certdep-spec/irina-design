@@ -92,6 +92,24 @@ function Services() {
     },
   ];
 
+  const serviceListLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Послуги дизайнера інтер'єру Ірини",
+    itemListElement: services.map((service, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      item: {
+        "@type": "Service",
+        name: service.title,
+        description: service.description,
+        provider: { "@id": "https://irina-design.vercel.app/#business" },
+        areaServed: ["Вінниця", "Вінницька область", "Україна"],
+        url: "https://irina-design.vercel.app/services",
+      },
+    })),
+  };
+
   const faq = [
     {
       q: "Скільки часу займає розробка дизайн-проєкту?",
@@ -139,6 +157,7 @@ function Services() {
           name="twitter:description"
           content="Планування, повний дизайн-проєкт, авторський супровід і дизайн меблів у Вінниці та дистанційно."
         />
+        <script type="application/ld+json">{JSON.stringify(serviceListLd)}</script>
         <script type="application/ld+json">
           {`
             {
