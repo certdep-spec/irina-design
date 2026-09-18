@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface NavLink {
   path: string;
@@ -84,14 +83,9 @@ const Header: React.FC = () => {
           </button>
         </div>
 
-        <AnimatePresence>
           {isMenuOpen && (
-            <motion.div
+            <div
               id="mobile-nav"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ type: "spring", bounce: 0, duration: 0.35 }}
               className="md:hidden overflow-hidden"
             >
               <div className="flex flex-col space-y-4 pb-4 border-t border-stone-100 pt-6 mt-4">
@@ -108,9 +102,8 @@ const Header: React.FC = () => {
                   </Link>
                 ))}
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
       </nav>
     </header>
   );
