@@ -23,6 +23,8 @@ function Services() {
         "Консультація щодо зонування",
       ],
       badge: "Швидкий старт",
+      caseHref: "/portfolio/zhytlovyi-interier-120-m2",
+      caseLabel: "Подивитися житловий проєкт",
     },
     {
       icon: FiHome,
@@ -44,6 +46,8 @@ function Services() {
       ],
       badge: "Популярний вибір",
       isPopular: true,
+      caseHref: "/portfolio/zhytlovyi-interier-120-m2",
+      caseLabel: "Подивитися приклад повного проєкту",
     },
     {
       icon: FiMonitor,
@@ -63,6 +67,8 @@ function Services() {
         "Уточнення та коригування рішень у процесі ремонту",
       ],
       badge: "Супровід",
+      caseHref: "/portfolio/zhytlovyi-interier-120-m2",
+      caseLabel: "Подивитися приклад проєкту",
     },
     {
       icon: FiBox,
@@ -81,6 +87,8 @@ function Services() {
         "Підбір матеріалів (ДСП, фасади, фурнітура)",
         "Розміщення розеток під кухонну техніку",
       ],
+      caseHref: "/portfolio/dyzain-kukhni",
+      caseLabel: "Подивитися проєкт кухні",
     },
   ];
 
@@ -255,6 +263,13 @@ function Services() {
                     className={`inline-flex items-center justify-center w-full min-h-[48px] mt-2 ${service.isPopular ? "btn-primary" : "border border-stone-300 text-stone-800 hover:bg-stone-50 transition"}`}
                   >
                     Запитати про цю послугу
+                  </Link>
+                  <Link
+                    to={service.caseHref}
+                    data-cta-name={`services_${index}_case`}
+                    className="inline-flex items-center justify-center w-full min-h-[44px] text-sm text-stone-600 underline underline-offset-4 hover:text-stone-900 transition"
+                  >
+                    {service.caseLabel}
                   </Link>
                 </div>
               </div>
