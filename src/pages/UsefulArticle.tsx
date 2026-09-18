@@ -46,9 +46,10 @@ const UsefulArticle: React.FC = () => {
     description: seoDescription,
     datePublished: article.updatedAt,
     dateModified: article.updatedAt,
-    author: { "@type": "Person", name: "Ірина" },
-    publisher: { "@type": "Organization", name: "Студія Ірини" },
+    author: { "@id": `${SITE_URL}/about#iryna` },
+    publisher: { "@id": `${SITE_URL}/#business` },
     mainEntityOfPage: canonical,
+    image: article.cover ? `${SITE_URL}${article.cover}` : undefined,
     inLanguage: "uk-UA",
   };
   const breadcrumbLd = {
