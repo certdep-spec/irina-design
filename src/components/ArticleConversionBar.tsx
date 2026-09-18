@@ -1,10 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import { publishedUsefulArticles, type UsefulCategoryId } from "../data/usefulArticles";
 
-const caseByCategory: Record<
-  UsefulCategoryId,
-  { href: string; label: string; title: string; text: string }
-> = {
+type ConversionConfig = { href: string; label: string; title: string; text: string };
+
+const caseByCategory: Record<UsefulCategoryId, ConversionConfig> = {
   design: {
     href: "/portfolio/zhytlovyi-interier-120-m2",
     label: "Подивитися житловий проєкт",
@@ -55,11 +54,123 @@ const caseByCategory: Record<
   },
 };
 
+
+const intentOverrides: Record<string, ConversionConfig> = {
+  "skilky-koshtuie-dyzain-interieru-u-vinnytsi": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися житловий проєкт",
+    title: "Хочете порахувати вартість для свого об'єкта?",
+    text: "Надішліть площу та тип приміщення. Я зорієнтую по формату роботи й вартості саме для вашої задачі.",
+  },
+  "yak-formuietsia-tsina-dyzain-proiektu": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися приклад проєкту",
+    title: "Потрібен точніший розрахунок, ніж ціна за м²?",
+    text: "Напишіть площу й що хочете отримати від проєкту. Так простіше зрозуміти реальний обсяг роботи.",
+  },
+  "navishcho-potriben-dyzainer-interieru-pered-remontom": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися приклад проєкту",
+    title: "Ще не почали ремонт?",
+    text: "Це найзручніший момент перевірити планування, електрику, меблі й ключові рішення до виходу бригади.",
+  },
+  "dyzain-proiekt-chy-samostiinyi-remont": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися повний проєкт",
+    title: "Не впевнені, чи потрібен повний дизайн-проєкт?",
+    text: "Можна коротко описати об'єкт і задачу. Я підкажу, де достатньо планування, а де креслення й візуалізації справді потрібні.",
+  },
+  "planuvannia-chy-povnyi-dyzain-proiekt": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися повний проєкт",
+    title: "Потрібно вибрати між плануванням і повним проєктом?",
+    text: "Напишіть площу, стан об'єкта і що плануєте змінювати. Цього достатньо, щоб зорієнтуватися по формату.",
+  },
+  "yak-pravylno-splanuvaty-kvartyru-pered-remontom": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися планування в проєкті",
+    title: "Є план квартири від забудовника?",
+    text: "Можемо перевірити його до ремонту: проходи, меблі, зберігання, кухню та прив'язки до інженерії.",
+  },
+  "typovi-pomylky-planuvannia-kvartyry": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися житловий кейс",
+    title: "Хочете перевірити своє планування до ремонту?",
+    text: "Надішліть план і коротко опишіть склад сім'ї та основні побажання. Так можна побачити слабкі місця ще до будівельних робіт.",
+  },
+  "skilky-koshtuie-remont-kvartyry-u-vinnytsi": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися приклад проєкту",
+    title: "Рахуєте бюджет ремонту?",
+    text: "Дизайн-проєкт не замінює кошторис, але допомагає заздалегідь визначити рішення, які найбільше впливають на витрати.",
+  },
+  "yak-sklasty-biudzhet-remontu-kvartyry": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися приклад проєкту",
+    title: "Хочете пов'язати бюджет із конкретними рішеннями?",
+    text: "Можемо спочатку визначити планування, матеріали та меблі, а вже потім перевіряти, що вкладається у ваш бюджет.",
+  },
+  "yak-ne-vyity-za-mezhi-biudzhetu-remontu": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися приклад проєкту",
+    title: "Потрібно зменшити кількість несподіваних витрат?",
+    text: "Чим більше рішень зафіксовано до старту робіт, тим менше дорогих змін доводиться робити вже на об'єкті.",
+  },
+  "yak-pravylno-splanuvaty-kukhniu": {
+    href: "/portfolio/dyzain-kukhni",
+    label: "Подивитися проєкт кухні",
+    title: "Є розміри майбутньої кухні?",
+    text: "Надішліть їх разом із побажаннями по техніці та зберіганню. Можемо окремо розібрати планування кухні.",
+  },
+  "typovi-pomylky-proiektuvannia-kukhni": {
+    href: "/portfolio/dyzain-kukhni",
+    label: "Подивитися проєкт кухні",
+    title: "Хочете перевірити кухню до замовлення меблів?",
+    text: "Краще перевірити техніку, проходи, відкривання фасадів, розетки й робочі зони до запуску меблів у виробництво.",
+  },
+  "yak-sproiektuvaty-zruchnu-vbudovanu-kukhniu": {
+    href: "/portfolio/dyzain-kukhni",
+    label: "Подивитися кухні",
+    title: "Плануєте вбудовану кухню?",
+    text: "Можемо спроєктувати її під ваше приміщення, техніку, звички й реальні місця зберігання.",
+  },
+  "mebli-na-zamovlennia-chy-hotovi": {
+    href: "/portfolio/indyvidualni-mebli",
+    label: "Подивитися меблі на замовлення",
+    title: "Не впевнені, чи потрібні меблі на замовлення?",
+    text: "Покажіть план або фото місця. Я підкажу, де індивідуальне рішення справді дає перевагу, а де можна обійтися готовими меблями.",
+  },
+  "koly-varto-zamovliaty-indyvidualni-mebli": {
+    href: "/portfolio/indyvidualni-mebli",
+    label: "Подивитися меблі на замовлення",
+    title: "Є нестандартне місце під меблі?",
+    text: "Надішліть розміри або план. Можемо окремо продумати конструкцію, наповнення і те, як меблі працюватимуть у кімнаті.",
+  },
+  "yak-pravylno-sproiektuvaty-shafu": {
+    href: "/portfolio/harderobna-systema",
+    label: "Подивитися систему зберігання",
+    title: "Потрібно спроєктувати шафу або гардеробну?",
+    text: "Можемо почати з речей, які потрібно зберігати, і реальних розмірів ніші — так наповнення виходить набагато практичнішим.",
+  },
+  "yak-splanuvaty-harderobnu-systemu": {
+    href: "/portfolio/harderobna-systema",
+    label: "Подивитися гардеробну",
+    title: "Плануєте гардеробну систему?",
+    text: "Надішліть розміри приміщення або ніші. Я допоможу розкласти зберігання так, щоб кожна зона мала зрозуміле призначення.",
+  },
+  "avtorskyi-nahliad-shcho-tse-i-navishcho": {
+    href: "/portfolio/zhytlovyi-interier-120-m2",
+    label: "Подивитися приклад проєкту",
+    title: "Потрібен супровід під час реалізації?",
+    text: "Можемо обговорити, на якому етапі зараз об'єкт і які питання потрібно контролювати під час ремонту.",
+  },
+};
+
 export default function ArticleConversionBar() {
   const location = useLocation();
   const slug = location.pathname.split("/").filter(Boolean).at(-1);
   const article = publishedUsefulArticles.find(item => item.slug === slug);
-  const config = caseByCategory[article?.category ?? "design"];
+  const config = (slug && intentOverrides[slug]) || caseByCategory[article?.category ?? "design"];
 
   return (
     <section className="px-6 md:px-12 pb-16 md:pb-20 bg-white" aria-label="Наступний крок">
