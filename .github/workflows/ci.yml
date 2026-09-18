@@ -93,6 +93,52 @@ jobs:
           vercel-args: "--prod"
           working-directory: ./
 
+  verify-production:
+    name: Verify production SEO
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Wait for Vercel Git integration
+        run: sleep 25
+
+      - name: Verify production HTTP and SEO essentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://irina-design.vercel.app"
+
+          retry() {
+            local attempt=1
+            until "$@"; do
+              if [ "$attempt" -ge 6 ]; then return 1; fi
+              attempt=$((attempt + 1))
+              sleep 10
+            done
+          }
+
+          retry curl -fsS "$BASE/robots.txt" -o robots.txt
+          grep -F "Sitemap: $BASE/sitemap.xml" robots.txt
+
+          retry curl -fsS "$BASE/sitemap.xml" -o sitemap.xml
+          test "$(grep -o '<url>' sitemap.xml | wc -l | tr -d ' ')" = "111"
+          grep -F "$BASE/portfolio/zhytlovyi-interier-120-m2" sitemap.xml
+          grep -F "$BASE/useful/skilky-rozetok-potribno-u-kvartyri" sitemap.xml
+          ! grep -q '<lastmod>' sitemap.xml
+          ! grep -q '<changefreq>' sitemap.xml
+          ! grep -q '<priority>' sitemap.xml
+
+          curl -fsS "$BASE/services" -o services.html
+          grep -F 'rel="canonical" href="https://irina-design.vercel.app/services"' services.html
+          grep -qi '<h1' services.html
+
+          STATUS="$(curl -sS -o 404.html -w '%{http_code}' "$BASE/nonexistent-seo-check-918")"
+          test "$STATUS" = "404"
+          grep -q '404' 404.html
+
+          curl -fsSI "$BASE/admin" -o admin-headers.txt
+          grep -qi '^x-robots-tag: noindex, nofollow' admin-headers.txt
+
   deploy-netlify:
     name: Deploy to Netlify
     runs-on: ubuntu-latest
