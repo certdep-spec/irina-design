@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
           />
           <img
             src={assetUrl("/Paint/hero-main.webp")}
-            alt="Сучасний дизайн інтер'єру — студія у Вінниці"
+            alt="Сучасний дизайн інтер'єру у Вінниці"
             className="w-full h-full object-cover"
             decoding="async"
           />
@@ -92,7 +92,7 @@ const Hero: React.FC = () => {
           </Link>
         </motion.div>
         <motion.p {...appear(0.85)} className="mt-5 text-xs md:text-sm text-stone-200">
-          Перша консультація безкоштовна
+          Для першої розмови достатньо площі та короткого опису задачі
         </motion.p>
       </motion.div>
 
