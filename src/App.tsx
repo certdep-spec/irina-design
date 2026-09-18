@@ -1,6 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { Suspense, lazy, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Header from "./components/Header";
@@ -92,12 +91,7 @@ function App() {
         <Header />
         <main className="flex-grow overflow-x-clip">
           <Suspense fallback={<PageLoader />}>
-            <motion.div
-              key={location.pathname}
-              initial={import.meta.env.SSR ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", bounce: 0, duration: 0.35 }}
-            >
+            <div key={location.pathname}>
               <Routes location={location}>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
@@ -109,7 +103,7 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/admin" element={<Admin />} />
               </Routes>
-            </motion.div>
+            </div>
           </Suspense>
           {isPortfolioIndex && <PortfolioCaseLinks />}
           {isArticle && <ArticleConversionBar />}
