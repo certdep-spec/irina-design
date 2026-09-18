@@ -67,6 +67,10 @@ function App() {
     image: "https://irina-design.vercel.app/Paint/ira-portrait.webp",
     telephone: "+380964599885",
     email: "irina26408@gmail.com",
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=100063828644118",
+      "https://www.instagram.com/nova_art_design/",
+    ],
     areaServed: ["Вінниця", "Вінницька область", "Україна"],
     serviceType: ["Дизайн інтер'єру", "Планування інтер'єру", "Дизайн меблів", "Авторський супровід"],
   };
