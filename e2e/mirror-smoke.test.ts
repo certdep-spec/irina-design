@@ -157,6 +157,9 @@ test.describe("Mirror smoke tests", () => {
     expect(sitemapText).toContain("/useful/skilky-rozetok-potribno-u-kvartyri");
     expect(sitemapText).toContain("/useful/vid-idei-do-hotovoho-interieru");
     expect(sitemapText).toContain("/portfolio/zhytlovyi-interier-120-m2");
+    expect(sitemapText).not.toContain("<changefreq>");
+    expect(sitemapText).not.toContain("<priority>");
+    expect(sitemapText).not.toContain("<lastmod>");
 
     const robots = await page.request.get(BASE_URL + "/robots.txt");
     expect(robots.status()).toBe(200);
