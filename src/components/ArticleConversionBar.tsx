@@ -168,7 +168,8 @@ const intentOverrides: Record<string, ConversionConfig> = {
 
 export default function ArticleConversionBar() {
   const location = useLocation();
-  const slug = location.pathname.split("/").filter(Boolean).at(-1);
+  const pathParts = location.pathname.split("/").filter(Boolean);
+  const slug = pathParts[pathParts.length - 1];
   const article = publishedUsefulArticles.find(item => item.slug === slug);
   const config = (slug && intentOverrides[slug]) || caseByCategory[article?.category ?? "design"];
 
