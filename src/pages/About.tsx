@@ -5,6 +5,21 @@ import { Reveal } from "../components/Reveal";
 import { assetUrl } from "../lib/asset";
 
 function About() {
+  const personLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://irina-design.vercel.app/about#iryna",
+    name: "Ірина",
+    jobTitle: "Дизайнер інтер'єру та меблів",
+    image: "https://irina-design.vercel.app/Paint/ira-portrait.webp",
+    url: "https://irina-design.vercel.app/about",
+    knowsAbout: ["Дизайн інтер'єру", "Планування", "3D-візуалізація", "Дизайн меблів"],
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=100063828644118",
+      "https://www.instagram.com/nova_art_design/",
+    ],
+  };
+
   const skills = ["Archicad", "Enscape"];
 
   const workSteps = [
@@ -55,6 +70,7 @@ function About() {
           name="twitter:description"
           content="Дизайн інтер'єру та меблів у Вінниці й дистанційно: від планування до креслень і реалізації."
         />
+        <script type="application/ld+json">{JSON.stringify(personLd)}</script>
       </Helmet>
 
       <Reveal as="section" className="bg-stone-100 py-20 px-6">
