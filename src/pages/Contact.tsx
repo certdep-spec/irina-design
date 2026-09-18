@@ -31,57 +31,19 @@ function Contact() {
         <link rel="canonical" href="https://irina-design.vercel.app/contact" />
         <meta
           name="description"
-          content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту."
+          content="Контакти дизайнера інтер'єру Ірини у Вінниці. Напишіть про ваш об'єкт, площу та задачу, щоб обговорити формат роботи."
         />
         <meta property="og:url" content="https://irina-design.vercel.app/contact" />
         <meta property="og:title" content="Контакти — Дизайнер інтер'єру Ірина у Вінниці" />
         <meta
           property="og:description"
-          content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту."
+          content="Контакти дизайнера інтер'єру Ірини у Вінниці. Напишіть про ваш об'єкт, площу та задачу, щоб обговорити формат роботи."
         />
         <meta name="twitter:title" content="Контакти — Дизайнер інтер'єру Ірина у Вінниці" />
         <meta
           name="twitter:description"
-          content="Зв'яжіться з нами для замовлення дизайну інтер'єру або меблів у Вінниці. Безкоштовна консультація по вашому проєкту."
+          content="Контакти дизайнера інтер'єру Ірини у Вінниці. Напишіть про ваш об'єкт, площу та задачу, щоб обговорити формат роботи."
         />
-        <script type="application/ld+json">
-          {`
-            {
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              "name": "Ірина · Interior Design",
-              "image": "https://irina-design.vercel.app/Paint/ira-portrait.webp",
-              "telephone": "+380964599885",
-              "email": "irina26408@gmail.com",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Центр міста",
-                "addressLocality": "Вінниця",
-                "addressRegion": "Вінницька область",
-                "postalCode": "21000",
-                "addressCountry": "UA"
-              },
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 49.2331,
-                "longitude": 28.4682
-              },
-              "url": "https://irina-design.vercel.app/contact",
-              "openingHoursSpecification": {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": [
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday"
-                ],
-                "opens": "09:00",
-                "closes": "19:00"
-              }
-            }
-          `}
-        </script>
       </Helmet>
       {/* Hero Section */}
       <Reveal as="section" className="bg-stone-100 py-20 px-6">
@@ -103,8 +65,7 @@ function Contact() {
                 Надішліть повідомлення
               </h2>
               <p className="text-stone-600 mb-8">
-                Заповніть форму, і ми зв'яжемося з вами протягом 24 годин для обговорення деталей
-                вашого проєкту.
+                Вкажіть тип об'єкта, площу та зручний спосіб зв'язку. Я перегляну заявку і напишу або зателефоную, щоб уточнити деталі.
               </p>
               <ContactForm />
             </div>
