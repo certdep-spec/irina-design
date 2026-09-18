@@ -57,7 +57,8 @@ function PortfolioCase() {
     description,
     image: `${SITE_URL}${item.coverImage}`,
     url: canonical,
-    creator: { "@type": "Person", name: "Ірина" },
+    provider: { "@id": `${SITE_URL}/#business` },
+    creator: { "@id": `${SITE_URL}/about#iryna` },
     inLanguage: "uk-UA",
   };
 
