@@ -17,12 +17,12 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 
 ## Phase 2 — Technical SEO on production
 - [ ] Verify `robots.txt` returns 200 and points to production sitemap.
-- [ ] Verify `sitemap.xml` returns 200 and contains all published articles and portfolio cases.
-- [ ] Check canonical tags on Home, Services, Portfolio, 5 cases and a sample of articles.
-- [ ] Check prerendered HTML contains H1 and indexable text without requiring client JavaScript.
+- [ ] Verify `sitemap.xml` returns 200 on production. Build artifact verified: 111 unique URLs, including 100 articles and 5 portfolio cases.
+- [x] Check generated canonical tags on Home, Services, Portfolio, 5 cases and published articles; no mismatches found in the production build artifact.
+- [x] Check prerendered HTML contains one H1 and indexable text without requiring client JavaScript across all 111 sitemap URLs.
 - [ ] Verify unknown URLs return a real HTTP 404.
 - [ ] Check that `/admin` remains noindex.
-- [ ] Validate structured data with Google Rich Results / Schema.org tools.
+- [ ] Validate structured data with Google Rich Results / Schema.org tools. Local build check: 344 JSON-LD blocks parse as valid JSON.
 - [ ] Check mobile performance and Core Web Vitals after release.
 
 ## Phase 3 — Google Search Console
@@ -48,7 +48,7 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 - [x] Add ProfessionalService/local service-area structured data.
 - [ ] Audit Google Business Profile.
 - [x] Make business name, phone, service area and social links consistent in site content/schema.
-- [ ] Update external citations that still point to the old Netlify URL.
+- [ ] Update external citations that still point to the old Netlify URL. Confirmed still present on List.in.ua on 2026-09-18.
 - [ ] Add real project photos and service descriptions.
 - [ ] Build a process for genuine client reviews.
 - [x] Strengthen Home/Services metadata, service schema and local service-area signals for high-intent Vinnytsia searches.
@@ -56,7 +56,7 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 ## Phase 6 — Authority and backlinks
 - [x] Identify relevant local/industry directories and document existing citations/targets in `LOCAL-SEO-AUDIT.md`.
 - [ ] Acquire relevant editorial/local links rather than bulk low-quality links.
-- [ ] Look for unlinked brand mentions and project features.
+- [x] Check current public citations/mentions by phone/name; confirmed listings on List.in.ua and vinnicya.vn.ua. Continue looking for project-feature opportunities.
 
 ## Phase 7 — Ongoing measurement
 - [x] Track CTA, contact actions, form events, cost estimate and scroll depth.
