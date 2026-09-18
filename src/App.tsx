@@ -61,8 +61,12 @@ function App() {
   const professionalServiceLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    "@id": "https://irina-design.vercel.app/#business",
     name: "Ірина — дизайн інтер'єру та меблів",
     url: "https://irina-design.vercel.app",
+    image: "https://irina-design.vercel.app/Paint/ira-portrait.webp",
+    telephone: "+380964599885",
+    email: "irina26408@gmail.com",
     areaServed: ["Вінниця", "Вінницька область", "Україна"],
     serviceType: ["Дизайн інтер'єру", "Планування інтер'єру", "Дизайн меблів", "Авторський супровід"],
   };
