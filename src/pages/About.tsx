@@ -1,36 +1,52 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { FiCheck } from "react-icons/fi";
 import { Reveal } from "../components/Reveal";
 import { assetUrl } from "../lib/asset";
 
 function About() {
+  const personLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://irina-design.vercel.app/about#iryna",
+    name: "Ірина",
+    jobTitle: "Дизайнер інтер'єру та меблів",
+    image: "https://irina-design.vercel.app/Paint/ira-portrait.webp",
+    url: "https://irina-design.vercel.app/about",
+    knowsAbout: ["Дизайн інтер'єру", "Планування", "3D-візуалізація", "Дизайн меблів"],
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=100063828644118",
+      "https://www.instagram.com/nova_art_design/",
+    ],
+  };
+
   const skills = ["Archicad", "Enscape"];
 
   const workSteps = [
     {
       step: "01",
       title: "Обговорення",
-      description: "Визначаємо ваші задачі, стиль і бюджет. Аналізуємо простір.",
+      description: "Знайомлюся з об'єктом, вашими побажаннями, звичками та бюджетом.",
     },
     {
       step: "02",
       title: "Планування",
-      description: "Створюємо зручне та функціональне планування враховуючи побажання замовника.",
+      description: "Шукаємо зручне розташування зон, меблів і проходів.",
     },
     {
       step: "03",
       title: "Візуалізація",
-      description: "Ви бачите майбутній інтер'єр ще до початку ремонту.",
+      description: "Показую, як виглядатиме інтер'єр до початку ремонту.",
     },
     {
       step: "04",
       title: "Документація",
-      description: "Готуємо креслення, які зрозумілі виконавцям робіт.",
+      description: "Готую креслення та інші матеріали, потрібні для реалізації проєкту.",
     },
     {
       step: "05",
       title: "Реалізація",
-      description: "Супроводжую проєкт та допомагаю уникнути помилок.",
+      description: "За потреби супроводжую проєкт і допомагаю уточнювати рішення під час ремонту.",
     },
   ];
 
@@ -41,34 +57,33 @@ function About() {
         <link rel="canonical" href="https://irina-design.vercel.app/about" />
         <meta
           name="description"
-          content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті."
+          content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Планування, візуалізації, креслення та індивідуальні меблі для квартир і будинків."
         />
         <meta property="og:url" content="https://irina-design.vercel.app/about" />
         <meta property="og:title" content="Про мене — Дизайнер інтер'єру Ірина" />
         <meta
           property="og:description"
-          content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті."
+          content="Дизайн інтер'єру та меблів у Вінниці й дистанційно: від планування до креслень і реалізації."
         />
         <meta name="twitter:title" content="Про мене — Дизайнер інтер'єру Ірина" />
         <meta
           name="twitter:description"
-          content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті."
+          content="Дизайн інтер'єру та меблів у Вінниці й дистанційно: від планування до креслень і реалізації."
         />
+        <script type="application/ld+json">{JSON.stringify(personLd)}</script>
       </Helmet>
 
-      {/* HERO */}
       <Reveal as="section" className="bg-stone-100 py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4 text-stone-800">
             Дизайнер інтер'єру та меблів
           </h1>
-          <p className="text-xl text-stone-600">
-            Створюю продумані простори, які виглядають стильно та зручні у повсякденному житті
+          <p className="text-xl text-stone-600 max-w-3xl mx-auto">
+            Я Ірина. Проєктую інтер'єри та меблі так, щоб ще до ремонту було зрозуміло, як простір виглядатиме і як ним буде зручно користуватися.
           </p>
         </div>
       </Reveal>
 
-      {/* MAIN */}
       <Reveal as="section" className="section-padding">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
@@ -82,8 +97,8 @@ function About() {
                   />
                   <img
                     src={assetUrl("/Paint/ira-portrait.webp")}
-                    alt="Ірина — професійний дизайнер інтер'єру та меблів у Вінниці"
-                    loading="lazy"
+                    alt="Ірина — дизайнер інтер'єру та меблів у Вінниці"
+                    loading="eager"
                     decoding="async"
                     className="w-full h-full object-cover"
                   />
@@ -92,40 +107,33 @@ function About() {
               <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-stone-200 rounded-xl -z-10 hidden lg:block"></div>
             </div>
 
-            {/* TEXT */}
             <div>
               <h2 className="text-3xl font-serif font-semibold mb-6 text-stone-800">
-                Ірина — дизайнер інтер'єру та меблів
+                Про мою роботу
               </h2>
 
               <div className="space-y-4 text-stone-600 leading-relaxed">
                 <p>
-                  Я спеціалізуюся на створенні комплексних рішень: від планування простору до
-                  розробки індивідуальних меблів. Це дозволяє зробити інтер'єр не лише красивим, а й
-                  максимально зручним у використанні.
+                  Працюю з інтер'єрами комплексно: починаю з планування, продумую вигляд приміщень, готую креслення і, коли це потрібно, проєктую меблі під конкретний простір.
                 </p>
 
                 <p>
-                  Маю досвід роботи з приміщеннями різного призначення та масштабу, співпрацювала з
-                  клієнтами в Україні та за кордоном.
+                  Маю досвід роботи з приміщеннями різного призначення та масштабу, співпрацювала з клієнтами в Україні та за кордоном.
                 </p>
 
                 <p>
-                  Для мене дизайн — це комфорт, продуманість і гармонія у повсякденному житті. Я
-                  створюю інтер'єри, які поєднують естетику, функціональність і реалістичний підхід
-                  до реалізації.
+                  Мені важливо, щоб проєкт можна було реалізувати, а рішення були зручними саме для людей, які житимуть або працюватимуть у цьому просторі.
                 </p>
 
                 <p>Працюю у Вінниці та дистанційно.</p>
               </div>
 
-              {/* SKILLS */}
               <div className="mt-8">
-                <h3 className="text-lg font-semibold mb-4 text-stone-800">Інструменти в роботі:</h3>
+                <h3 className="text-lg font-semibold mb-4 text-stone-800">Інструменти в роботі</h3>
                 <div className="flex flex-wrap gap-3">
-                  {skills.map((skill, index) => (
+                  {skills.map(skill => (
                     <span
-                      key={index}
+                      key={skill}
                       className="px-4 py-2 bg-stone-100 text-stone-700 text-sm rounded-sm"
                     >
                       {skill}
@@ -133,19 +141,35 @@ function About() {
                   ))}
                 </div>
               </div>
+
+              <div className="mt-9 flex flex-col sm:flex-row gap-3">
+                <Link
+                  to="/portfolio"
+                  data-cta-name="about_portfolio"
+                  className="btn-secondary inline-flex items-center justify-center min-h-[48px]"
+                >
+                  Подивитися проєкти
+                </Link>
+                <Link
+                  to="/contact#contact-form"
+                  data-cta-name="about_contact"
+                  className="btn-primary inline-flex items-center justify-center min-h-[48px]"
+                >
+                  Обговорити мій об'єкт
+                </Link>
+              </div>
             </div>
           </div>
 
-          {/* PROCESS */}
           <div className="mb-20">
             <h2 className="text-3xl font-serif font-semibold text-center mb-12 text-stone-800">
               Як проходить робота
             </h2>
 
             <Reveal className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {workSteps.map((item, index) => (
+              {workSteps.map(item => (
                 <div
-                  key={index}
+                  key={item.step}
                   className="relative p-6 bg-white border border-stone-200 rounded-sm hover:shadow-md transition-shadow"
                 >
                   <span className="text-5xl font-serif font-bold text-stone-100 absolute top-4 right-4">
@@ -164,23 +188,22 @@ function About() {
             </Reveal>
           </div>
 
-          {/* VALUE BLOCK */}
           <Reveal className="bg-stone-50 p-8 md:p-12 rounded-lg border border-stone-200">
             <h2 className="text-3xl font-serif font-semibold text-center mb-8 text-stone-800">
-              Що ви отримуєте
+              Що входить у підхід до проєкту
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {[
-                "Інтер'єр, який реально можна реалізувати",
-                'Продумане планування без "мертвих зон"',
-                "Індивідуальні меблі під ваш простір",
-                "Контроль бюджету без зайвих витрат",
-                "Підтримку на всіх етапах ремонту",
-                "Рішення, адаптовані під ваш спосіб життя",
-              ].map((item, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <FiCheck className="text-green-600 mt-1 flex-shrink-0" size={20} />
+                "Планування під щоденні сценарії та потреби замовника",
+                "Візуалізації, щоб погодити вигляд інтер'єру до ремонту",
+                "Креслення та прив'язки для реалізації",
+                "Меблі, спроєктовані під розміри приміщення",
+                "Урахування бюджету під час вибору рішень",
+                "Супровід під час ремонту, якщо він потрібен",
+              ].map(item => (
+                <div key={item} className="flex items-start space-x-3">
+                  <FiCheck className="text-stone-700 mt-1 flex-shrink-0" size={20} />
                   <span className="text-stone-700 font-medium">{item}</span>
                 </div>
               ))}

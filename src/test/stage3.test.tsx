@@ -37,7 +37,6 @@ describe("Этап 3 — Portfolio modal shows task/solution", () => {
     expect(withTask).toBeTruthy();
 
     renderWithRouter(<Portfolio />);
-    // Кликаем по первой карточке
     const cards = document.querySelectorAll('[data-cta-name^="portfolio_card_"]');
     expect(cards.length).toBeGreaterThan(0);
     fireEvent.click(cards[0] as HTMLElement);
@@ -45,10 +44,8 @@ describe("Этап 3 — Portfolio modal shows task/solution", () => {
     await waitFor(() => {
       expect(screen.getByRole("dialog")).toBeInTheDocument();
     });
-    // Заголовок проекта виден в модалке (ищем в dialog)
     const dialog = screen.getByRole("dialog");
     expect(dialog).toHaveTextContent(withTask!.title);
-    // Хотя бы одно из полей task/solution присутствует в модалке
     expect(dialog.textContent).toMatch(/Завдання|Рішення/);
   });
 
@@ -88,7 +85,6 @@ describe("Этап 3 — analytics form_start / form_submit", () => {
   });
 
   it("успешная отправка → form_submit (мок формы fetch)", async () => {
-    // Мокаем fetch ДО рендера, чтобы перехватить вызов
     const gtag = vi.fn();
     (window as any).gtag = gtag;
     globalThis.fetch = vi.fn(async () => ({ ok: true })) as any;
@@ -97,8 +93,7 @@ describe("Этап 3 — analytics form_start / form_submit", () => {
     fireEvent.change(screen.getByLabelText(/Ім'я/), { target: { value: "Оля" } });
     fireEvent.change(screen.getByLabelText(/Телефон/), { target: { value: "+380991112233" } });
     fireEvent.change(screen.getByLabelText(/Тип об'єкта/), { target: { value: "apartment" } });
-    fireEvent.change(screen.getByLabelText(/Ваші побажання/), { target: { value: "Квартира" } });
-    fireEvent.click(screen.getByText(/Відправити повідомлення/));
+    fireEvent.click(screen.getByRole("button", { name: /Дізнатися орієнтовну вартість/ }));
 
     await waitFor(() => {
       expect(gtag).toHaveBeenCalledWith(

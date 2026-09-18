@@ -7,83 +7,21 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const distDir = path.join(root, "dist");
 const ssrDir = path.join(root, "dist-ssr");
-const LEGACY_ROUTES = [
+const STATIC_ROUTES = [
   "/",
   "/about",
   "/portfolio",
   "/services",
   "/useful",
   "/contact",
-  "/useful/shcho-take-dyzain-proiekt-interieru",
-  "/useful/navishcho-potriben-dyzainer-interieru-pered-remontom",
-  "/useful/skilky-koshtuie-dyzain-interieru-u-vinnytsi",
-  "/useful/yak-formuietsia-tsina-dyzain-proiektu",
-  "/useful/yak-pravylno-postavyty-zavdannia-dyzaineru-interieru",
-  "/useful/yak-prokhodyt-robota-nad-dyzain-proiektom",
-  "/useful/skilky-chasu-zaimaie-rozrobka-dyzain-proiektu",
-  "/useful/dyzain-proiekt-chy-samostiinyi-remont",
-  "/useful/planuvannia-chy-povnyi-dyzain-proiekt",
-  "/useful/3d-vizualizatsiia-interieru-navishcho-potribna",
-  "/useful/robochi-kreslennia-dyzainera",
-  "/useful/yak-dyzain-proiekt-dopomahaie-kontroliuvaty-biudzhet",
-  "/useful/yak-pravylno-splanuvaty-kvartyru-pered-remontom",
-  "/useful/typovi-pomylky-planuvannia-kvartyry",
-  "/useful/yak-pravylno-zonuvaty-prostir-kvartyry",
-  "/useful/yak-zrobyty-malenku-kvartyru-zruchnoiu",
-  "/useful/yak-splanuvaty-kvartyru-studiiu",
-  "/useful/yak-obiednaty-kukhniu-ta-vitalniu",
-  "/useful/kukhnia-vitalnia-perevahy-nedoliky-planuvannia",
-  "/useful/yak-pravylno-splanuvaty-spalniu",
-  "/useful/yak-splanuvaty-dytiachu-kimnatu-na-vyrist",
-  "/useful/yak-pravylno-splanuvaty-harderobnu",
-  "/useful/yak-orhanizuvaty-zberihannia-u-nevelykii-kvartyri",
-  "/useful/yak-splanuvaty-vannu-kimnatu",
-  "/useful/yak-pravylno-roztashuvaty-santekhniku-u-vannii",
-  "/useful/yak-splanuvaty-pryvatnyi-budynok",
-  "/useful/planuvannia-kvartyry-ta-pryvatnoho-budynku",
-  "/useful/z-choho-pochaty-remont-kvartyry",
-  "/useful/pravylna-poslidovnist-remontu-kvartyry",
-  "/useful/roboty-do-pochatku-ozdoblennia",
-  "/useful/skilky-koshtuie-remont-kvartyry-u-vinnytsi",
-  "/useful/yak-sklasty-biudzhet-remontu-kvartyry",
-  "/useful/yak-ne-vyity-za-mezhi-biudzhetu-remontu",
-  "/useful/na-chomu-mozhna-ekonomyty-pid-chas-remontu",
-  "/useful/pomylky-yaki-zbilshuiut-vartist-remontu",
-  "/useful/skilky-chasu-zaimaie-remont-kvartyry",
-  "/useful/yak-kontroliuvaty-yakist-remontu",
-  "/useful/shcho-robyty-yakshcho-remont-perevyshchyv-biudzhet",
-  "/useful/yak-pidhotuvaty-kvartyru-do-remontu",
-  "/useful/skilky-rozetok-potribno-u-kvartyri",
-  "/useful/yak-pravylno-splanuvaty-elektryku-u-kvartyri",
-  "/useful/de-roztashovuvaty-rozetky-ta-vymykachi",
-  "/useful/rozetky-na-kukhni-skilky-i-de",
-  "/useful/elektryka-u-vannii-kimnati",
-  "/useful/yak-splanuvaty-elektryku-u-spalni",
-  "/useful/yak-pravylno-splanuvaty-osvitlennia-kvartyry",
-  "/useful/skilky-svitylnykiv-potribno-dlia-kimnaty",
-  "/useful/teple-chy-kholodne-svitlo-v-interieri",
-  "/useful/tochkovi-svitylnyky-treky-chy-liustra",
-  "/useful/yak-splanuvaty-pidsvichuvannia-kukhni",
-  "/useful/pomylky-planuvannia-elektryky-ta-osvitlennia",
-  "/useful/yak-pravylno-splanuvaty-kukhniu",
-  "/useful/priama-kutova-chy-p-podibna-kukhnia",
-  "/useful/yakoiu-maie-buty-zruchna-kukhnia",
-  "/useful/pravylna-vysota-kukhonnoi-stilnytsi",
-  "/useful/yak-rozmistyty-kholodylnyk-myiku-ta-plytu",
-  "/useful/robochyi-trykutnyk-na-kukhni",
-  "/useful/vidstani-mizh-kukhonnymy-mebliamy",
-  "/useful/yak-splanuvaty-kukhniu-vitalniu",
-  "/useful/yaku-stilnytsiu-vybraty-dlia-kukhni",
-  "/useful/typovi-pomylky-proiektuvannia-kukhni",
-  "/useful/avtorskyi-nahliad-shcho-tse-i-navishcho",
 ];
 const sitemapPath = path.join(distDir, "sitemap.xml");
-const articleRoutes = fs.existsSync(sitemapPath)
+const sitemapRoutes = fs.existsSync(sitemapPath)
   ? [...fs.readFileSync(sitemapPath, "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)]
       .map(([, url]) => new URL(url).pathname)
-      .filter(route => route.startsWith("/useful/"))
+      .filter(route => route.startsWith("/useful/") || route.startsWith("/portfolio/"))
   : [];
-const ROUTES = [...new Set([...LEGACY_ROUTES, ...articleRoutes])];
+const ROUTES = [...new Set([...STATIC_ROUTES, ...sitemapRoutes])];
 const ROOT_DIV = '<div id="root"></div>';
 
 async function main() {

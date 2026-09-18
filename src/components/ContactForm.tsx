@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FiSend } from "react-icons/fi";
 import { API_ENDPOINTS, VALIDATION } from "../constants/api";
 import { trackFormStart, trackFormSubmit } from "../lib/analytics";
@@ -11,7 +11,7 @@ interface FormData {
   area: string;
   budget: string;
   message: string;
-  website: string; // Honeypot field for spam protection
+  website: string;
 }
 
 interface FormErrors {
@@ -19,13 +19,8 @@ interface FormErrors {
   phone?: string;
   email?: string;
   objectType?: string;
-  message?: string;
 }
 
-/**
- * ContactForm Component
- * Handles contact form submission with Telegram integration via Netlify Functions
- */
 function ContactForm() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -43,12 +38,15 @@ function ContactForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [hasStartedFilling, setHasStartedFilling] = useState(false);
 
+  const areaNumber = useMemo(() => {
+    const value = Number(formData.area);
+    return Number.isFinite(value) && value > 0 ? value : null;
+  }, [formData.area]);
+
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Ім'я обов'язкове";
-    }
+    if (!formData.name.trim()) newErrors.name = "Ім'я обов'язкове";
 
     if (!formData.phone.trim()) {
       newErrors.phone = "Телефон обов'язковий";
@@ -60,13 +58,7 @@ function ContactForm() {
       newErrors.email = "Невірний формат email";
     }
 
-    if (!formData.objectType) {
-      newErrors.objectType = "Оберіть тип об'єкта";
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = "Повідомлення обов'язкове";
-    }
+    if (!formData.objectType) newErrors.objectType = "Оберіть тип об'єкта";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -97,11 +89,17 @@ function ContactForm() {
     setIsSubmitting(true);
     setSubmitError(null);
 
+    const autoMessage = `Потрібен розрахунок вартості. Тип об'єкта: ${formData.objectType || "не вказано"}; площа: ${formData.area || "не вказана"} м²; бюджет: ${formData.budget || "не визначено"}.`;
+    const payload = {
+      ...formData,
+      message: formData.message.trim() || autoMessage,
+    };
+
     try {
       const response = await fetch(API_ENDPOINTS.SEND_TELEGRAM, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (response.ok) {
@@ -122,7 +120,7 @@ function ContactForm() {
         throw new Error("Помилка при відправці");
       }
     } catch {
-      setSubmitError("Сталася помилка. Спробуйте ще раз або зателефонуйте нам.");
+      setSubmitError("Не вдалося надіслати заявку. Спробуйте ще раз або зателефонуйте мені.");
     } finally {
       setIsSubmitting(false);
     }
@@ -131,9 +129,9 @@ function ContactForm() {
   if (submitSuccess) {
     return (
       <div className="bg-stone-900 text-white p-10 rounded-2xl text-center animate-fade-in shadow-2xl">
-        <h3 className="text-3xl font-serif font-semibold mb-4">Дякуємо за довіру!</h3>
+        <h3 className="text-3xl font-serif font-semibold mb-4">Дякую, заявку отримала.</h3>
         <p className="text-stone-300 text-lg">
-          Ми отримали ваш бриф і вже вивчаємо деталі. Зв'яжемося з вами найближчим часом.
+          Перегляну ваші дані й зв'яжуся з вами, щоб уточнити деталі та зорієнтувати по вартості.
         </p>
       </div>
     );
@@ -144,12 +142,17 @@ function ContactForm() {
       onSubmit={handleSubmit}
       className="space-y-6 bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-stone-100"
     >
+      <div className="mb-2">
+        <p className="text-xs uppercase tracking-[0.2em] text-stone-400 mb-2">Коротко про ваш проєкт</p>
+        <h3 className="text-2xl font-serif font-semibold text-stone-900">Дізнатися орієнтовну вартість</h3>
+        <p className="text-stone-600 mt-2">
+          Залиште кілька деталей про об'єкт. Якщо з чимось ще не визначилися, це нормально, уточнимо під час розмови.
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label
-            htmlFor="name"
-            className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2"
-          >
+          <label htmlFor="name" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">
             Ім'я *
           </label>
           <input
@@ -158,17 +161,15 @@ function ContactForm() {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            autoComplete="name"
             className={`w-full px-4 py-3 bg-stone-50 border rounded-lg focus:ring-2 focus:ring-stone-800 transition-all ${errors.name ? "border-red-500" : "border-stone-200"}`}
-            placeholder="Олександр"
+            placeholder="Ваше ім'я"
           />
           {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
         </div>
 
         <div>
-          <label
-            htmlFor="phone"
-            className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2"
-          >
+          <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">
             Телефон *
           </label>
           <input
@@ -177,6 +178,8 @@ function ContactForm() {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            autoComplete="tel"
+            inputMode="tel"
             className={`w-full px-4 py-3 bg-stone-50 border rounded-lg focus:ring-2 focus:ring-stone-800 transition-all ${errors.phone ? "border-red-500" : "border-stone-200"}`}
             placeholder="+380..."
           />
@@ -186,10 +189,7 @@ function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div>
-          <label
-            htmlFor="objectType"
-            className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2"
-          >
+          <label htmlFor="objectType" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">
             Тип об'єкта *
           </label>
           <select
@@ -201,36 +201,32 @@ function ContactForm() {
           >
             <option value="">Оберіть...</option>
             <option value="apartment">Квартира</option>
-            <option value="house">Будинок / Котедж</option>
-            <option value="commercial">Комерція</option>
+            <option value="house">Будинок / котедж</option>
+            <option value="commercial">Комерційне приміщення</option>
             <option value="furniture">Тільки меблі</option>
           </select>
           {errors.objectType && <p className="mt-1 text-xs text-red-600">{errors.objectType}</p>}
         </div>
 
         <div>
-          <label
-            htmlFor="area"
-            className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2"
-          >
-            Площа (м²)
+          <label htmlFor="area" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">
+            Площа, м²
           </label>
           <input
             type="number"
+            min="1"
             id="area"
             name="area"
             value={formData.area}
             onChange={handleChange}
+            inputMode="numeric"
             className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-lg focus:ring-2 focus:ring-stone-800"
             placeholder="Наприклад, 65"
           />
         </div>
 
         <div>
-          <label
-            htmlFor="budget"
-            className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2"
-          >
+          <label htmlFor="budget" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">
             Бюджет на реалізацію
           </label>
           <select
@@ -240,35 +236,52 @@ function ContactForm() {
             onChange={handleChange}
             className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-lg focus:ring-2 focus:ring-stone-800 outline-none"
           >
-            <option value="">Оберіть...</option>
-            <option value="economy">Бюджетний</option>
+            <option value="">Ще не визначено</option>
+            <option value="economy">Раціональний</option>
             <option value="standard">Середній</option>
             <option value="premium">Преміум</option>
-            <option value="undecided">Ще не визначено</option>
           </select>
         </div>
       </div>
 
+      {areaNumber && formData.objectType !== "furniture" && (
+        <div className="rounded-xl bg-stone-50 border border-stone-200 p-4 text-sm text-stone-600">
+          За площею <strong className="text-stone-900">{areaNumber} м²</strong> я зможу швидше зорієнтувати вас по обсягу роботи. Точну вартість скажу після короткого уточнення деталей.
+        </div>
+      )}
+
       <div>
-        <label
-          htmlFor="message"
-          className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2"
-        >
-          Ваші побажання *
+        <label htmlFor="email" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          autoComplete="email"
+          className={`w-full px-4 py-3 bg-stone-50 border rounded-lg focus:ring-2 focus:ring-stone-800 transition-all ${errors.email ? "border-red-500" : "border-stone-200"}`}
+          placeholder="Необов'язково"
+        />
+        {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="message" className="block text-xs font-bold uppercase tracking-widest text-stone-400 mb-2">
+          Що ще варто знати?
         </label>
         <textarea
           id="message"
           name="message"
-          rows={4}
+          rows={3}
           value={formData.message}
           onChange={handleChange}
-          className={`w-full px-4 py-3 bg-stone-50 border rounded-lg focus:ring-2 focus:ring-stone-800 transition-all resize-none ${errors.message ? "border-red-500" : "border-stone-200"}`}
-          placeholder="Розкажіть про ваш об'єкт..."
+          className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-lg focus:ring-2 focus:ring-stone-800 transition-all resize-none"
+          placeholder="Наприклад: новобудова, хочемо перепланування і кухню на замовлення. Поле можна залишити порожнім."
         />
-        {errors.message && <p className="mt-1 text-xs text-red-600">{errors.message}</p>}
       </div>
 
-      {/* Honeypot field (hidden from users) */}
       <div className="hidden" aria-hidden="true">
         <label htmlFor="website">Назва вашого сайту (не заповнюйте)</label>
         <input
@@ -290,15 +303,17 @@ function ContactForm() {
 
       <button
         type="submit"
-        data-cta-name="contact_submit"
+        data-cta-name="contact_estimate_submit"
         disabled={isSubmitting}
-        className="btn-primary w-full flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
+        className="btn-primary w-full min-h-[52px] flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed group"
       >
-        <FiSend
-          className={`group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform ${isSubmitting ? "animate-pulse" : ""}`}
-        />
-        <span>{isSubmitting ? "Відправка..." : "Відправити повідомлення"}</span>
+        <FiSend className={`group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform ${isSubmitting ? "animate-pulse" : ""}`} />
+        <span>{isSubmitting ? "Відправка..." : "Дізнатися орієнтовну вартість"}</span>
       </button>
+
+      <p className="text-xs text-stone-500 text-center">
+        Після заявки я зв'яжуся з вами і уточню деталі проєкту.
+      </p>
     </form>
   );
 }

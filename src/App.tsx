@@ -6,9 +6,13 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import FloatingCTA from "./components/FloatingCTA";
+import CostEstimator from "./components/CostEstimator";
+import ArticleConversionBar from "./components/ArticleConversionBar";
+import PortfolioCaseLinks from "./components/PortfolioCaseLinks";
 import { initAnalytics, trackPageView } from "./lib/analytics";
 const Home = lazy(() => import("./pages/Home"));
 const Portfolio = lazy(() => import("./pages/Portfolio"));
+const PortfolioCase = lazy(() => import("./pages/PortfolioCase"));
 const Services = lazy(() => import("./pages/Services"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -50,6 +54,27 @@ function App() {
     trackPageView(path);
   }, [location.pathname, location.search]);
 
+  const isArticle = location.pathname.startsWith("/useful/");
+  const isPortfolioIndex = location.pathname === "/portfolio";
+  const showEstimator = location.pathname === "/contact" || location.pathname === "/services";
+
+  const professionalServiceLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": "https://irina-design.vercel.app/#business",
+    name: "Ірина — дизайн інтер'єру та меблів",
+    url: "https://irina-design.vercel.app",
+    image: "https://irina-design.vercel.app/Paint/ira-portrait.webp",
+    telephone: "+380964599885",
+    email: "irina26408@gmail.com",
+    sameAs: [
+      "https://www.facebook.com/profile.php?id=100063828644118",
+      "https://www.instagram.com/nova_art_design/",
+    ],
+    areaServed: ["Вінниця", "Вінницька область", "Україна"],
+    serviceType: ["Дизайн інтер'єру", "Планування інтер'єру", "Дизайн меблів", "Авторський супровід"],
+  };
+
   return (
     <ErrorBoundary>
       <Helmet>
@@ -61,6 +86,7 @@ function App() {
         <meta property="og:image:type" content="image/jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="https://irina-design.vercel.app/Paint/og-image.jpg" />
+        <script type="application/ld+json">{JSON.stringify(professionalServiceLd)}</script>
       </Helmet>
       <div className="min-h-screen flex flex-col">
         <Header />
@@ -76,6 +102,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/portfolio/:id" element={<PortfolioCase />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/useful" element={<Useful />} />
                 <Route path="/useful/:slug" element={<UsefulArticle />} />
@@ -84,6 +111,9 @@ function App() {
               </Routes>
             </motion.div>
           </Suspense>
+          {isPortfolioIndex && <PortfolioCaseLinks />}
+          {isArticle && <ArticleConversionBar />}
+          {showEstimator && <CostEstimator />}
         </main>
         <Footer />
         <FloatingCTA />

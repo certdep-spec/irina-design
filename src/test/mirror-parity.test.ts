@@ -46,3 +46,16 @@ describe("Этап 2 — статические ассеты", () => {
     expect(html).not.toContain("vite.svg");
   });
 });
+
+describe("Этап 2 — portfolio data parity", () => {
+  it("public API uses the same portfolio data as the application", () => {
+    const source = JSON.parse(
+      readFileSync(path.join(process.cwd(), "src", "data", "portfolio.json"), "utf8")
+    );
+    const publicApi = JSON.parse(
+      readFileSync(path.join(process.cwd(), "public", "api", "portfolio.json"), "utf8")
+    );
+    expect(publicApi).toEqual(source);
+  });
+});
+
