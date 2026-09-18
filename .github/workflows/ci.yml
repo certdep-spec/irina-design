@@ -176,6 +176,13 @@ jobs:
           console.log('TBT=' + a['total-blocking-time']?.displayValue);
           console.log('CLS=' + a['cumulative-layout-shift']?.displayValue);
           console.log('SpeedIndex=' + a['speed-index']?.displayValue);
+          const diagnostics = {
+            lcpElement: a['largest-contentful-paint-element']?.details?.items?.slice(0, 3),
+            layoutShifts: a['layout-shifts']?.details?.items?.slice(0, 5),
+            renderBlocking: a['render-blocking-resources']?.details?.items?.slice(0, 10),
+            unusedJs: a['unused-javascript']?.details?.items?.slice(0, 10),
+          };
+          console.log('LH_DIAGNOSTICS=' + JSON.stringify(diagnostics));
           NODE
 
   deploy-netlify:
