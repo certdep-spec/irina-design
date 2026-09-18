@@ -49,8 +49,8 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 - [ ] Audit Google Business Profile.
 - [x] Make business name, phone, service area and social links consistent in site content/schema.
 - [ ] Update external citations that still point to the old Netlify URL. Confirmed still present on List.in.ua on 2026-09-18.
-- [ ] Add real project photos and service descriptions.
-- [ ] Build a process for genuine client reviews.
+- [ ] Add real project photos and service descriptions to Google Business Profile after account/profile access is confirmed; prepared in `GOOGLE-BUSINESS-PROFILE.md`.
+- [x] Build a process for genuine client reviews; copy, service descriptions and review-request guidance are documented in `GOOGLE-BUSINESS-PROFILE.md`.
 - [x] Strengthen Home/Services metadata, service schema and local service-area signals for high-intent Vinnytsia searches.
 
 ## Phase 6 — Authority and backlinks
