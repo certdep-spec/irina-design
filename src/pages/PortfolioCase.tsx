@@ -12,6 +12,30 @@ function PortfolioCase() {
 
   if (!item) return <Navigate to="/portfolio" replace />;
 
+  const relatedArticleByCase: Record<string, { href: string; label: string }> = {
+    i1: {
+      href: "/useful/yak-pravylno-splanuvaty-kvartyru-pered-remontom",
+      label: "Як спланувати квартиру перед ремонтом",
+    },
+    i2: {
+      href: "/useful/yak-pravylno-postavyty-zavdannia-dyzaineru-interieru",
+      label: "Як поставити завдання дизайнеру",
+    },
+    f1: {
+      href: "/useful/yak-pravylno-splanuvaty-kukhniu",
+      label: "Як правильно спланувати кухню",
+    },
+    f2: {
+      href: "/useful/yak-splanuvaty-harderobnu-systemu",
+      label: "Як спланувати гардеробну систему",
+    },
+    f3: {
+      href: "/useful/koly-varto-zamovliaty-indyvidualni-mebli",
+      label: "Коли варто замовляти індивідуальні меблі",
+    },
+  };
+  const relatedArticle = relatedArticleByCase[item.id];
+
   const description =
     item.description ||
     [item.task, item.solution].filter(Boolean).join(" ") ||
@@ -115,6 +139,15 @@ function PortfolioCase() {
                   Послуги та ціни
                 </Link>
               </div>
+              {relatedArticle && (
+                <Link
+                  to={relatedArticle.href}
+                  data-cta-name={`case_${item.id}_article`}
+                  className="inline-block mt-5 text-sm text-stone-300 underline underline-offset-4 hover:text-white transition"
+                >
+                  Корисно перед стартом: {relatedArticle.label}
+                </Link>
+              )}
             </div>
           </div>
 
