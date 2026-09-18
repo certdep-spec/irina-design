@@ -18,8 +18,8 @@ function Footer() {
               ІРИНА · INTERIOR DESIGN
             </h3>
             <p className="text-stone-400 text-sm leading-relaxed mb-6">
-              Створюємо унікальні інтер'єри та меблі у Вінниці, які відображають вашу
-              індивідуальність та стиль життя.
+              Створюю інтер'єри та меблі у Вінниці — від планування й візуалізацій до
+              робочих креслень та індивідуальних меблів.
             </p>
             <div className="flex space-x-4">
               <a
@@ -85,13 +85,12 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Working Hours */}
           <div>
-            <h4 className="text-lg font-semibold text-white mb-4">Графік роботи</h4>
+            <h4 className="text-lg font-semibold text-white mb-4">Формат роботи</h4>
             <ul className="space-y-2 text-sm text-stone-400">
-              <li>Пн - Пт: 9:00 - 18:00</li>
-              <li>Сб: 10:00 - 15:00</li>
-              <li>Нд: вихідний</li>
+              <li>Вінниця та Вінницька область</li>
+              <li>Зустрічі й виїзди — за домовленістю</li>
+              <li>Дистанційні проєкти по Україні</li>
             </ul>
           </div>
         </div>
