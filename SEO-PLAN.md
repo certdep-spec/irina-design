@@ -16,12 +16,12 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 - [x] Merge PR #1 into `main` after checks passed.
 
 ## Phase 2 — Technical SEO on production
-- [ ] Verify `robots.txt` returns 200 and points to production sitemap.
-- [ ] Verify `sitemap.xml` returns 200 on production. Build artifact verified: 111 unique URLs, including 100 articles and 5 portfolio cases.
+- [x] Verify `robots.txt` returns 200 and points to production sitemap.
+- [x] Verify `sitemap.xml` returns 200 on production with 111 URLs, including 100 articles and 5 portfolio cases; synthetic lastmod/changefreq/priority are absent.
 - [x] Check generated canonical tags on Home, Services, Portfolio, 5 cases and published articles; no mismatches found in the production build artifact.
 - [x] Check prerendered HTML contains one H1 and indexable text without requiring client JavaScript across all 111 sitemap URLs.
-- [ ] Verify unknown URLs return a real HTTP 404.
-- [ ] Check that `/admin` remains noindex.
+- [x] Verify unknown URLs return a real HTTP 404.
+- [x] Check that `/admin` remains noindex via `X-Robots-Tag: noindex, nofollow`.
 - [ ] Validate structured data with Google Rich Results / Schema.org tools. Local build check: 344 JSON-LD blocks parse as valid JSON.
 - [ ] Check mobile performance and Core Web Vitals after release.
 
