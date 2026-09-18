@@ -32,7 +32,7 @@ export default defineConfig(() => ({
           "/contact",
         ])
       ),
-      exclude: ["/404", "/google5b6109d09ed90c5a"],
+      exclude: ["/404", "/google5b6109d09ed90c5a", "/google546bec4c033b6257"],
     }),
   ].filter(Boolean),
   resolve: { alias: { "@": path.resolve(__dirname, "./src") } },
