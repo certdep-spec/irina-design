@@ -11,9 +11,9 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 - [x] Derive prerender routes from the generated sitemap instead of a second manual article list.
 - [x] Preserve prerendered public HTML on Vercel and Netlify instead of rewriting public routes to the SPA shell.
 - [x] Add regression tests for hosting SEO routes and portfolio data parity.
-- [ ] CI: lint, TypeScript, unit tests, build and Playwright smoke tests must pass.
-- [ ] Review Vercel Preview.
-- [ ] Merge PR #1 into `main` only after checks pass.
+- [x] CI: lint, TypeScript, unit tests, build and Playwright smoke tests passed.
+- [x] Review Vercel Preview.
+- [x] Merge PR #1 into `main` after checks passed.
 
 ## Phase 2 — Technical SEO on production
 - [ ] Verify `robots.txt` returns 200 and points to production sitemap.
