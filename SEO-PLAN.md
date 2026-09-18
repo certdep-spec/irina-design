@@ -8,6 +8,9 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 - [x] Preserve the latest Irina portrait from `main`.
 - [x] Preserve Google Search Console verification file.
 - [x] Remove the duplicated manual article list from sitemap generation.
+- [x] Derive prerender routes from the generated sitemap instead of a second manual article list.
+- [x] Preserve prerendered public HTML on Vercel and Netlify instead of rewriting public routes to the SPA shell.
+- [x] Add regression tests for hosting SEO routes and portfolio data parity.
 - [ ] CI: lint, TypeScript, unit tests, build and Playwright smoke tests must pass.
 - [ ] Review Vercel Preview.
 - [ ] Merge PR #1 into `main` only after checks pass.
@@ -37,20 +40,21 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 - [x] Improve Services page and remove unsupported trust claims.
 - [x] Add article conversion links and CTA.
 - [x] Add separate SEO case pages for existing portfolio projects.
-- [ ] Review the 15–20 highest commercial-intent articles and strengthen links to the relevant service, case and contact action.
+- [x] Review the highest commercial-intent articles and strengthen 18 of them with intent-specific links to the relevant service, case and contact action.
 - [ ] Add more factual detail to portfolio cases as verified project information becomes available.
 - [ ] Review contact and CTA analytics after enough traffic accumulates.
 
 ## Phase 5 — Local SEO
 - [x] Add ProfessionalService/local service-area structured data.
 - [ ] Audit Google Business Profile.
-- [ ] Ensure business name, phone, service area and links are consistent.
+- [x] Make business name, phone, service area and social links consistent in site content/schema.
+- [ ] Update external citations that still point to the old Netlify URL.
 - [ ] Add real project photos and service descriptions.
 - [ ] Build a process for genuine client reviews.
-- [ ] Strengthen pages for high-intent local searches such as interior designer Vinnytsia and apartment design Vinnytsia.
+- [x] Strengthen Home/Services metadata, service schema and local service-area signals for high-intent Vinnytsia searches.
 
 ## Phase 6 — Authority and backlinks
-- [ ] Identify relevant local/industry directories, suppliers, partners and publications.
+- [x] Identify relevant local/industry directories and document existing citations/targets in `LOCAL-SEO-AUDIT.md`.
 - [ ] Acquire relevant editorial/local links rather than bulk low-quality links.
 - [ ] Look for unlinked brand mentions and project features.
 
