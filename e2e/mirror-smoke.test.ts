@@ -73,7 +73,7 @@ test.describe("Mirror smoke tests", () => {
       `https://irina-design.vercel.app${path}`
     );
     expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThanOrEqual(2);
-    await expect(page.locator('[data-cta-name="article_to_contact"]')).toBeVisible();
+    await expect(page.locator('[data-cta-name$="_to_contact"]')).toBeVisible();
   });
 
   test("Портфолио: фильтры, модалка и ссылки на отдельные кейсы", async ({ page }) => {
@@ -113,12 +113,12 @@ test.describe("Mirror smoke tests", () => {
     await expect(page.getByRole("heading", { name: "Скільки може коштувати ваш проєкт" })).toBeVisible();
   });
 
-  test("Контакты: форма, tel:-ссылка, карта и калькулятор", async ({ page }) => {
+  test("Контакты: форма, tel:-ссылка, география работы и калькулятор", async ({ page }) => {
     await page.goto(BASE_URL + "/contact");
     await expect(page.locator("form")).toBeVisible();
     await expect(page.locator('a[href^="tel:"]').first()).toBeVisible();
-    const map = page.locator('iframe[src*="maps"], .map-container, [data-map]');
-    await expect(map.first()).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Як можна працювати" })).toBeVisible();
+    await expect(page.getByText("Вінниці та області можливі зустрічі")).toBeVisible();
     await expect(page.getByRole("heading", { name: "Скільки може коштувати ваш проєкт" })).toBeVisible();
   });
 
