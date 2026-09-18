@@ -139,6 +139,45 @@ jobs:
           curl -fsSI "$BASE/admin" -o admin-headers.txt
           grep -qi '^x-robots-tag: noindex, nofollow' admin-headers.txt
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Lighthouse mobile baseline
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_PATH="$(command -v google-chrome || command -v chromium || true)"
+          if [ -z "$CHROME_PATH" ]; then
+            echo "Chrome not found on runner; skipping Lighthouse baseline."
+            exit 0
+          fi
+          export CHROME_PATH
+          npx --yes lighthouse@12.8.2 https://irina-design.vercel.app \
+            --quiet \
+            --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
+            --only-categories=performance,seo,accessibility,best-practices \
+            --form-factor=mobile \
+            --output=json \
+            --output-path=lighthouse-mobile.json
+          node - <<'NODE'
+          const fs = require('fs');
+          const r = JSON.parse(fs.readFileSync('lighthouse-mobile.json','utf8'));
+          const score = id => Math.round((r.categories[id]?.score || 0) * 100);
+          const a = r.audits;
+          console.log('Lighthouse mobile baseline');
+          console.log('performance=' + score('performance'));
+          console.log('seo=' + score('seo'));
+          console.log('accessibility=' + score('accessibility'));
+          console.log('best-practices=' + score('best-practices'));
+          console.log('FCP=' + a['first-contentful-paint']?.displayValue);
+          console.log('LCP=' + a['largest-contentful-paint']?.displayValue);
+          console.log('TBT=' + a['total-blocking-time']?.displayValue);
+          console.log('CLS=' + a['cumulative-layout-shift']?.displayValue);
+          console.log('SpeedIndex=' + a['speed-index']?.displayValue);
+          NODE
+
   deploy-netlify:
     name: Deploy to Netlify
     runs-on: ubuntu-latest
