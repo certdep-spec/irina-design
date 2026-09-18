@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently \"vite\" \"node api-server.mjs\" --names \"vite,api\" --prefix-colors \"cyan,green\"",
     "api": "node api-server.mjs",
-    "build": "vite build && vite build --ssr src/ssr-entry.tsx --outDir dist-ssr --config vite.config.ssr.mjs && node scripts/prerender.mjs",
+    "build": "vite build && node scripts/clean-sitemap.mjs && vite build --ssr src/ssr-entry.tsx --outDir dist-ssr --config vite.config.ssr.mjs && node scripts/prerender.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "test:e2e": "playwright test",
