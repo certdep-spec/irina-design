@@ -117,6 +117,20 @@ const UsefulArticle: React.FC = () => {
           <p className="text-xs uppercase tracking-[0.26em] text-stone-500 mb-5">
             {category?.title}
           </p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-stone-500 mb-5">
+            <span>
+              Автор:{" "}
+              <Link to="/about" className="underline underline-offset-4 hover:text-stone-900">
+                Ірина, дизайнер інтер'єру
+              </Link>
+            </span>
+            {article.updatedAt && (
+              <>
+                <span aria-hidden="true">•</span>
+                <time dateTime={article.updatedAt}>Оновлено: {article.updatedAt}</time>
+              </>
+            )}
+          </div>
           <h1 className="text-4xl md:text-6xl font-serif font-semibold leading-tight mb-7">
             {article.title}
           </h1>
