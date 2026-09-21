@@ -70,7 +70,7 @@ test.describe("Mirror smoke tests", () => {
       "href",
       `https://irina-design.vercel.app${path}`
     );
-    await expect(page.getByRole("link", { name: /Як правильно спланувати кухню/ })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Як правильно спланувати кухню/ }).first()).toBeVisible();
     expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThanOrEqual(2);
   });
 
@@ -181,9 +181,13 @@ test.describe("Mirror smoke tests", () => {
   test("Усі опубліковані статті мають статичний HTML, H1 та canonical", async ({ page }) => {
     const sitemap = await page.request.get(BASE_URL + "/sitemap.xml");
     const sitemapText = await sitemap.text();
-    const articlePaths = [...sitemapText.matchAll(/<loc>[^<]+(\/useful\/[^<]+)<\/loc>/g)].map(
-      match => match[1]
-    );
+    const articlePaths = [
+      ...sitemapText.matchAll(
+        /<loc>https:\/\/irina-design\.vercel\.app(\/useful\/[^<]+)<\/loc>/g
+      ),
+    ]
+      .map(match => match[1])
+      .filter(path => !path.startsWith("/useful/category/"));
     expect(articlePaths).toHaveLength(100);
 
     for (const path of articlePaths) {
