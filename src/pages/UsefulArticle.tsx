@@ -14,7 +14,12 @@ const UsefulArticle: React.FC = () => {
 
   if (!article) {
     return (
-      <section className="section-padding bg-stone-50 min-h-[60vh]">
+      <>
+        <Helmet>
+          <title>Матеріал готується | Ірина</title>
+          <meta name="robots" content="noindex, follow" />
+        </Helmet>
+        <section className="section-padding bg-stone-50 min-h-[60vh]">
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-xs uppercase tracking-[0.24em] text-stone-400 mb-4">
             Матеріал не знайдено
@@ -30,7 +35,8 @@ const UsefulArticle: React.FC = () => {
             <FiArrowLeft /> До розділу «Корисне»
           </Link>
         </div>
-      </section>
+        </section>
+      </>
     );
   }
 

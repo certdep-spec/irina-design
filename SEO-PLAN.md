@@ -26,10 +26,14 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 - [ ] Check mobile performance and Core Web Vitals after release.
 
 ## Phase 3 — Google Search Console
+
+- [x] Indexation triage: discovered a critical quality issue — 39 article URLs shared the same generic fallback body because they had metadata but no unique article content.
+- [x] Remove those 39 incomplete articles from indexable output/sitemap until each receives unique content. Keep them as editorial backlog instead of asking Google to index duplicate pages.
+- [ ] Re-publish rewritten backlog articles in small batches after unique content, internal links and factual examples are added.
 - [x] Verification file added to repository.
 - [ ] Confirm property ownership in Search Console.
 - [ ] Submit `https://irina-design.vercel.app/sitemap.xml`.
-- [ ] Review Indexed / Crawled currently not indexed / Discovered currently not indexed.
+- [ ] Review Indexed / Crawled currently not indexed / Discovered currently not indexed. User reports only 1 of 107 pages indexed as of 2026-09-21; exact exclusion/status breakdown still needed.
 - [ ] Inspect 10–20 highest-value URLs manually.
 - [ ] Record baseline impressions, clicks and queries.
 
