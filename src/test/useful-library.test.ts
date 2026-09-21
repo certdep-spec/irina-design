@@ -7,7 +7,7 @@ describe("Бібліотека корисних матеріалів", () => {
   it("містить 100 тем і лише статті з унікальним повним контентом у публічному індексі", () => {
     expect(usefulArticles).toHaveLength(100);
     expect(publishedUsefulArticles).toHaveLength(61);
-    expect(new Set(publishedUsefulArticles.map(article => article.slug)).size).toBe(100);
+    expect(new Set(publishedUsefulArticles.map(article => article.slug)).size).toBe(61);
   });
 
   it("кожна стаття має повний структурований контент", () => {
