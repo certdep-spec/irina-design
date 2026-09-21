@@ -15,7 +15,7 @@ function Services() {
         "Плани демонтажу та монтажу, якщо потрібне перепланування",
         "Основа, з якою можна впевненіше переходити до ремонту",
       ],
-      price: "від 250 грн/м²",
+      price: "за запитом",
       features: [
         "Обмірний план об'єкта",
         "3-4 варіанти перепланування",
@@ -140,22 +140,22 @@ function Services() {
   return (
     <div>
       <Helmet>
-        <title>Послуги та ціни — Дизайнер інтер'єру Ірина</title>
+        <title>Дизайн інтер'єру у Вінниці: послуги та ціни | Ірина</title>
         <link rel="canonical" href="https://irina-design.vercel.app/services" />
         <meta
           name="description"
-          content="Дизайн інтер'єру у Вінниці: планування, повний дизайн-проєкт, авторський супровід і дизайн меблів. Ціни та склад послуг."
+          content="Послуги дизайнера інтер'єру у Вінниці: планування, повний дизайн-проєкт від 800 грн/м², авторський супровід і дизайн меблів від 3000 грн."
         />
         <meta property="og:url" content="https://irina-design.vercel.app/services" />
         <meta property="og:title" content="Послуги та ціни — Дизайнер інтер'єру Ірина" />
         <meta
           property="og:description"
-          content="Планування, повний дизайн-проєкт, авторський супровід і дизайн меблів у Вінниці та дистанційно."
+          content="Планування, повний дизайн-проєкт, авторський супровід і дизайн меблів у Вінниці та дистанційно по Україні."
         />
         <meta name="twitter:title" content="Послуги та ціни — Дизайнер інтер'єру Ірина" />
         <meta
           name="twitter:description"
-          content="Планування, повний дизайн-проєкт, авторський супровід і дизайн меблів у Вінниці та дистанційно."
+          content="Планування, повний дизайн-проєкт, авторський супровід і дизайн меблів у Вінниці та дистанційно по Україні."
         />
         <script type="application/ld+json">{JSON.stringify(serviceListLd)}</script>
         <script type="application/ld+json">
@@ -178,7 +178,7 @@ function Services() {
       <Reveal as="section" className="bg-stone-50 py-20 px-6 border-b border-stone-200">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4 text-stone-800">
-            Послуги та вартість
+            Дизайн інтер'єру у Вінниці: послуги та вартість
           </h1>
           <p className="text-xl text-stone-600 max-w-3xl mx-auto">
             Можна почати з планування, замовити повний дизайн-проєкт або окремо розробити меблі. Якщо не знаєте, який формат потрібен, напишіть площу й коротко опишіть задачу.

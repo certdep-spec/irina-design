@@ -14,22 +14,22 @@ const Home: React.FC = () => {
   return (
     <div>
       <Helmet>
-        <title>Дизайн інтер'єру та меблів у Вінниці | Студія Ірини</title>
+        <title>Дизайн інтер'єру у Вінниці та меблі на замовлення | Ірина</title>
         <link rel="canonical" href="https://irina-design.vercel.app/" />
         <meta
           name="description"
-          content="Дизайн інтер'єру у Вінниці: планування, візуалізації, робочі креслення та меблі на замовлення для квартир і будинків."
+          content="Дизайн інтер'єру у Вінниці для квартир і будинків: планування, 3D-візуалізації, робочі креслення та меблі на замовлення. Працюю також дистанційно."
         />
         <meta property="og:url" content="https://irina-design.vercel.app/" />
-        <meta property="og:title" content="Дизайн інтер'єру та меблів у Вінниці | Студія Ірини" />
+        <meta property="og:title" content="Дизайн інтер'єру у Вінниці та меблі на замовлення | Ірина" />
         <meta
           property="og:description"
-          content="Дизайн інтер'єру у Вінниці: планування, візуалізації, робочі креслення та меблі на замовлення для квартир і будинків."
+          content="Дизайн інтер'єру у Вінниці для квартир і будинків: планування, 3D-візуалізації, робочі креслення та меблі на замовлення. Працюю також дистанційно."
         />
-        <meta name="twitter:title" content="Дизайн інтер'єру та меблів у Вінниці | Студія Ірини" />
+        <meta name="twitter:title" content="Дизайн інтер'єру у Вінниці та меблі на замовлення | Ірина" />
         <meta
           name="twitter:description"
-          content="Дизайн інтер'єру у Вінниці: планування, візуалізації, робочі креслення та меблі на замовлення для квартир і будинків."
+          content="Дизайн інтер'єру у Вінниці для квартир і будинків: планування, 3D-візуалізації, робочі креслення та меблі на замовлення. Працюю також дистанційно."
         />
       </Helmet>
 
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
       <Reveal as="section" className="section-padding bg-stone-50">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-6 text-stone-800">
-            Професійний підхід до кожного квадратного метра
+            Спочатку — зручне планування, потім — красивий інтер'єр
           </h2>
           <p className="text-lg text-stone-600 leading-relaxed mb-8">
             Дизайн інтер'єру для мене починається не з декору, а з того, як ви будете користуватися
@@ -74,7 +74,7 @@ const Home: React.FC = () => {
             to="/about"
             className="text-stone-800 font-medium border-b-2 border-stone-800 hover:text-stone-600 hover:border-stone-600 transition-all"
           >
-            Більше про наші принципи роботи
+            Більше про мій підхід
           </Link>
         </div>
       </Reveal>
@@ -83,14 +83,14 @@ const Home: React.FC = () => {
       <section className="bg-stone-200 py-16 px-6 border-y border-stone-300">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-8 text-stone-800">
-            Отримайте індивідуальну пропозицію
+            Не знаєте, з чого почати?
           </h2>
           <Link
             to="/contact#contact-form"
             data-cta-name="home_individual_offer"
             className="btn-primary inline-flex items-center justify-center min-w-[240px] shadow-lg hover:-translate-y-1 transition-all"
           >
-            Обговорити ваш проєкт
+            Розповісти про об'єкт
           </Link>
         </div>
       </section>
@@ -105,15 +105,15 @@ const Home: React.FC = () => {
             {[
               {
                 title: "Планування",
-                desc: "Розробка ідеальної ергономіки та перепланування приміщення для тих, хто робить ремонт самостійно.",
+                desc: "Кілька варіантів планування з меблями, проходами та можливим переплануванням — до початку ремонту.",
               },
               {
                 title: "Повний проєкт",
-                desc: "Фотореалістична візуалізація та повний пакет креслень.",
+                desc: "Планування, 3D-візуалізації та комплект робочих креслень, за якими можна вести ремонт.",
               },
               {
                 title: "Авторський супровід",
-                desc: "Комплектація меблями та контроль за точним виконанням робіт.",
+                desc: "Допомога під час реалізації: уточнення рішень, перевірка відповідності кресленням і виїзди за домовленістю.",
               },
             ].map((service, index) => (
               <div
@@ -225,37 +225,56 @@ const Home: React.FC = () => {
         </div>
       </Reveal>
 
-      {/* Testimonials Section - Відгуки */}
+      {/* Useful guides — internal links for users and search engines */}
       <section className="section-padding bg-white">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-serif font-semibold text-center mb-12 text-stone-800">
-            Відгуки наших клієнтів
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="max-w-3xl mb-10">
+            <p className="text-xs uppercase tracking-[0.24em] text-stone-500 mb-3">
+              Перед ремонтом
+            </p>
+            <h2 className="text-3xl md:text-4xl font-serif font-semibold text-stone-800 mb-4">
+              З чого варто почати, якщо ви тільки плануєте інтер'єр
+            </h2>
+            <p className="text-stone-600 leading-relaxed">
+              Найчастіше питання виникають ще до вибору кольорів і декору: як спланувати квартиру,
+              скільки закласти на проєкт, де не помилитися з кухнею та коли продумувати електрику.
+              Я зібрала ці теми в окремі практичні матеріали.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
               {
-                name: "Світлана",
-                role: "Власниця квартири у Вінниці",
-                text: "Ірина розробила повний проєкт нашої трикімнатної квартири. Найбільше сподобалось, що будівельники не мали жодного питання до креслень. Все чітко і зрозуміло.",
+                to: "/useful/category/design",
+                title: "Планування квартири",
+                text: "Зонування, меблі, проходи, перепланування і склад дизайн-проєкту.",
               },
               {
-                name: "Олександр",
-                role: "Приватний підприємець",
-                text: "Замовляли проєкт офісу. Результат перевершив очікування — простір став не тільки стильним, а й дуже функціональним для команди.",
+                to: "/useful/category/repair",
+                title: "Ремонт і бюджет",
+                text: "Послідовність робіт, витрати, контроль і типові помилки до старту ремонту.",
               },
               {
-                name: "Тетяна",
-                role: "Клієнт (дизайн кухні)",
-                text: "Проєкт кухні був продуманий до міліметра. Вдалося розмістити всю техніку, про яку я мріяла, навіть у невеликому приміщенні.",
+                to: "/useful/category/kitchen",
+                title: "Планування кухні",
+                text: "Ергономіка, техніка, робочі зони, розетки та меблі.",
               },
-            ].map((t, i) => (
-              <div key={i} className="p-8 bg-stone-50 rounded-xl border border-stone-100 italic">
-                <p className="text-stone-600 mb-6 font-light">"{t.text}"</p>
-                <div className="not-italic">
-                  <p className="font-semibold text-stone-800">{t.name}</p>
-                  <p className="text-xs text-stone-400 uppercase tracking-widest">{t.role}</p>
-                </div>
-              </div>
+              {
+                to: "/useful/category/furniture",
+                title: "Меблі на замовлення",
+                text: "Кухні, шафи, гардеробні, наповнення, матеріали та фурнітура.",
+              },
+            ].map(item => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="rounded-2xl border border-stone-200 p-6 md:p-7 hover:border-stone-400 transition-colors"
+              >
+                <h3 className="text-xl font-serif font-semibold text-stone-800 mb-2">{item.title}</h3>
+                <p className="text-sm text-stone-600 leading-relaxed mb-4">{item.text}</p>
+                <span className="inline-flex items-center gap-2 text-sm font-medium text-stone-800">
+                  Читати матеріали <FiArrowRight size={15} />
+                </span>
+              </Link>
             ))}
           </div>
         </div>
@@ -265,17 +284,17 @@ const Home: React.FC = () => {
       <section className="section-padding bg-stone-900 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-6">
-            Створимо ваш ідеальний інтер'єр разом
+            Є план квартири або тільки задум?
           </h2>
           <p className="text-stone-300 text-lg mb-8">
-            Готові почати трансформацію вашого простору? Напишіть нам для першої консультації.
+            Надішліть площу, план або короткий опис задачі. Я підкажу, який формат роботи підійде саме для вашого об'єкта.
           </p>
           <Link
             to="/contact#contact-form"
             data-cta-name="home_start_project"
             className="bg-white text-stone-900 px-10 py-4 rounded-sm hover:bg-stone-100 transition-all duration-300 font-bold tracking-wide inline-block shadow-lg"
           >
-            Почати розробку проєкту
+            Обговорити проєкт
           </Link>
         </div>
       </section>
