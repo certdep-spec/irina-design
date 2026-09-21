@@ -16,6 +16,7 @@ const Services = lazy(() => import("./pages/Services"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Useful = lazy(() => import("./pages/Useful"));
+const UsefulCategoryPage = lazy(() => import("./pages/UsefulCategoryPage"));
 const UsefulArticle = lazy(() => import("./pages/UsefulArticle"));
 const Admin = lazy(() => import("./pages/Admin"));
 
@@ -99,6 +100,7 @@ function App() {
                 <Route path="/portfolio/:id" element={<PortfolioCase />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/useful" element={<Useful />} />
+                <Route path="/useful/category/:categoryId" element={<UsefulCategoryPage />} />
                 <Route path="/useful/:slug" element={<UsefulArticle />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/admin" element={<Admin />} />

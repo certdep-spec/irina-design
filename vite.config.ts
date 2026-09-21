@@ -5,12 +5,13 @@ import { visualizer } from "rollup-plugin-visualizer";
 import Sitemap from "vite-plugin-sitemap";
 import { fileURLToPath } from "url";
 import path from "path";
-import { publishedUsefulArticles } from "./src/data/usefulArticles";
+import { publishedUsefulArticles, usefulCategories } from "./src/data/usefulArticles";
 import { portfolioCases } from "./src/data/portfolio";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL = "https://irina-design.vercel.app";
 const ARTICLE_ROUTES = publishedUsefulArticles.map(article => `/useful/${article.slug}`);
+const CATEGORY_ROUTES = usefulCategories.map(category => `/useful/category/${category.id}`);
 const CASE_ROUTES = portfolioCases.map(item => `/portfolio/${item.slug}`);
 
 export default defineConfig(() => ({
@@ -24,6 +25,7 @@ export default defineConfig(() => ({
       dynamicRoutes: Array.from(
         new Set([
           ...ARTICLE_ROUTES,
+          ...CATEGORY_ROUTES,
           ...CASE_ROUTES,
           "/about",
           "/portfolio",

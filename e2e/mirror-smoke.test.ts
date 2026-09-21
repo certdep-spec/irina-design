@@ -62,6 +62,18 @@ test.describe("Mirror smoke tests", () => {
     ).toBeVisible();
   });
 
+  test("Тематична сторінка: всі матеріали категорії, canonical і JSON-LD", async ({ page }) => {
+    const path = "/useful/category/kitchen";
+    await page.goto(BASE_URL + path);
+    await expect(page.locator("h1")).toContainText("Кухня");
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      `https://irina-design.vercel.app${path}`
+    );
+    await expect(page.getByRole("link", { name: /Як правильно спланувати кухню/ })).toBeVisible();
+    expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThanOrEqual(2);
+  });
+
   test("Опублікована стаття: контент, canonical, JSON-LD і CTA", async ({ page }) => {
     const path = "/useful/skilky-rozetok-potribno-u-kvartyri";
     await page.goto(BASE_URL + path);
@@ -145,7 +157,7 @@ test.describe("Mirror smoke tests", () => {
     }
   });
 
-  test("Статика: sitemap містить 100 статей, 5 кейсів і robots", async ({ page }) => {
+  test("Статика: sitemap містить 100 статей, 8 тематичних сторінок, 5 кейсів і robots", async ({ page }) => {
     const favicon = await page.request.get(BASE_URL + "/favicon.svg");
     expect(favicon.status()).toBe(200);
 
@@ -153,10 +165,11 @@ test.describe("Mirror smoke tests", () => {
     expect(sitemap.status()).toBe(200);
     const sitemapText = await sitemap.text();
     const urls = (sitemapText.match(/<url>/g) || []).length;
-    expect(urls).toBe(111);
+    expect(urls).toBe(119);
     expect(sitemapText).toContain("/useful/skilky-rozetok-potribno-u-kvartyri");
     expect(sitemapText).toContain("/useful/vid-idei-do-hotovoho-interieru");
     expect(sitemapText).toContain("/portfolio/zhytlovyi-interier-120-m2");
+    expect(sitemapText).toContain("/useful/category/kitchen");
     expect(sitemapText).not.toContain("<changefreq>");
     expect(sitemapText).not.toContain("<priority>");
     expect(sitemapText).not.toContain("<lastmod>");
@@ -217,6 +230,7 @@ test.describe("Mirror smoke tests", () => {
       "/portfolio/zhytlovyi-interier-120-m2",
       "/services",
       "/useful",
+      "/useful/category/kitchen",
       "/useful/skilky-rozetok-potribno-u-kvartyri",
       "/contact",
     ];

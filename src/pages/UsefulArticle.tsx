@@ -58,7 +58,8 @@ const UsefulArticle: React.FC = () => {
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Головна", item: SITE_URL },
       { "@type": "ListItem", position: 2, name: "Корисне", item: `${SITE_URL}/useful` },
-      { "@type": "ListItem", position: 3, name: article.title, item: canonical },
+      { "@type": "ListItem", position: 3, name: category?.title, item: `${SITE_URL}/useful/category/${article.category}` },
+      { "@type": "ListItem", position: 4, name: article.title, item: canonical },
     ],
   };
   const faqLd = content?.faq?.length
@@ -109,7 +110,9 @@ const UsefulArticle: React.FC = () => {
               Корисне
             </Link>
             <span>/</span>
-            <span>{category?.title}</span>
+            <Link to={`/useful/category/${article.category}`} className="hover:text-stone-900">
+              {category?.title}
+            </Link>
           </nav>
           <p className="text-xs uppercase tracking-[0.26em] text-stone-500 mb-5">
             {category?.title}

@@ -121,8 +121,9 @@ jobs:
           grep -F "Sitemap: $BASE/sitemap.xml" robots.txt
 
           retry curl -fsS "$BASE/sitemap.xml" -o sitemap.xml
-          test "$(grep -o '<url>' sitemap.xml | wc -l | tr -d ' ')" = "111"
+          test "$(grep -o '<url>' sitemap.xml | wc -l | tr -d ' ')" = "119"
           grep -F "$BASE/portfolio/zhytlovyi-interier-120-m2" sitemap.xml
+          grep -F "$BASE/useful/category/kitchen" sitemap.xml
           grep -F "$BASE/useful/skilky-rozetok-potribno-u-kvartyri" sitemap.xml
           ! grep -q '<lastmod>' sitemap.xml
           ! grep -q '<changefreq>' sitemap.xml

@@ -225,6 +225,12 @@ const Useful: React.FC = () => {
                           {category.title}
                         </h2>
                         <p className="text-stone-600 leading-relaxed">{category.description}</p>
+                        <Link
+                          to={`/useful/category/${category.id}`}
+                          className="inline-flex items-center gap-2 mt-5 text-sm font-medium text-stone-700 underline underline-offset-4 hover:text-stone-950"
+                        >
+                          Усі матеріали теми <FiArrowRight size={15} />
+                        </Link>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-stone-200 border border-stone-200 rounded-2xl overflow-hidden">
                         {visibleArticles.map(article => (
