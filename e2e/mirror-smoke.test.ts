@@ -54,7 +54,7 @@ test.describe("Mirror smoke tests", () => {
     await expect(page.locator("h1")).toContainText("Корисне про дизайн інтер’єру");
     await expect(page.getByRole("searchbox", { name: "Пошук корисних матеріалів" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Дизайн і планування" })).toBeVisible();
-    await expect(page.getByRole("link", { name: /Читати: Що таке дизайн-проєкт/ })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Навіщо потрібен дизайнер інтер’єру/ }).first()).toBeVisible();
 
     await page.getByRole("searchbox", { name: "Пошук корисних матеріалів" }).fill("розет");
     await expect(
@@ -167,7 +167,7 @@ test.describe("Mirror smoke tests", () => {
     const urls = (sitemapText.match(/<url>/g) || []).length;
     expect(urls).toBe(80);
     expect(sitemapText).toContain("/useful/skilky-rozetok-potribno-u-kvartyri");
-    expect(sitemapText).toContain("/useful/vid-idei-do-hotovoho-interieru");
+    expect(sitemapText).toContain("/useful/skilky-koshtuie-dyzain-interieru-u-vinnytsi");
     expect(sitemapText).toContain("/portfolio/zhytlovyi-interier-120-m2");
     expect(sitemapText).toContain("/useful/category/kitchen");
     expect(sitemapText).not.toContain("<changefreq>");
