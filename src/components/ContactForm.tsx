@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { FiSend } from "react-icons/fi";
 import { API_ENDPOINTS, VALIDATION } from "../constants/api";
 import { trackFormStart, trackFormSubmit } from "../lib/analytics";
@@ -311,8 +312,12 @@ function ContactForm() {
         <span>{isSubmitting ? "Відправка..." : "Дізнатися орієнтовну вартість"}</span>
       </button>
 
-      <p className="text-xs text-stone-500 text-center">
-        Після заявки я зв'яжуся з вами і уточню деталі проєкту.
+      <p className="text-xs text-stone-500 text-center leading-relaxed">
+        Після заявки я зв'яжуся з вами і уточню деталі проєкту. Надсилаючи форму, ви
+        передаєте ці дані для відповіді на звернення.{" "}
+        <Link to="/privacy" className="underline underline-offset-2 hover:text-stone-800">
+          Політика конфіденційності
+        </Link>.
       </p>
     </form>
   );

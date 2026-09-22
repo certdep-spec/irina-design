@@ -14,6 +14,7 @@ const STATIC_ROUTES = [
   "/services",
   "/useful",
   "/contact",
+  "/privacy",
 ];
 const sitemapPath = path.join(distDir, "sitemap.xml");
 const sitemapRoutes = fs.existsSync(sitemapPath)

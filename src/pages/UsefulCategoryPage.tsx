@@ -72,10 +72,11 @@ const UsefulCategoryPage: React.FC = () => {
   const { categoryId } = useParams<{ categoryId: UsefulCategoryId }>();
   const category = usefulCategories.find(item => item.id === categoryId);
 
-  if (!category || !categoryId) return <Navigate to="/useful" replace />;
+  const articles = categoryId ? publishedUsefulArticles.filter(article => article.category === categoryId) : [];
+
+  if (!category || !categoryId || articles.length === 0) return <Navigate to="/useful" replace />;
 
   const seo = seoByCategory[categoryId];
-  const articles = publishedUsefulArticles.filter(article => article.category === categoryId);
   const canonical = `${SITE_URL}/useful/category/${categoryId}`;
   const breadcrumbLd = {
     "@context": "https://schema.org",

@@ -190,427 +190,427 @@ const published: Record<number, Pick<UsefulArticle, "slug" | "excerpt" | "update
     slug: "navishcho-potriben-dyzainer-interieru-pered-remontom",
     excerpt:
       "Коли участь дизайнера справді економить час і бюджет та які рішення важливо прийняти ще до виходу будівельної бригади.",
-    updatedAt: "2026-08-28",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/7305e93e-7380-4095-8d4d-22183c01824e.webp",
   },
   3: {
     slug: "skilky-koshtuie-dyzain-interieru-u-vinnytsi",
     excerpt:
       "Пояснюємо, від чого залежить вартість дизайн-проєкту, що входить у ціну та як коректно порівнювати пропозиції дизайнерів.",
-    updatedAt: "2026-08-28",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к001.webp",
   },
   4: {
     slug: "yak-formuietsia-tsina-dyzain-proiektu",
     excerpt:
       "З яких етапів складається вартість роботи дизайнера та чому однакова ціна за квадратний метр не означає однаковий обсяг послуг.",
-    updatedAt: "2026-08-28",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к003.webp",
   },
   5: {
     slug: "yak-pravylno-postavyty-zavdannia-dyzaineru-interieru",
     excerpt:
       "Як підготувати побажання, пріоритети та обмеження, щоб дизайнер запропонував точні рішення без зайвих переробок.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-03_11-49-13-422.webp",
   },
   6: {
     slug: "yak-prokhodyt-robota-nad-dyzain-proiektom",
     excerpt:
       "Послідовно показуємо шлях від першої розмови й обмірів до готових креслень, специфікацій та реалізації інтер’єру.",
-    updatedAt: "2026-08-28",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/4200d396-0e13-4b59-9a8c-759f17e28669.webp",
   },
   7: {
     slug: "skilky-chasu-zaimaie-rozrobka-dyzain-proiektu",
     excerpt:
       "Реальні строки дизайн-проєкту: з яких етапів складається робота та що допомагає уникнути затримок.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-03_12-12-59-459.webp",
   },
   8: {
     slug: "dyzain-proiekt-chy-samostiinyi-remont",
     excerpt:
       "Порівнюємо самостійний ремонт і роботу за дизайн-проєктом за витратами, часом, ризиками та якістю результату.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-05_08-48-28-634.webp",
   },
   9: {
     slug: "planuvannia-chy-povnyi-dyzain-proiekt",
     excerpt:
       "Коли достатньо планувального рішення, а коли потрібні візуалізації, креслення та специфікації повного проєкту.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-03_12-52-03-731.webp",
   },
   10: {
     slug: "3d-vizualizatsiia-interieru-navishcho-potribna",
     excerpt:
       "Що можна перевірити на 3D-візуалізації, чого вона не замінює та як використовувати її під час ремонту.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/Gemini_Generated_Image_xuj256xuj256xuj2.webp",
   },
   11: {
     slug: "robochi-kreslennia-dyzainera",
     excerpt:
       "Які креслення входять до робочого альбому та як вони допомагають будівельникам реалізувати задум без здогадок.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-05_08-48-37-102.webp",
   },
   12: {
     slug: "yak-dyzain-proiekt-dopomahaie-kontroliuvaty-biudzhet",
     excerpt:
       "Як зафіксовані рішення, специфікації та послідовність закупівель зменшують ризик випадкових витрат і дорогих переробок.",
-    updatedAt: "2026-08-28",
+    updatedAt: "2026-09-22",
     cover: "/archives/wardrobe/13c9182b-e3f7-4f71-9ff4-edb4871684b9.webp",
   },
   13: {
     slug: "yak-pravylno-splanuvaty-kvartyru-pered-remontom",
     excerpt:
       "Покроковий алгоритм планування квартири: потреби сім’ї, меблі, проходи, зберігання та інженерні точки.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-03_13-04-23-313.webp",
   },
   14: {
     slug: "typovi-pomylky-planuvannia-kvartyry",
     excerpt:
       "Помилки, через які квартира стає незручною: вузькі проходи, конфлікти дверей, нестача зберігання та випадкова електрика.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-04_17-06-06-579.webp",
   },
   15: {
     slug: "yak-pravylno-zonuvaty-prostir-kvartyry",
     excerpt:
       "Як розділити квартиру на функціональні зони світлом, меблями й оздобленням без зайвих перегородок.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-05_16-09-47-142.webp",
   },
   16: {
     slug: "yak-zrobyty-malenku-kvartyru-zruchnoiu",
     excerpt:
       "Практичні прийоми для малої площі: пріоритети, зберігання, компактні меблі, світло та візуальна цілісність.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/wardrobe/изображение_viber_2026-05-04_15-12-57-396.webp",
   },
   17: {
     slug: "yak-splanuvaty-kvartyru-studiiu",
     excerpt:
       "Як організувати квартиру-студію, відокремити сон, кухню та відпочинок і не перевантажити невелику площу.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-08_13-20-58-111.webp",
   },
   18: {
     slug: "yak-obiednaty-kukhniu-ta-vitalniu",
     excerpt:
       "Що перевірити перед об’єднанням кухні з вітальнею: законність, вентиляцію, зонування, світло й побутові сценарії.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-03_12-01-15-584.webp",
   },
   19: {
     slug: "kukhnia-vitalnia-perevahy-nedoliky-planuvannia",
     excerpt:
       "Чесно про кухню-вітальню: коли відкритий простір зручний, які має недоліки та як правильно його спланувати.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-05_08-49-54-931.webp",
   },
   20: {
     slug: "yak-pravylno-splanuvaty-spalniu",
     excerpt:
       "Розміри проходів, положення ліжка, шафи, розетки й освітлення для тихої та зручної спальні.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-08_13-21-13-100.webp",
   },
   21: {
     slug: "yak-splanuvaty-dytiachu-kimnatu-na-vyrist",
     excerpt:
       "Як створити дитячу, що адаптується до віку дитини без повного ремонту кожні кілька років.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kids/001.webp",
   },
   22: {
     slug: "yak-pravylno-splanuvaty-harderobnu",
     excerpt:
       "Мінімальні розміри, типи наповнення, проходи, освітлення та вентиляція зручної гардеробної.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/wardrobe/Gemini_Generated_Image_3wz17e3wz17e3wz1.webp",
   },
   23: {
     slug: "yak-orhanizuvaty-zberihannia-u-nevelykii-kvartyri",
     excerpt:
       "Системний підхід до зберігання на малій площі: інвентаризація речей, вбудовані шафи й зручні побутові зони.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/wardrobe/Gemini_Generated_Image_5gsw6e5gsw6e5gsw.webp",
   },
   24: {
     slug: "yak-splanuvaty-vannu-kimnatu",
     excerpt:
       "Як розмістити сантехніку, зберігання, пральну техніку та світло у ванній без тісноти й випадкових рішень.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-08_13-22-15-962.webp",
   },
   25: {
     slug: "yak-pravylno-roztashuvaty-santekhniku-u-vannii",
     excerpt:
       "Практичні відстані, інсталяції, ухили та точки підключення, які потрібно погодити до монтажу сантехніки.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/Gemini_Generated_Image_98qsfx98qsfx98qs.webp",
   },
   26: {
     slug: "yak-splanuvaty-pryvatnyi-budynok",
     excerpt:
       "Від ділянки й входу до технічних приміщень: як побудувати логічне планування приватного будинку.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к006.webp",
   },
   27: {
     slug: "planuvannia-kvartyry-ta-pryvatnoho-budynku",
     excerpt:
       "Чим проєктування будинку відрізняється від квартири та які додаткові рішення потрібно передбачити заздалегідь.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к007.webp",
   },
   28: {
     slug: "z-choho-pochaty-remont-kvartyry",
     excerpt:
       "Практична послідовність перших рішень: від обмірів і бюджету до планування, кошторису та старту будівельних робіт.",
-    updatedAt: "2026-08-28",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/001.webp",
   },
   29: {
     slug: "pravylna-poslidovnist-remontu-kvartyry",
     excerpt:
       "Покрокова черговість ремонту квартири — від обмірів і демонтажу до чистового монтажу меблів та освітлення.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к008.webp",
   },
   30: {
     slug: "roboty-do-pochatku-ozdoblennia",
     excerpt:
       "Які приховані, інженерні та підготовчі роботи потрібно завершити й перевірити до фарбування, плитки та підлоги.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к009.webp",
   },
   31: {
     slug: "skilky-koshtuie-remont-kvartyry-u-vinnytsi",
     excerpt:
       "Чому немає універсальної ціни ремонту за квадратний метр і як скласти реалістичний кошторис для квартири у Вінниці.",
-    updatedAt: "2026-08-28",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/1779016473fe58.webp",
   },
   32: {
     slug: "yak-sklasty-biudzhet-remontu-kvartyry",
     excerpt:
       "Як перетворити приблизну суму на робочий бюджет із категоріями витрат, пріоритетами, графіком закупівель і резервом.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к002.webp",
   },
   33: {
     slug: "yak-ne-vyity-za-mezhi-biudzhetu-remontu",
     excerpt:
       "Практичні правила контролю кошторису, змін і закупівель, які допомагають не втратити фінансову керованість ремонту.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к004.webp",
   },
   34: {
     slug: "na-chomu-mozhna-ekonomyty-pid-chas-remontu",
     excerpt:
       "Де спрощення не шкодить результату, а де економія створює ризик протікань, переробок і швидкого зношення.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к005.webp",
   },
   35: {
     slug: "pomylky-yaki-zbilshuiut-vartist-remontu",
     excerpt:
       "Десять типових рішень, через які ремонт дорожчає: старт без проєкту, пізні зміни, поспішні закупівлі та подвійна робота.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к010.webp",
   },
   36: {
     slug: "skilky-chasu-zaimaie-remont-kvartyry",
     excerpt:
       "Від чого залежать строки ремонту, які етапи не можна прискорювати та як скласти реалістичний календар робіт.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-08_13-22-14-665.webp",
   },
   37: {
     slug: "yak-kontroliuvaty-yakist-remontu",
     excerpt:
       "Як організувати поетапне приймання робіт, фотофіксацію, перевірку прихованих систем і коректну комунікацію з бригадою.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-08_13-23-39-495.webp",
   },
   38: {
     slug: "shcho-robyty-yakshcho-remont-perevyshchyv-biudzhet",
     excerpt:
       "Антикризовий алгоритм: як зупинити неконтрольовані витрати, переглянути залишок робіт і завершити ремонт без хаосу.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-08_13-23-43-786.webp",
   },
   39: {
     slug: "yak-pidhotuvaty-kvartyru-do-remontu",
     excerpt:
       "Документи, обміри, демонтаж, тимчасові комунікації та організація об’єкта перед приходом будівельної бригади.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-08_13-22-51-647.webp",
   },
   40: {
     slug: "skilky-rozetok-potribno-u-kvartyri",
     excerpt:
       "Практичний розрахунок розеток за кімнатами, технікою та щоденними сценаріями, щоб після ремонту не жити з подовжувачами.",
-    updatedAt: "2026-08-28",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-03_12-08-07-501.webp",
   },
   41: {
     slug: "yak-pravylno-splanuvaty-elektryku-u-kvartyri",
     excerpt:
       "Як пов’язати електрощит, кабельні групи, розетки, вимикачі та техніку з реальним плануванням квартири.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-08_13-24-11-262.webp",
   },
   42: {
     slug: "de-roztashovuvaty-rozetky-ta-vymykachi",
     excerpt:
       "Практичний алгоритм розміщення розеток і вимикачів відносно меблів, дверей та щоденних сценаріїв.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-17_14-12-39-128.webp",
   },
   43: {
     slug: "rozetky-na-kukhni-skilky-i-de",
     excerpt:
       "Окремі лінії для техніки, розетки робочої зони та доступ до підключень без конфліктів із кухонними меблями.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-05_09-44-31-938.webp",
   },
   44: {
     slug: "elektryka-u-vannii-kimnati",
     excerpt:
       "Що передбачити у ванній: вологі зони, захисне відключення, зрівнювання потенціалів, світло та техніка.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-05_09-44-44-118.webp",
   },
   45: {
     slug: "yak-splanuvaty-elektryku-u-spalni",
     excerpt:
       "Розетки біля ліжка, прохідні вимикачі, освітлення шафи, телевізор і заряджання без подовжувачів.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-17_14-12-39-704.webp",
   },
   46: {
     slug: "yak-pravylno-splanuvaty-osvitlennia-kvartyry",
     excerpt:
       "Як створити загальне, робоче, акцентне й нічне світло та пов’язати сценарії з плануванням кімнат.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-12_11-32-20-399.webp",
   },
   47: {
     slug: "skilky-svitylnykiv-potribno-dlia-kimnaty",
     excerpt:
       "Чому світильники рахують не лише за площею та як оцінити світловий потік, функції й рівномірність.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-05-08_13-34-16-931.webp",
   },
   48: {
     slug: "teple-chy-kholodne-svitlo-v-interieri",
     excerpt:
       "Колірна температура, передача кольору та доречні діапазони світла для кухні, вітальні, спальні й ванної.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/изображение_viber_2026-04-30_11-17-45-342.webp",
   },
   49: {
     slug: "tochkovi-svitylnyky-treky-chy-liustra",
     excerpt:
       "Порівняння точкових світильників, треків і люстр за функцією, монтажем, гнучкістю та візуальним ефектом.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/comercial/к001.webp",
   },
   50: {
     slug: "yak-splanuvaty-pidsvichuvannia-kukhni",
     excerpt:
       "Робоче світло без тіней, розміщення LED-профілю, живлення, керування та узгодження з кухонними меблями.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/Gemini_Generated_Image_1x4nuo1x4nuo1x4n.webp",
   },
   51: {
     slug: "pomylky-planuvannia-elektryky-ta-osvitlennia",
     excerpt:
       "Типові конфлікти електрики з меблями, нестача ліній, сліпуче світло й інші помилки, які складно виправити після ремонту.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/living/001.webp",
   },
   52: {
     slug: "yak-pravylno-splanuvaty-kukhniu",
     excerpt:
       "Покрокове планування кухні: потреби сім’ї, зони зберігання, техніка, робоча поверхня, проходи та комунікації.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/001.webp",
   },
   53: {
     slug: "priama-kutova-chy-p-podibna-kukhnia",
     excerpt:
       "Як вибрати форму кухні за розміром приміщення, розташуванням комунікацій, кількістю техніки та сценаріями руху.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/1779016473fe58.webp",
   },
   54: {
     slug: "yakoiu-maie-buty-zruchna-kukhnia",
     excerpt:
       "Ознаки кухні, якою зручно користуватися щодня: логічні зони, достатня стільниця, доступне зберігання та правильне світло.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-03_12-01-15-584.webp",
   },
   55: {
     slug: "pravylna-vysota-kukhonnoi-stilnytsi",
     excerpt:
       "Як підібрати висоту кухонної стільниці під зріст користувачів, техніку, товщину матеріалу й різні робочі процеси.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-05_08-48-28-634.webp",
   },
   56: {
     slug: "yak-rozmistyty-kholodylnyk-myiku-ta-plytu",
     excerpt:
       "Безпечна й зручна послідовність холодильника, мийки та плити з робочими проміжками й місцем для розвантаження продуктів.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-05_08-48-37-102.webp",
   },
   57: {
     slug: "robochyi-trykutnyk-na-kukhni",
     excerpt:
       "Чи актуальне правило робочого трикутника та чому сучасну кухню краще проєктувати як послідовність функціональних зон.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-05_08-49-54-931.webp",
   },
   58: {
     slug: "vidstani-mizh-kukhonnymy-mebliamy",
     excerpt:
       "Які проходи залишати між рядами, островом, столом і відкритими фасадами, щоб кухня не стала тісною.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-05_09-44-31-938.webp",
   },
   59: {
     slug: "yak-splanuvaty-kukhniu-vitalniu",
     excerpt:
       "Як поєднати готування, обід і відпочинок в одному просторі та контролювати запахи, шум і візуальний безлад.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-05_09-44-44-118.webp",
   },
   60: {
     slug: "yaku-stilnytsiu-vybraty-dlia-kukhni",
     excerpt:
       "Порівняння популярних матеріалів стільниць за вологостійкістю, термостійкістю, ремонтом, стиками та бюджетом.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/Gemini_Generated_Image_98qsfx98qsfx98qs.webp",
   },
   61: {
     slug: "typovi-pomylky-proiektuvannia-kukhni",
     excerpt:
       "Помилки планування кухні, через які бракує робочої поверхні, конфліктують фасади, техніка й комунікації.",
-    updatedAt: "2026-08-29",
+    updatedAt: "2026-09-22",
     cover: "/archives/kitchen/изображение_viber_2026-05-12_11-32-20-399.webp",
   },
   98: {
     slug: "avtorskyi-nahliad-shcho-tse-i-navishcho",
     excerpt:
       "Що контролює дизайнер під час реалізації, які питання вирішує на об’єкті та чим авторський нагляд не є технічним наглядом.",
-    updatedAt: "2026-08-28",
+    updatedAt: "2026-09-22",
     cover: "/archives/wardrobe/001.webp",
   },
 };

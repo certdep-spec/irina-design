@@ -51,7 +51,7 @@ function Contact() {
           <h1 className="text-4xl md:text-5xl font-serif font-semibold mb-4 text-stone-800">
             Контакти
           </h1>
-          <p className="text-xl text-stone-600">Зв'яжіться з нами для обговорення вашого проєкту</p>
+          <p className="text-xl text-stone-600">Напишіть мені, якщо хочете обговорити свій проєкт</p>
         </div>
       </Reveal>
 
@@ -73,7 +73,7 @@ function Contact() {
             {/* Contact Info */}
             <div>
               <h2 className="text-3xl font-serif font-semibold mb-8 text-stone-800">
-                Контактна інформація
+                Як зі мною зв'язатися
               </h2>
 
               <div className="space-y-6 mb-10">

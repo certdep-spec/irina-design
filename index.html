@@ -3,14 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Дизайн інтер'єру та меблів у Вінниці | Студія Ірини</title>
+    <title>Дизайн інтер'єру у Вінниці та меблі на замовлення | Ірина</title>
     <!-- title/description/OG/Twitter задаются per-page через react-helmet-async.
          Пре-рендеринг (scripts/prerender.mjs) вписывает их в статический HTML каждой страницы.
          В шаблоне они не дублируются, чтобы не было двух одинаковых тегов. -->
-    <meta
-      name="keywords"
-      content="дизайн інтер'єру Вінниця, дизайн меблів, ремонт квартири, 3D візуалізація, дизайн проект квартири Вінниця"
-    />
     <meta name="author" content="Дизайнер Ірина" />
 
     <meta name="theme-color" content="#1c1917" />
@@ -18,24 +14,41 @@
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://irina-design.vercel.app; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests"
     />
-
-    <!-- Google tag (gtag.js) — GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3M4EFKC1M"></script>
+    <!-- GA4: queue events immediately, load the network script after interaction/idle. -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-Y3M4EFKC1M");
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag("js", new Date());
+      window.gtag("config", "G-Y3M4EFKC1M");
+      (function () {
+        var loaded = false;
+        function loadAnalytics() {
+          if (loaded) return;
+          loaded = true;
+          var script = document.createElement("script");
+          script.async = true;
+          script.src = "https://www.googletagmanager.com/gtag/js?id=G-Y3M4EFKC1M";
+          document.head.appendChild(script);
+        }
+        ["pointerdown", "keydown", "touchstart"].forEach(function (eventName) {
+          window.addEventListener(eventName, loadAnalytics, { once: true, passive: true });
+        });
+        if ("requestIdleCallback" in window) window.requestIdleCallback(loadAnalytics, { timeout: 2500 });
+        else window.setTimeout(loadAnalytics, 1800);
+      })();
     </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" />
+    </noscript>
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
   </head>
   <body class="bg-stone-50 text-stone-900 selection:bg-stone-200 selection:text-stone-900">

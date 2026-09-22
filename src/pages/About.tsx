@@ -60,7 +60,7 @@ function About() {
           content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Проєктую квартири, будинки й меблі: від планування та 3D-візуалізацій до креслень і супроводу."
         />
         <meta property="og:url" content="https://irina-design.vercel.app/about" />
-        <meta property="og:title" content="Про мене — Дизайнер інтер'єру Ірина" />
+        <meta property="og:title" content="Ірина — дизайнер інтер'єру та меблів у Вінниці" />
         <meta
           property="og:description"
           content="Дизайн інтер'єру та меблів у Вінниці й дистанційно: від планування до креслень і реалізації."

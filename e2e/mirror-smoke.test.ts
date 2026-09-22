@@ -26,8 +26,8 @@ test.describe("Mirror smoke tests", () => {
     const routes = [
       { path: "/", h1: /дизайн інтер'?єру/i },
       { path: "/about", h1: /дизайнер інтер'?єру та меблів/i },
-      { path: "/portfolio", h1: /інтер'?єрні та меблеві рішення/i },
-      { path: "/services", h1: /послуги та вартість/i },
+      { path: "/portfolio", h1: /дизайн інтер'?єрів та меблів/i },
+      { path: "/services", h1: /дизайн інтер'?єру у вінниці/i },
       { path: "/useful", h1: /корисне про дизайн інтер’єру/i },
       { path: "/contact", h1: /контакти/i },
     ];
@@ -157,7 +157,7 @@ test.describe("Mirror smoke tests", () => {
     }
   });
 
-  test("Статика: sitemap містить 61 якісну статтю, 8 тематичних сторінок, 5 кейсів і robots", async ({ page }) => {
+  test("Статика: sitemap містить 61 якісну статтю, 5 тематичних сторінок, 5 кейсів і robots", async ({ page }) => {
     const favicon = await page.request.get(BASE_URL + "/favicon.svg");
     expect(favicon.status()).toBe(200);
 
@@ -165,7 +165,7 @@ test.describe("Mirror smoke tests", () => {
     expect(sitemap.status()).toBe(200);
     const sitemapText = await sitemap.text();
     const urls = (sitemapText.match(/<url>/g) || []).length;
-    expect(urls).toBe(80);
+    expect(urls).toBe(77);
     expect(sitemapText).toContain("/useful/skilky-rozetok-potribno-u-kvartyri");
     expect(sitemapText).toContain("/useful/skilky-koshtuie-dyzain-interieru-u-vinnytsi");
     expect(sitemapText).toContain("/portfolio/zhytlovyi-interier-120-m2");
@@ -226,6 +226,12 @@ test.describe("Mirror smoke tests", () => {
     await expect(page.locator('[data-cta-name="floating_telegram"]')).toBeVisible();
   });
 
+  test("Privacy: сторінка доступна, але не індексується", async ({ page }) => {
+    await page.goto(BASE_URL + "/privacy");
+    await expect(page.locator("h1")).toContainText("Політика конфіденційності");
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex, follow");
+  });
+
   test("Нет JS-ошибок на любой странице", async ({ page }) => {
     const routes = [
       "/",
@@ -237,6 +243,7 @@ test.describe("Mirror smoke tests", () => {
       "/useful/category/kitchen",
       "/useful/skilky-rozetok-potribno-u-kvartyri",
       "/contact",
+      "/privacy",
     ];
     for (const route of routes) {
       await page.goto(BASE_URL + route);

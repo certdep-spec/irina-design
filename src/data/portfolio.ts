@@ -9,6 +9,8 @@ export type PortfolioCase = {
   task?: string
   solution?: string
   description?: string
+  seoTitle?: string
+  details?: string[]
   coverImage: string
   gallery: string[]
 }

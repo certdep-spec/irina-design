@@ -4,9 +4,21 @@ import { Link, useParams } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight, FiCheck } from "react-icons/fi";
 import { getUsefulCategory, publishedUsefulArticles, usefulArticles } from "../data/usefulArticles";
 import { usefulArticleContent } from "../data/usefulArticleContent";
+import { practicalScenarios } from "../data/practicalScenarios";
 import { getArticleSeoDescription, getArticleSeoTitle } from "../lib/articleSeo";
 
 const SITE_URL = "https://irina-design.vercel.app";
+const personalCtaText = (text: string) => {
+  const replacements: Array<[RegExp, string]> = [
+    [/підготуємо/gi, "підготую"], [/розробимо/gi, "розроблю"], [/проаналізуємо/gi, "проаналізую"],
+    [/перевіримо/gi, "перевірю"], [/допоможемо/gi, "допоможу"], [/визначимо/gi, "визначу"],
+    [/оцінимо/gi, "оціню"], [/узгодимо/gi, "узгоджу"], [/підберемо/gi, "підберу"],
+    [/створимо/gi, "створю"], [/розрахуємо/gi, "розрахую"], [/порівняємо/gi, "порівняю"],
+    [/пов’яжемо/gi, "пов’яжу"], [/покажемо/gi, "покажу"], [/прорахуємо/gi, "прорахую"], [/переглянемо/gi, "перегляну"],
+  ];
+  return replacements.reduce((value,[pattern,replacement]) => value.replace(pattern,replacement), text);
+};
+const technicalSafetyArticleIds = new Set([25,40,41,42,43,44,45,46,47,48,49,50,51]);
 
 const UsefulArticle: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -42,6 +54,7 @@ const UsefulArticle: React.FC = () => {
 
   const category = getUsefulCategory(article.category);
   const content = usefulArticleContent[article.id];
+  const practicalScenario = practicalScenarios[article.id];
   const canonical = `${SITE_URL}/useful/${article.slug}`;
   const seoTitle = getArticleSeoTitle(article.id, article.title);
   const seoDescription = getArticleSeoDescription(article.excerpt);
@@ -167,6 +180,13 @@ const UsefulArticle: React.FC = () => {
                   </p>
                 ))}
               </section>
+              {practicalScenario && (
+                <section className="rounded-2xl border border-stone-200 bg-white p-7 md:p-9 shadow-sm">
+                  <p className="text-xs uppercase tracking-[0.22em] text-stone-400 mb-3">Практична ситуація</p>
+                  <h2 className="text-2xl md:text-3xl font-serif font-semibold text-stone-900 mb-4">{practicalScenario.title}</h2>
+                  <p>{practicalScenario.text}</p>
+                </section>
+              )}
               {content.sections.map(section => (
                 <section key={section.title}>
                   {section.title && (
@@ -196,6 +216,11 @@ const UsefulArticle: React.FC = () => {
                   )}
                 </section>
               ))}
+              {technicalSafetyArticleIds.has(article.id) && (
+                <aside className="rounded-2xl bg-amber-50 border border-amber-200 p-6 text-[15px] leading-7 text-stone-700">
+                  <strong className="text-stone-900">Важливо:</strong> планування допомагає визначити потрібні точки й сценарії, але остаточний технічний розрахунок, підбір захисту, кабелів, перерізів, зон безпеки та монтаж мають виконувати кваліфіковані фахівці за чинними вимогами й документацією конкретного обладнання.
+                </aside>
+              )}
               <section className="border-t border-stone-200 pt-10">
                 <h2 className="text-3xl md:text-4xl font-serif font-semibold text-stone-900 mb-6">
                   {content.checklistTitle}
@@ -413,8 +438,7 @@ const UsefulArticle: React.FC = () => {
               {content?.ctaTitle ?? "Потрібен дизайн-проєкт саме для вашої квартири чи будинку?"}
             </h2>
             <p className="text-stone-300">
-              {content?.ctaText ??
-                "Можна почати з короткого обговорення планування, задач та формату роботи."}
+              {content?.ctaText ? personalCtaText(content.ctaText) : "Можна почати з короткого обговорення планування, задач та формату роботи."}
             </p>
           </div>
           <Link

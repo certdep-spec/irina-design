@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FiExternalLink, FiMail, FiPhone, FiMapPin, FiFacebook, FiInstagram } from "react-icons/fi";
 
 /**
@@ -97,6 +98,7 @@ function Footer() {
 
         <div className="border-t border-stone-800 mt-12 pt-8 text-center text-sm text-stone-500">
           <p>&copy; {currentYear} Ірина · Interior Design. Всі права захищено.</p>
+          <Link to="/privacy" className="inline-block mt-3 underline underline-offset-4 hover:text-stone-300">Політика конфіденційності</Link>
         </div>
       </div>
     </footer>

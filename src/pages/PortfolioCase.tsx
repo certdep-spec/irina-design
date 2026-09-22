@@ -65,7 +65,7 @@ function PortfolioCase() {
   return (
     <article className="bg-white min-h-screen">
       <Helmet>
-        <title>{`${item.title} — портфоліо дизайнера інтер'єру Ірини`}</title>
+        <title>{item.seoTitle ?? `${item.title} — портфоліо дизайнера інтер'єру Ірини`}</title>
         <link rel="canonical" href={canonical} />
         <meta name="description" content={description} />
         <meta property="og:type" content="article" />
@@ -101,23 +101,19 @@ function PortfolioCase() {
       <section className="px-6 md:px-12 py-12 md:py-16">
         <div className="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1fr_1.2fr] items-start">
           <div className="space-y-7">
-            {item.task && (
-              <div>
-                <h2 className="font-serif text-2xl font-semibold text-stone-900 mb-3">Завдання</h2>
-                <p className="text-stone-600 leading-relaxed">{item.task}</p>
-              </div>
-            )}
-            {item.solution && (
-              <div>
-                <h2 className="font-serif text-2xl font-semibold text-stone-900 mb-3">Рішення</h2>
-                <p className="text-stone-600 leading-relaxed">{item.solution}</p>
-              </div>
-            )}
-            {item.description && !item.task && (
+            {item.details?.length ? (
               <div>
                 <h2 className="font-serif text-2xl font-semibold text-stone-900 mb-3">Про проєкт</h2>
-                <p className="text-stone-600 leading-relaxed">{item.description}</p>
+                <div className="space-y-4 text-stone-600 leading-relaxed">
+                  {item.details.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+                </div>
               </div>
+            ) : (
+              <>
+                {item.task && <div><h2 className="font-serif text-2xl font-semibold text-stone-900 mb-3">Завдання</h2><p className="text-stone-600 leading-relaxed">{item.task}</p></div>}
+                {item.solution && <div><h2 className="font-serif text-2xl font-semibold text-stone-900 mb-3">Рішення</h2><p className="text-stone-600 leading-relaxed">{item.solution}</p></div>}
+                {item.description && !item.task && <div><h2 className="font-serif text-2xl font-semibold text-stone-900 mb-3">Про проєкт</h2><p className="text-stone-600 leading-relaxed">{item.description}</p></div>}
+              </>
             )}
             <div className="rounded-2xl bg-stone-900 text-white p-7">
               <h2 className="font-serif text-2xl font-semibold mb-3">Плануєте свій проєкт?</h2>

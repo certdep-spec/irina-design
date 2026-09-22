@@ -11,7 +11,10 @@ import { portfolioCases } from "./src/data/portfolio";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SITE_URL = "https://irina-design.vercel.app";
 const ARTICLE_ROUTES = publishedUsefulArticles.map(article => `/useful/${article.slug}`);
-const CATEGORY_ROUTES = usefulCategories.map(category => `/useful/category/${category.id}`);
+const PUBLISHED_CATEGORY_IDS = new Set(publishedUsefulArticles.map(article => article.category));
+const CATEGORY_ROUTES = usefulCategories
+  .filter(category => PUBLISHED_CATEGORY_IDS.has(category.id))
+  .map(category => `/useful/category/${category.id}`);
 const CASE_ROUTES = portfolioCases.map(item => `/portfolio/${item.slug}`);
 
 export default defineConfig(() => ({
@@ -34,7 +37,7 @@ export default defineConfig(() => ({
           "/contact",
         ])
       ),
-      exclude: ["/404", "/google5b6109d09ed90c5a", "/google546bec4c033b6257"],
+      exclude: ["/404", "/privacy", "/google5b6109d09ed90c5a", "/google546bec4c033b6257"],
     }),
   ].filter(Boolean),
   resolve: { alias: { "@": path.resolve(__dirname, "./src") } },

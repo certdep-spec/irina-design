@@ -18,6 +18,7 @@ const Contact = lazy(() => import("./pages/Contact"));
 const Useful = lazy(() => import("./pages/Useful"));
 const UsefulCategoryPage = lazy(() => import("./pages/UsefulCategoryPage"));
 const UsefulArticle = lazy(() => import("./pages/UsefulArticle"));
+const Privacy = lazy(() => import("./pages/Privacy"));
 const Admin = lazy(() => import("./pages/Admin"));
 
 function PageLoader() {
@@ -54,7 +55,7 @@ function App() {
     trackPageView(path);
   }, [location.pathname, location.search]);
 
-  const isArticle = location.pathname.startsWith("/useful/");
+  const isArticle = location.pathname.startsWith("/useful/") && !location.pathname.startsWith("/useful/category/");
   const isPortfolioIndex = location.pathname === "/portfolio";
   const showEstimator = location.pathname === "/contact" || location.pathname === "/services";
 
@@ -103,6 +104,7 @@ function App() {
                 <Route path="/useful/category/:categoryId" element={<UsefulCategoryPage />} />
                 <Route path="/useful/:slug" element={<UsefulArticle />} />
                 <Route path="/contact" element={<Contact />} />
+                <Route path="/privacy" element={<Privacy />} />
                 <Route path="/admin" element={<Admin />} />
               </Routes>
             </div>

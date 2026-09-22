@@ -48,7 +48,7 @@ const Home: React.FC = () => {
             <span className="text-stone-100 bg-stone-800 p-2 rounded-full">
               <FiCheck size={16} />
             </span>
-            Раціональне використання бюджету
+            Рішення з урахуванням вашого бюджету
           </div>
           <div className="flex items-center gap-3">
             <span className="text-stone-100 bg-stone-800 p-2 rounded-full">
@@ -85,6 +85,9 @@ const Home: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-serif font-semibold mb-8 text-stone-800">
             Не знаєте, з чого почати?
           </h2>
+          <p className="text-stone-600 text-lg mb-8 max-w-2xl mx-auto">
+            Надішліть план або просто напишіть площу й що хочете змінити — цього достатньо для першої розмови.
+          </p>
           <Link
             to="/contact#contact-form"
             data-cta-name="home_individual_offer"
@@ -99,7 +102,7 @@ const Home: React.FC = () => {
       <Reveal as="section" className="section-padding">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold text-center mb-12 text-stone-800">
-            Рішення під ваші задачі
+            Що можна замовити
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -113,7 +116,7 @@ const Home: React.FC = () => {
               },
               {
                 title: "Авторський супровід",
-                desc: "Допомога під час реалізації: уточнення рішень, перевірка відповідності кресленням і виїзди за домовленістю.",
+                desc: "Під час ремонту допомагаю звіряти рішення з проєктом і розбирати питання, які виникають на об'єкті.",
               },
             ].map((service, index) => (
               <div
@@ -134,7 +137,7 @@ const Home: React.FC = () => {
       <Reveal as="section" className="section-padding bg-stone-50">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-serif font-semibold text-center mb-12 text-stone-800">
-            Реалізовані рішення та візуалізації
+            Проєкти інтер'єрів і меблів
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:auto-rows-[220px]">
             {/* Big card: Дизайн інтер'єру */}
@@ -259,9 +262,9 @@ const Home: React.FC = () => {
                 text: "Ергономіка, техніка, робочі зони, розетки та меблі.",
               },
               {
-                to: "/useful/category/furniture",
-                title: "Меблі на замовлення",
-                text: "Кухні, шафи, гардеробні, наповнення, матеріали та фурнітура.",
+                to: "/useful/category/lighting",
+                title: "Електрика й освітлення",
+                text: "Розетки, вимикачі, сценарії світла та прив'язки до меблів до початку оздоблення.",
               },
             ].map(item => (
               <Link

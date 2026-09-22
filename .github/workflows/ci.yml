@@ -121,7 +121,7 @@ jobs:
           grep -F "Sitemap: $BASE/sitemap.xml" robots.txt
 
           retry curl -fsS "$BASE/sitemap.xml" -o sitemap.xml
-          test "$(grep -o '<url>' sitemap.xml | wc -l | tr -d ' ')" = "80"
+          test "$(grep -o '<url>' sitemap.xml | wc -l | tr -d ' ')" = "77"
           grep -F "$BASE/portfolio/zhytlovyi-interier-120-m2" sitemap.xml
           grep -F "$BASE/useful/category/kitchen" sitemap.xml
           grep -F "$BASE/useful/skilky-rozetok-potribno-u-kvartyri" sitemap.xml
@@ -139,6 +139,9 @@ jobs:
 
           curl -fsSI "$BASE/admin" -o admin-headers.txt
           grep -qi '^x-robots-tag: noindex, nofollow' admin-headers.txt
+
+          curl -fsS "$BASE/privacy" -o privacy.html
+          grep -F 'name="robots" content="noindex, follow"' privacy.html
 
       - uses: actions/setup-node@v4
         with:

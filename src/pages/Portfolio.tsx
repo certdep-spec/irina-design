@@ -166,33 +166,33 @@ function Portfolio() {
   return (
     <div className="bg-stone-50 min-h-screen">
       <Helmet>
-        <title>Портфоліо — Дизайнер інтер'єру Ірина</title>
+        <title>Портфоліо дизайнера інтер'єру та меблів | Ірина, Вінниця</title>
         <link rel="canonical" href="https://irina-design.vercel.app/portfolio" />
         <meta
           name="description"
-          content="Портфоліо дизайнера інтер'єру та меблів Ірини: житлові й комерційні інтер'єри, кухні, гардеробні системи та індивідуальні меблі."
+          content="Портфоліо Ірини: житлові й комерційні інтер'єри, кухні, гардеробні та індивідуальні меблі. Проєкти й візуалізації для різних типів просторів."
         />
         <meta property="og:url" content="https://irina-design.vercel.app/portfolio" />
-        <meta property="og:title" content="Портфоліо — Дизайнер інтер'єру Ірина" />
+        <meta property="og:title" content="Портфоліо дизайнера інтер'єру та меблів | Ірина, Вінниця" />
         <meta
           property="og:description"
-          content="Портфоліо дизайнера інтер'єру та меблів Ірини: житлові й комерційні інтер'єри, кухні, гардеробні системи та індивідуальні меблі."
+          content="Портфоліо Ірини: житлові й комерційні інтер'єри, кухні, гардеробні та індивідуальні меблі. Проєкти й візуалізації для різних типів просторів."
         />
-        <meta name="twitter:title" content="Портфоліо — Дизайнер інтер'єру Ірина" />
+        <meta name="twitter:title" content="Портфоліо дизайнера інтер'єру та меблів | Ірина, Вінниця" />
         <meta
           name="twitter:description"
-          content="Портфоліо дизайнера інтер'єру та меблів Ірини: житлові й комерційні інтер'єри, кухні, гардеробні системи та індивідуальні меблі."
+          content="Портфоліо Ірини: житлові й комерційні інтер'єри, кухні, гардеробні та індивідуальні меблі. Проєкти й візуалізації для різних типів просторів."
         />
       </Helmet>
       {/* Hero Section */}
       <Reveal as="section" className="bg-white py-24 px-6 border-b border-stone-200">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold mb-8 text-stone-800">
-            Інтер'єрні та меблеві рішення
+            Дизайн інтер'єрів та меблів — портфоліо
           </h1>
           {/* Студійний акцент з підкресленням замість фону */}
           <p className="inline-block text-xl md:text-2xl text-stone-500 font-light pb-2 border-b-2 border-stone-300">
-            Комплексні проєкти: від планування простору до індивідуального дизайну меблів
+            Житлові й комерційні інтер'єри, кухні, гардеробні та індивідуальні меблі
           </p>
         </div>
       </Reveal>
@@ -201,8 +201,9 @@ function Portfolio() {
       <Reveal as="section" className="pt-16 pb-12 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-lg text-stone-600 leading-relaxed mb-12">
-            Кожен проєкт — це індивідуальне рішення, адаптоване під стиль життя клієнта, особливості
-            простору та бюджет. Тут ви можете побачити приклади реалізованих ідей.
+            Тут зібрані житлові й комерційні інтер'єри, кухні, гардеробні та меблі, які я
+            проєктувала для конкретних приміщень. Частина матеріалів — візуалізації майбутнього
+            інтер'єру, частина — проєктні рішення для меблів і простору.
           </p>
 
           {/* Filters */}
@@ -236,7 +237,7 @@ function Portfolio() {
             <div className="sticky top-20 h-[calc(100vh-5rem)] flex flex-col justify-center overflow-hidden">
               <div className="max-w-7xl mx-auto w-full px-6 md:px-12 mb-10">
                 <h2 className="text-3xl md:text-4xl font-serif font-semibold text-stone-800">
-                  Реалізовані рішення та візуалізації
+                  Проєкти та візуалізації
                 </h2>
               </div>
               <motion.div
@@ -329,7 +330,7 @@ function Portfolio() {
                     >
                       <Image
                         baseSrc={img}
-                        alt={`${selectedItem.title} - photo ${index + 1}`}
+                        alt={`${selectedItem.title}, зображення ${index + 1}`}
                         loading="lazy"
                         decoding="async"
                       />

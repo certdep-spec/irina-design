@@ -6,7 +6,6 @@ import { Reveal } from "../components/Reveal";
 import { Image } from "../components/Image";
 import {
   publishedUsefulArticles,
-  usefulArticles,
   usefulCategories,
   type UsefulCategoryId,
 } from "../data/usefulArticles";
@@ -18,10 +17,14 @@ const Useful: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<UsefulCategoryId | "all">("all");
   const [expandedCategories, setExpandedCategories] = useState<Set<UsefulCategoryId>>(new Set());
   const normalizedQuery = query.trim().toLocaleLowerCase("uk-UA");
+  const availableCategories = useMemo(
+    () => usefulCategories.filter(category => publishedUsefulArticles.some(article => article.category === category.id)),
+    []
+  );
 
   const filteredArticles = useMemo(
     () =>
-      usefulArticles.filter(article => {
+      publishedUsefulArticles.filter(article => {
         const matchesCategory = activeCategory === "all" || article.category === activeCategory;
         const haystack = `${article.title} ${article.excerpt}`.toLocaleLowerCase("uk-UA");
         return matchesCategory && (!normalizedQuery || haystack.includes(normalizedQuery));
@@ -31,7 +34,7 @@ const Useful: React.FC = () => {
 
   const featured = publishedUsefulArticles.slice(0, 4);
 
-  const ArticleState: React.FC<{ article: (typeof usefulArticles)[number] }> = ({ article }) =>
+  const ArticleState: React.FC<{ article: (typeof publishedUsefulArticles)[number] }> = ({ article }) =>
     article.published ? (
       <Link
         to={`/useful/${article.slug}`}
@@ -100,7 +103,7 @@ const Useful: React.FC = () => {
           >
             Усі теми
           </button>
-          {usefulCategories.map(category => (
+          {availableCategories.map(category => (
             <button
               key={category.id}
               type="button"
@@ -209,8 +212,8 @@ const Useful: React.FC = () => {
             </>
           ) : (
             <div className="space-y-16">
-              {usefulCategories.map(category => {
-                const articles = usefulArticles.filter(article => article.category === category.id);
+              {availableCategories.map(category => {
+                const articles = publishedUsefulArticles.filter(article => article.category === category.id);
                 const visibleArticles = expandedCategories.has(category.id)
                   ? articles
                   : articles.slice(0, 6);

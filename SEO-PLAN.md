@@ -17,9 +17,9 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 
 ## Phase 2 — Technical SEO on production
 - [x] Verify `robots.txt` returns 200 and points to production sitemap.
-- [x] Verify `sitemap.xml` returns 200 on production with 111 URLs, including 100 articles and 5 portfolio cases; synthetic lastmod/changefreq/priority are absent.
+- [x] Verify `sitemap.xml` returns 200 on production with the production sitemap; final clean index set targets 77 URLs: 61 articles, 5 topic hubs, 5 portfolio cases and 6 main pages; synthetic lastmod/changefreq/priority are absent.
 - [x] Check generated canonical tags on Home, Services, Portfolio, 5 cases and published articles; no mismatches found in the production build artifact.
-- [x] Check prerendered HTML contains one H1 and indexable text without requiring client JavaScript across all 111 sitemap URLs.
+- [x] Check prerendered HTML contains one H1 and indexable text without requiring client JavaScript across all indexable sitemap URLs.
 - [x] Verify unknown URLs return a real HTTP 404.
 - [x] Check that `/admin` remains noindex via `X-Robots-Tag: noindex, nofollow`.
 - [ ] Validate structured data with Google Rich Results / Schema.org tools. Local build check: 344 JSON-LD blocks parse as valid JSON.
@@ -27,13 +27,16 @@ Increase qualified organic traffic and convert it into enquiries for interior de
 
 ## Phase 3 — Google Search Console
 
+- [x] Remove empty topic hubs from the indexable set; only categories with published articles remain in sitemap/navigation.
+- [x] Public `/useful` catalogue now exposes only fully published articles; editorial backlog stays out of crawl paths.
+
 - [x] Indexation triage: discovered a critical quality issue — 39 article URLs shared the same generic fallback body because they had metadata but no unique article content.
 - [x] Remove those 39 incomplete articles from indexable output/sitemap until each receives unique content. Keep them as editorial backlog instead of asking Google to index duplicate pages.
 - [ ] Re-publish rewritten backlog articles in small batches after unique content, internal links and factual examples are added.
 - [x] Verification file added to repository.
 - [ ] Confirm property ownership in Search Console.
 - [ ] Submit `https://irina-design.vercel.app/sitemap.xml`.
-- [ ] Review Indexed / Crawled currently not indexed / Discovered currently not indexed. User reports only 1 of 107 pages indexed as of 2026-09-21; exact exclusion/status breakdown still needed.
+- [ ] Review Indexed / Crawled currently not indexed / Discovered currently not indexed. Search Console reported 1 indexed page and 106 pages as “Discovered — currently not indexed” on 2026-09-21. The next release removes thin/empty URLs and strengthens crawl paths before resubmitting the sitemap.
 - [ ] Inspect 10–20 highest-value URLs manually.
 - [ ] Record baseline impressions, clicks and queries.
 
