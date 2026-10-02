@@ -4,7 +4,7 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { publishedUsefulArticles, usefulCategories, type UsefulCategoryId } from "../data/usefulArticles";
 
-const SITE_URL = "https://irina-design.vercel.app";
+const SITE_URL = "https://certdep-spec.github.io/Irina-design";
 
 const seoByCategory: Record<
   UsefulCategoryId,
