@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:4173";
+const CANONICAL_HOST = "certdep-spec.github.io/Irina-design";
+const EXPECTED_ARTICLE_COUNT = 62;
 
 test.describe("Mirror smoke tests", () => {
   test.beforeEach(async ({ page }) => {
@@ -42,8 +44,8 @@ test.describe("Mirror smoke tests", () => {
         "href",
         new RegExp(
           route.path === "/"
-            ? "irina-design\\.vercel\\.app/?$"
-            : `irina-design\\.vercel\\.app${route.path}`
+            ? "certdep-spec\\.github\\.io\\/Irina-design/?$"
+            : `certdep-spec\\.github\\.io\\/Irina-design${route.path}`
         )
       );
     }
@@ -68,7 +70,7 @@ test.describe("Mirror smoke tests", () => {
     await expect(page.locator("h1")).toContainText("Кухня");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",
-      `https://irina-design.vercel.app${path}`
+      `https://${CANONICAL_HOST}${path}`
     );
     await expect(page.getByRole("link", { name: /Як правильно спланувати кухню/ }).first()).toBeVisible();
     expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThanOrEqual(2);
@@ -82,7 +84,7 @@ test.describe("Mirror smoke tests", () => {
     await expect(page.getByRole("heading", { name: "Постійна техніка" })).toBeVisible();
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",
-      `https://irina-design.vercel.app${path}`
+      `https://${CANONICAL_HOST}${path}`
     );
     expect(await page.locator('script[type="application/ld+json"]').count()).toBeGreaterThanOrEqual(2);
     await expect(page.locator('[data-cta-name$="_to_contact"]')).toBeVisible();
@@ -110,7 +112,7 @@ test.describe("Mirror smoke tests", () => {
     await expect(page.locator("h1")).toContainText("Житловий інтер'єр");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
       "href",
-      `https://irina-design.vercel.app${path}`
+      `https://${CANONICAL_HOST}${path}`
     );
     await expect(page.getByRole("heading", { name: "Галерея проєкту" })).toBeVisible();
     await expect(page.locator('[data-cta-name="case_i1_estimate"]')).toBeVisible();
@@ -165,7 +167,7 @@ test.describe("Mirror smoke tests", () => {
     expect(sitemap.status()).toBe(200);
     const sitemapText = await sitemap.text();
     const urls = (sitemapText.match(/<url>/g) || []).length;
-    expect(urls).toBe(77);
+    expect(urls).toBe(EXPECTED_ARTICLE_COUNT + 16);
     expect(sitemapText).toContain("/useful/skilky-rozetok-potribno-u-kvartyri");
     expect(sitemapText).toContain("/useful/skilky-koshtuie-dyzain-interieru-u-vinnytsi");
     expect(sitemapText).toContain("/portfolio/zhytlovyi-interier-120-m2");
@@ -183,12 +185,12 @@ test.describe("Mirror smoke tests", () => {
     const sitemapText = await sitemap.text();
     const articlePaths = [
       ...sitemapText.matchAll(
-        /<loc>https:\/\/irina-design\.vercel\.app(\/useful\/[^<]+)<\/loc>/g
+        /<loc>https:\/\/certdep-spec\.github\.io\/Irina-design(\/useful\/[^<]+)<\/loc>/g
       ),
     ]
       .map(match => match[1])
       .filter(path => !path.startsWith("/useful/category/"));
-    expect(articlePaths).toHaveLength(61);
+    expect(articlePaths).toHaveLength(EXPECTED_ARTICLE_COUNT);
 
     for (const path of articlePaths) {
       const response = await page.request.get(BASE_URL + path);

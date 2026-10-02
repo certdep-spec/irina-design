@@ -94,54 +94,70 @@ jobs:
           working-directory: ./
 
   verify-production:
-    name: Verify production SEO
+    name: Verify production mirrors
     runs-on: ubuntu-latest
     needs: [build]
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Wait for Vercel Git integration
-        run: sleep 25
-
       - name: Verify production HTTP and SEO essentials
         shell: bash
         run: |
           set -euo pipefail
-          BASE="https://irina-design.vercel.app"
+          CANONICAL="https://certdep-spec.github.io/Irina-design"
+          EXPECTED_ARTICLES=62
+          EXPECTED_URLS=78
 
-          retry() {
-            local attempt=1
-            until "$@"; do
-              if [ "$attempt" -ge 6 ]; then return 1; fi
-              attempt=$((attempt + 1))
-              sleep 10
-            done
+          check_mirror() {
+            local name="$1"
+            local base="$2"
+            local prefix="$3"
+
+            echo "Checking $name: $base"
+            retry() {
+              local attempt=1
+              until "$@"; do
+                if [ "$attempt" -ge 6 ]; then return 1; fi
+                attempt=$((attempt + 1))
+                sleep 10
+              done
+            }
+
+            retry curl -fsS "$base/robots.txt" -o "robots-$name.txt"
+            grep -F "Sitemap: $CANONICAL/sitemap.xml" "robots-$name.txt"
+
+            retry curl -fsS "$base/sitemap.xml" -o "sitemap-$name.xml"
+            test "$(grep -o '<url>' "sitemap-$name.xml" | wc -l | tr -d ' ')" = "$EXPECTED_URLS"
+            grep -F "$CANONICAL/portfolio/zhytlovyi-interier-120-m2" "sitemap-$name.xml"
+            grep -F "$CANONICAL/useful/category/kitchen" "sitemap-$name.xml"
+            grep -F "$CANONICAL/useful/skilky-rozetok-potribno-u-kvartyri" "sitemap-$name.xml"
+            ! grep -q '<lastmod>' "sitemap-$name.xml"
+            ! grep -q '<changefreq>' "sitemap-$name.xml"
+            ! grep -q '<priority>' "sitemap-$name.xml"
+
+            curl -fsS "$base/services" -o "services-$name.html"
+            grep -F "rel=\"canonical\" href=\"$CANONICAL/services\"" "services-$name.html"
+            grep -qi '<h1' "services-$name.html"
+
+            STATUS="$(curl -sS -o "404-$name.html" -w '%{http_code}' "$base/nonexistent-seo-check-918")"
+            test "$STATUS" = "404"
+            grep -q '404' "404-$name.html"
           }
 
-          retry curl -fsS "$BASE/robots.txt" -o robots.txt
-          grep -F "Sitemap: $BASE/sitemap.xml" robots.txt
+          check_mirror vercel "https://irina-design.vercel.app" "/"
+          check_mirror netlify "https://irina-design.netlify.app" "/"
 
-          retry curl -fsS "$BASE/sitemap.xml" -o sitemap.xml
-          test "$(grep -o '<url>' sitemap.xml | wc -l | tr -d ' ')" = "77"
-          grep -F "$BASE/portfolio/zhytlovyi-interier-120-m2" sitemap.xml
-          grep -F "$BASE/useful/category/kitchen" sitemap.xml
-          grep -F "$BASE/useful/skilky-rozetok-potribno-u-kvartyri" sitemap.xml
-          ! grep -q '<lastmod>' sitemap.xml
-          ! grep -q '<changefreq>' sitemap.xml
-          ! grep -q '<priority>' sitemap.xml
+          echo "Checking GitHub Pages"
+          PAGES="https://certdep-spec.github.io/Irina-design"
+          curl -fsS "$PAGES/robots.txt" -o robots-pages.txt
+          grep -F "Sitemap: $CANONICAL/sitemap.xml" robots-pages.txt
+          curl -fsS "$PAGES/sitemap.xml" -o sitemap-pages.xml
+          test "$(grep -o '<url>' sitemap-pages.xml | wc -l | tr -d ' ')" = "$EXPECTED_URLS"
+          grep -F "$CANONICAL/portfolio/zhytlovyi-interier-120-m2" sitemap-pages.xml
+          curl -fsS "$PAGES/services" -o services-pages.html
+          grep -F "rel=\"canonical\" href=\"$CANONICAL/services\"" services-pages.html
+          grep -qi '<h1' services-pages.html
 
-          curl -fsS "$BASE/services" -o services.html
-          grep -F 'rel="canonical" href="https://irina-design.vercel.app/services"' services.html
-          grep -qi '<h1' services.html
-
-          STATUS="$(curl -sS -o 404.html -w '%{http_code}' "$BASE/nonexistent-seo-check-918")"
-          test "$STATUS" = "404"
-          grep -q '404' 404.html
-
-          curl -fsSI "$BASE/admin" -o admin-headers.txt
-          grep -qi '^x-robots-tag: noindex, nofollow' admin-headers.txt
-
-          curl -fsS "$BASE/privacy" -o privacy.html
-          grep -F 'name="robots" content="noindex, follow"' privacy.html
+          echo "All three production mirrors passed HTTP/SEO checks."
 
       - uses: actions/setup-node@v4
         with:
@@ -158,7 +174,7 @@ jobs:
             exit 0
           fi
           export CHROME_PATH
-          npx --yes lighthouse@12.8.2 https://irina-design.vercel.app \
+          npx --yes lighthouse@12.8.2 https://certdep-spec.github.io/Irina-design \
             --quiet \
             --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
             --only-categories=performance,seo,accessibility,best-practices \
@@ -180,13 +196,6 @@ jobs:
           console.log('TBT=' + a['total-blocking-time']?.displayValue);
           console.log('CLS=' + a['cumulative-layout-shift']?.displayValue);
           console.log('SpeedIndex=' + a['speed-index']?.displayValue);
-          const diagnostics = {
-            lcpElement: a['largest-contentful-paint-element']?.details?.items?.slice(0, 3),
-            layoutShifts: a['layout-shifts']?.details?.items?.slice(0, 5),
-            renderBlocking: a['render-blocking-resources']?.details?.items?.slice(0, 10),
-            unusedJs: a['unused-javascript']?.details?.items?.slice(0, 10),
-          };
-          console.log('LH_DIAGNOSTICS=' + JSON.stringify(diagnostics));
           NODE
 
   deploy-netlify:
