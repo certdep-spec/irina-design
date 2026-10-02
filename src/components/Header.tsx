@@ -55,7 +55,7 @@ const Header: React.FC = () => {
             ІРИНА<span className="text-stone-400"> · </span>INTERIOR DESIGN
           </Link>
 
-          <div className="hidden md:flex space-x-6 lg:space-x-8">
+          <div className="hidden md:flex items-center gap-5 lg:gap-7"><div className="flex space-x-6 lg:space-x-8">
             {navLinks.map(link => (
               <Link
                 key={link.path}
