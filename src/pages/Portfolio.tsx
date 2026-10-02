@@ -167,12 +167,12 @@ function Portfolio() {
     <div className="bg-stone-50 min-h-screen">
       <Helmet>
         <title>Портфоліо дизайнера інтер'єру та меблів | Ірина, Вінниця</title>
-        <link rel="canonical" href="https://irina-design.vercel.app/portfolio" />
+        <link rel="canonical" href="https://certdep-spec.github.io/Irina-design/portfolio" />
         <meta
           name="description"
           content="Портфоліо Ірини: житлові й комерційні інтер'єри, кухні, гардеробні та індивідуальні меблі. Проєкти й візуалізації для різних типів просторів."
         />
-        <meta property="og:url" content="https://irina-design.vercel.app/portfolio" />
+        <meta property="og:url" content="https://certdep-spec.github.io/Irina-design/portfolio" />
         <meta property="og:title" content="Портфоліо дизайнера інтер'єру та меблів | Ірина, Вінниця" />
         <meta
           property="og:description"
