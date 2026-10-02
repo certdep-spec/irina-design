@@ -1,5 +1,5 @@
 import React from 'react'
-import { FiMessageCircle } from 'react-icons/fi'
+import { FiPhone } from 'react-icons/fi'
 import { FaTelegramPlane } from 'react-icons/fa'
 
 const FloatingCTA: React.FC = () => {
@@ -10,7 +10,7 @@ const FloatingCTA: React.FC = () => {
     >
       {/* Telegram Button */}
       <a
-        href="https://t.me/+380****9885"
+        href="https://t.me/+380964599885"
         target="_blank"
         rel="noopener noreferrer"
         data-cta-name="floating_telegram"
@@ -22,12 +22,12 @@ const FloatingCTA: React.FC = () => {
 
       {/* Main Call Button */}
       <a
-        href="tel:+380****9885"
+        href="tel:+380964599885"
         data-cta-name="floating_call"
         className="w-14 h-14 bg-stone-800 text-white rounded-full flex items-center justify-center shadow-lg "
         aria-label="Зателефонувати"
       >
-        <FiMessageCircle size={24} />
+        <FiPhone size={24} />
       </a>
     </div>
   )
