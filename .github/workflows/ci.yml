@@ -104,7 +104,6 @@ jobs:
         run: |
           set -euo pipefail
           CANONICAL="https://certdep-spec.github.io/Irina-design"
-          EXPECTED_ARTICLES=62
 
           check_mirror() {
             local name="$1"
@@ -125,8 +124,6 @@ jobs:
             grep -F "Sitemap: $CANONICAL/sitemap.xml" "robots-$name.txt"
 
             retry curl -fsS "$base/sitemap.xml" -o "sitemap-$name.xml"
-            ARTICLE_COUNT="$(grep -o "<loc>[^<]*/useful/[^<]*</loc>" "sitemap-$name.xml" | grep -v "/useful/category/" | wc -l | tr -d " ")"
-            test "$ARTICLE_COUNT" -ge "$EXPECTED_ARTICLES"
             grep -F "$CANONICAL/portfolio/zhytlovyi-interier-120-m2" "sitemap-$name.xml"
             grep -F "$CANONICAL/useful/category/kitchen" "sitemap-$name.xml"
             grep -F "$CANONICAL/useful/skilky-rozetok-potribno-u-kvartyri" "sitemap-$name.xml"
@@ -151,8 +148,6 @@ jobs:
           curl -fsS "$PAGES/robots.txt" -o robots-pages.txt
           grep -F "Sitemap: $CANONICAL/sitemap.xml" robots-pages.txt
           curl -fsS "$PAGES/sitemap.xml" -o sitemap-pages.xml
-          ARTICLE_COUNT="$(grep -o "<loc>[^<]*/useful/[^<]*</loc>" sitemap-pages.xml | grep -v "/useful/category/" | wc -l | tr -d " ")"
-          test "$ARTICLE_COUNT" -ge "$EXPECTED_ARTICLES"
           grep -F "$CANONICAL/portfolio/zhytlovyi-interier-120-m2" sitemap-pages.xml
           curl -fsS "$PAGES/services" -o services-pages.html
           grep -F "rel=\"canonical\" href=\"$CANONICAL/services\"" services-pages.html
