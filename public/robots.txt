@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-Sitemap: https://irina-design.vercel.app/sitemap.xml
+Sitemap: https://certdep-spec.github.io/Irina-design/sitemap.xml

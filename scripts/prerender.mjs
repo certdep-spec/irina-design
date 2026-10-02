@@ -22,7 +22,15 @@ const sitemapRoutes = fs.existsSync(sitemapPath)
       .map(([, url]) => new URL(url).pathname)
       .filter(route => route.startsWith("/useful/") || route.startsWith("/portfolio/"))
   : [];
-const ROUTES = [...new Set([...STATIC_ROUTES, ...sitemapRoutes])];
+const base = (process.env.BASE_PATH || "").replace(/\/+$/, "");
+const ROUTES = [...new Set([
+  ...STATIC_ROUTES,
+  ...sitemapRoutes.map(route => {
+    const normalized = route.replace(/^\/+/, "");
+    const basePrefix = base.replace(/^\/+/, "") + "/";
+    return normalized.startsWith(basePrefix) ? "/" + normalized.slice(basePrefix.length) : "/" + normalized;
+  }),
+])];
 const ROOT_DIV = '<div id="root"></div>';
 
 async function main() {
@@ -35,7 +43,6 @@ async function main() {
   if (!fs.existsSync(templatePath)) throw new Error("dist/index.html not found");
   const { renderRoute } = await import(pathToFileURL(ssrFile).href);
   const template = fs.readFileSync(templatePath, "utf8");
-  const base = (process.env.BASE_PATH || "").replace(/\/+$/, "");
   for (const route of ROUTES) {
     const { html, helmet } = await renderRoute(base + route);
     if (!html.trim()) throw new Error(`Prerender of "${route}" produced empty HTML`);

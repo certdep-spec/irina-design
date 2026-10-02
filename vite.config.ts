@@ -9,7 +9,7 @@ import { publishedUsefulArticles, usefulCategories } from "./src/data/usefulArti
 import { portfolioCases } from "./src/data/portfolio";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const SITE_URL = "https://irina-design.vercel.app";
+const SITE_URL = "https://certdep-spec.github.io/Irina-design";
 const ARTICLE_ROUTES = publishedUsefulArticles.map(article => `/useful/${article.slug}`);
 const PUBLISHED_CATEGORY_IDS = new Set(publishedUsefulArticles.map(article => article.category));
 const CATEGORY_ROUTES = usefulCategories

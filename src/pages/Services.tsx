@@ -103,9 +103,9 @@ function Services() {
         "@type": "Service",
         name: service.title,
         description: service.description,
-        provider: { "@id": "https://irina-design.vercel.app/#business" },
+        provider: { "@id": "https://certdep-spec.github.io/Irina-design/#business" },
         areaServed: ["Вінниця", "Вінницька область", "Україна"],
-        url: "https://irina-design.vercel.app/services",
+        url: "https://certdep-spec.github.io/Irina-design/services",
       },
     })),
   };
@@ -141,12 +141,12 @@ function Services() {
     <div>
       <Helmet>
         <title>Дизайн інтер'єру у Вінниці: послуги та ціни | Ірина</title>
-        <link rel="canonical" href="https://irina-design.vercel.app/services" />
+        <link rel="canonical" href="https://certdep-spec.github.io/Irina-design/services" />
         <meta
           name="description"
           content="Послуги дизайнера інтер'єру у Вінниці: планування, повний дизайн-проєкт від 800 грн/м², авторський супровід і дизайн меблів від 3000 грн."
         />
-        <meta property="og:url" content="https://irina-design.vercel.app/services" />
+        <meta property="og:url" content="https://certdep-spec.github.io/Irina-design/services" />
         <meta property="og:title" content="Послуги та ціни — Дизайнер інтер'єру Ірина" />
         <meta
           property="og:description"

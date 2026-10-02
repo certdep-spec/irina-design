@@ -62,10 +62,10 @@ function App() {
   const professionalServiceLd = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": "https://irina-design.vercel.app/#business",
+    "@id": "https://certdep-spec.github.io/Irina-design/#business",
     name: "Ірина — дизайн інтер'єру та меблів",
-    url: "https://irina-design.vercel.app",
-    image: "https://irina-design.vercel.app/Paint/ira-portrait.webp",
+    url: "https://certdep-spec.github.io/Irina-design",
+    image: "https://certdep-spec.github.io/Irina-design/Paint/ira-portrait.webp",
     telephone: "+380964599885",
     email: "irina26408@gmail.com",
     sameAs: [
@@ -74,6 +74,18 @@ function App() {
     ],
     areaServed: ["Вінниця", "Вінницька область", "Україна"],
     serviceType: ["Дизайн інтер'єру", "Планування інтер'єру", "Дизайн меблів", "Авторський супровід"],
+    founder: { "@id": "https://certdep-spec.github.io/Irina-design/about#iryna" },
+    knowsAbout: ["Дизайн інтер'єру", "Планування простору", "Дизайн меблів", "Освітлення", "Матеріали"],
+  };
+
+  const websiteLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://certdep-spec.github.io/Irina-design/#website",
+    url: "https://certdep-spec.github.io/Irina-design/",
+    name: "Ірина — дизайн інтер'єру та меблів",
+    inLanguage: "uk-UA",
+    publisher: { "@id": "https://certdep-spec.github.io/Irina-design/#business" },
   };
 
   return (
@@ -81,13 +93,14 @@ function App() {
       <Helmet>
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="uk_UA" />
-        <meta property="og:image" content="https://irina-design.vercel.app/Paint/og-image.jpg" />
+        <meta property="og:image" content="https://certdep-spec.github.io/Irina-design/Paint/og-image.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/jpeg" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://irina-design.vercel.app/Paint/og-image.jpg" />
+        <meta name="twitter:image" content="https://certdep-spec.github.io/Irina-design/Paint/og-image.jpg" />
         <script type="application/ld+json">{JSON.stringify(professionalServiceLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(websiteLd)}</script>
       </Helmet>
       <div className="min-h-screen flex flex-col">
         <Header />

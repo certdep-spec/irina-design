@@ -28,12 +28,12 @@ function Contact() {
     <div>
       <Helmet>
         <title>Контакти — Дизайнер інтер'єру Ірина у Вінниці</title>
-        <link rel="canonical" href="https://irina-design.vercel.app/contact" />
+        <link rel="canonical" href="https://certdep-spec.github.io/Irina-design/contact" />
         <meta
           name="description"
           content="Контакти дизайнера інтер'єру Ірини у Вінниці. Напишіть про ваш об'єкт, площу та задачу, щоб обговорити формат роботи."
         />
-        <meta property="og:url" content="https://irina-design.vercel.app/contact" />
+        <meta property="og:url" content="https://certdep-spec.github.io/Irina-design/contact" />
         <meta property="og:title" content="Контакти — Дизайнер інтер'єру Ірина у Вінниці" />
         <meta
           property="og:description"

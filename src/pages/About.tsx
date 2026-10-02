@@ -8,12 +8,18 @@ function About() {
   const personLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "@id": "https://irina-design.vercel.app/about#iryna",
+    "@id": "https://certdep-spec.github.io/Irina-design/about#iryna",
     name: "Ірина",
     jobTitle: "Дизайнер інтер'єру та меблів",
-    image: "https://irina-design.vercel.app/Paint/ira-portrait.webp",
-    url: "https://irina-design.vercel.app/about",
+    description:
+      "Дизайнер інтер'єру та меблів із Вінниці. Проєктує житлові й комерційні простори, планування, візуалізації, робочі креслення та меблі на замовлення.",
+    image: "https://certdep-spec.github.io/Irina-design/Paint/ira-portrait.webp",
+    url: "https://certdep-spec.github.io/Irina-design/about",
+    mainEntityOfPage: "https://certdep-spec.github.io/Irina-design/about",
+    areaServed: ["Вінниця", "Вінницька область", "Україна"],
+    knowsLanguage: ["uk-UA"],
     knowsAbout: ["Дизайн інтер'єру", "Планування", "3D-візуалізація", "Дизайн меблів"],
+    worksFor: { "@id": "https://certdep-spec.github.io/Irina-design/#business" },
     sameAs: [
       "https://www.facebook.com/profile.php?id=100063828644118",
       "https://www.instagram.com/nova_art_design/",
@@ -54,12 +60,12 @@ function About() {
     <div>
       <Helmet>
         <title>Ірина — дизайнер інтер'єру та меблів у Вінниці</title>
-        <link rel="canonical" href="https://irina-design.vercel.app/about" />
+        <link rel="canonical" href="https://certdep-spec.github.io/Irina-design/about" />
         <meta
           name="description"
           content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Проєктую квартири, будинки й меблі: від планування та 3D-візуалізацій до креслень і супроводу."
         />
-        <meta property="og:url" content="https://irina-design.vercel.app/about" />
+        <meta property="og:url" content="https://certdep-spec.github.io/Irina-design/about" />
         <meta property="og:title" content="Ірина — дизайнер інтер'єру та меблів у Вінниці" />
         <meta
           property="og:description"
