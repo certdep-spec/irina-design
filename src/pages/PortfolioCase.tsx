@@ -59,6 +59,7 @@ function PortfolioCase() {
     url: canonical,
     provider: { "@id": `${SITE_URL}/#business` },
     creator: { "@id": `${SITE_URL}/about#iryna` },
+    about: item.category === "interior" ? "Дизайн інтер'єру" : "Дизайн меблів",
     inLanguage: "uk-UA",
   };
 
