@@ -185,7 +185,7 @@ test.describe("Mirror smoke tests", () => {
     const sitemapText = await sitemap.text();
     const articlePaths = [
       ...sitemapText.matchAll(
-        /<loc>https:\/\/irina-design\.vercel\.app(\/useful\/[^<]+)<\/loc>/g
+        /<loc>https:\/\/certdep-spec\.github\.io\/Irina-design(\/useful\/[^<]+)<\/loc>/g
       ),
     ]
       .map(match => match[1])
