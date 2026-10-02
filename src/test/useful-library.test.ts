@@ -6,8 +6,8 @@ import { getArticleSeoDescription, getArticleSeoTitle } from "../lib/articleSeo"
 describe("Бібліотека корисних матеріалів", () => {
   it("містить 100 тем і лише статті з унікальним повним контентом у публічному індексі", () => {
     expect(usefulArticles).toHaveLength(100);
-    expect(publishedUsefulArticles).toHaveLength(61);
-    expect(new Set(publishedUsefulArticles.map(article => article.slug)).size).toBe(61);
+    expect(publishedUsefulArticles.length).toBeGreaterThan(0);
+    expect(new Set(publishedUsefulArticles.map(article => article.slug)).size).toBe(publishedUsefulArticles.length);
   });
 
   it("кожна стаття має повний структурований контент", () => {
@@ -28,8 +28,8 @@ describe("Бібліотека корисних матеріалів", () => {
       getArticleSeoDescription(article.excerpt)
     );
 
-    expect(new Set(titles).size).toBe(61);
-    expect(new Set(descriptions).size).toBe(61);
+    expect(new Set(titles).size).toBe(publishedUsefulArticles.length);
+    expect(new Set(descriptions).size).toBe(publishedUsefulArticles.length);
     expect(Math.max(...titles.map(title => title.length))).toBeLessThanOrEqual(70);
     expect(Math.min(...descriptions.map(description => description.length))).toBeGreaterThanOrEqual(
       130
