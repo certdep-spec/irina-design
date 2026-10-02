@@ -74,6 +74,18 @@ function App() {
     ],
     areaServed: ["Вінниця", "Вінницька область", "Україна"],
     serviceType: ["Дизайн інтер'єру", "Планування інтер'єру", "Дизайн меблів", "Авторський супровід"],
+    founder: { "@id": "https://certdep-spec.github.io/Irina-design/about#iryna" },
+    knowsAbout: ["Дизайн інтер'єру", "Планування простору", "Дизайн меблів", "Освітлення", "Матеріали"],
+  };
+
+  const websiteLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://certdep-spec.github.io/Irina-design/#website",
+    url: "https://certdep-spec.github.io/Irina-design/",
+    name: "Ірина — дизайн інтер'єру та меблів",
+    inLanguage: "uk-UA",
+    publisher: { "@id": "https://certdep-spec.github.io/Irina-design/#business" },
   };
 
   return (
@@ -88,6 +100,7 @@ function App() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="https://certdep-spec.github.io/Irina-design/Paint/og-image.jpg" />
         <script type="application/ld+json">{JSON.stringify(professionalServiceLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(websiteLd)}</script>
       </Helmet>
       <div className="min-h-screen flex flex-col">
         <Header />
