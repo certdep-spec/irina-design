@@ -11,9 +11,15 @@ function About() {
     "@id": "https://certdep-spec.github.io/Irina-design/about#iryna",
     name: "Ірина",
     jobTitle: "Дизайнер інтер'єру та меблів",
+    description:
+      "Дизайнер інтер'єру та меблів із Вінниці. Проєктує житлові й комерційні простори, планування, візуалізації, робочі креслення та меблі на замовлення.",
     image: "https://certdep-spec.github.io/Irina-design/Paint/ira-portrait.webp",
     url: "https://certdep-spec.github.io/Irina-design/about",
+    mainEntityOfPage: "https://certdep-spec.github.io/Irina-design/about",
+    areaServed: ["Вінниця", "Вінницька область", "Україна"],
+    knowsLanguage: ["uk-UA"],
     knowsAbout: ["Дизайн інтер'єру", "Планування", "3D-візуалізація", "Дизайн меблів"],
+    worksFor: { "@id": "https://certdep-spec.github.io/Irina-design/#business" },
     sameAs: [
       "https://www.facebook.com/profile.php?id=100063828644118",
       "https://www.instagram.com/nova_art_design/",
