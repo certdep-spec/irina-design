@@ -55,7 +55,7 @@ const Header: React.FC = () => {
             ІРИНА<span className="text-stone-400"> · </span>INTERIOR DESIGN
           </Link>
 
-          <div className="hidden md:flex space-x-6 lg:space-x-8">
+          <div className="hidden md:flex items-center gap-5 lg:gap-7"><div className="flex space-x-6 lg:space-x-8">
             {navLinks.map(link => (
               <Link
                 key={link.path}
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
                 {link.label}
               </Link>
             ))}
-          </div>
+          </div><Link to="/contact#contact-form" data-cta-name="header_estimate" className="btn-primary min-h-[44px] px-5 inline-flex items-center justify-center text-sm whitespace-nowrap">Дізнатися вартість</Link></div>
 
           <button
             className="md:hidden text-stone-800 p-2 -mr-2 focus:outline-none touch-manipulation active:scale-[0.92] transition-transform duration-75"

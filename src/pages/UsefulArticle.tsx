@@ -407,7 +407,7 @@ const UsefulArticle: React.FC = () => {
       <section className="px-6 md:px-12 py-12 border-t border-stone-200 bg-white" aria-labelledby="article-author-title">
         <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-6 items-start">
           <img
-            src={`SITE_URL/Paint/ira-portrait-800w.webp`}
+            src={`${SITE_URL}/Paint/ira-portrait-800w.webp`}
             alt="Ірина — дизайнер інтер'єру та меблів"
             width="160"
             height="200"
