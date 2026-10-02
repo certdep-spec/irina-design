@@ -404,6 +404,33 @@ const UsefulArticle: React.FC = () => {
         </div>
       </div>
 
+      <section className="px-6 md:px-12 py-12 border-t border-stone-200 bg-white" aria-labelledby="article-author-title">
+        <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-6 items-start">
+          <img
+            src={`SITE_URL/Paint/ira-portrait-800w.webp`}
+            alt="Ірина — дизайнер інтер'єру та меблів"
+            width="160"
+            height="200"
+            loading="lazy"
+            decoding="async"
+            className="w-28 h-36 object-cover rounded-xl"
+          />
+          <div>
+            <p className="text-xs uppercase tracking-[0.22em] text-stone-400 mb-2">Авторка</p>
+            <h2 id="article-author-title" className="text-2xl font-serif font-semibold text-stone-900 mb-3">
+              Ірина — дизайнер інтер'єру та меблів
+            </h2>
+            <p className="text-stone-600 leading-7 mb-4">
+              Практичні матеріали про планування, ремонт, меблі та освітлення на основі роботи з реальними інтер'єрами.
+              Ірина працює у Вінниці та дистанційно.
+            </p>
+            <Link to="/about" className="underline underline-offset-4 text-stone-900">
+              Дізнатися більше про авторку →
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {relatedArticles.length > 0 && (
         <section className="px-6 md:px-12 py-14 bg-stone-50 border-t border-stone-200">
           <div className="max-w-4xl mx-auto">
