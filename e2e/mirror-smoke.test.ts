@@ -184,9 +184,7 @@ test.describe("Mirror smoke tests", () => {
     const sitemap = await page.request.get(BASE_URL + "/sitemap.xml");
     const sitemapText = await sitemap.text();
     const articlePaths = [
-      ...sitemapText.matchAll(
-        /<loc>https:\/\/certdep-spec\.github\.io\/Irina-design(\/useful\/[^<]+)<\/loc>/g
-      ),
+      ...sitemapText.matchAll(/<loc>(?:https?:\/\/[^<]+)?(\/useful\/[^<]+)<\/loc>/g),
     ]
       .map(match => match[1])
       .filter(path => !path.startsWith("/useful/category/"));
