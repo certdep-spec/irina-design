@@ -10,7 +10,7 @@ import {
   type UsefulCategoryId,
 } from "../data/usefulArticles";
 
-const SITE_URL = "https://irina-design.vercel.app";
+const SITE_URL = "https://certdep-spec.github.io/Irina-design";
 
 const Useful: React.FC = () => {
   const [query, setQuery] = useState("");
