@@ -4,7 +4,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { Image } from "../components/Image";
 import { portfolioCases } from "../data/portfolio";
 
-const SITE_URL = "https://irina-design.vercel.app";
+const SITE_URL = "https://certdep-spec.github.io/Irina-design";
 
 function PortfolioCase() {
   const { id } = useParams();
