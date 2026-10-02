@@ -67,7 +67,17 @@ const UsefulArticle: React.FC = () => {
     dateModified: article.updatedAt,
     author: { "@id": `${SITE_URL}/about#iryna` },
     publisher: { "@id": `${SITE_URL}/#business` },
-    mainEntityOfPage: canonical,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonical,
+      ...(article.cover ? {
+        primaryImageOfPage: {
+          "@type": "ImageObject",
+          contentUrl: `${SITE_URL}${article.cover}`,
+          url: `${SITE_URL}${article.cover}`,
+        },
+      } : {}),
+    },
     image: article.cover ? `${SITE_URL}${article.cover}` : undefined,
     inLanguage: "uk-UA",
   };
