@@ -55,6 +55,15 @@ function PortfolioCase() {
     "@type": "CreativeWork",
     name: item.title,
     description,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonical,
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        contentUrl: `${SITE_URL}${item.coverImage}`,
+        url: `${SITE_URL}${item.coverImage}`,
+      },
+    },
     image: `${SITE_URL}${item.coverImage}`,
     url: canonical,
     provider: { "@id": `${SITE_URL}/#business` },

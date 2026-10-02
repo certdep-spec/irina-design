@@ -97,6 +97,7 @@ function App() {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:type" content="image/jpeg" />
+        <meta name="robots" content="max-image-preview:large" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="https://certdep-spec.github.io/Irina-design/Paint/og-image.jpg" />
         <script type="application/ld+json">{JSON.stringify(professionalServiceLd)}</script>
