@@ -23,8 +23,8 @@ export const apiUrl = (path: string): string => {
 };
 
 export const API_ENDPOINTS = {
-  SEND_TELEGRAM: '/api/send-telegram',
-  ADMIN_AUTH: '/api/admin-auth',
+  SEND_TELEGRAM: apiUrl('/api/send-telegram'),
+  ADMIN_AUTH: apiUrl('/api/admin-auth'),
 } as const;
 
 /**
