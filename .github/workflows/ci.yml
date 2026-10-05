@@ -103,7 +103,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          CANONICAL="https://certdep-spec.github.io/Irina-design"
+          CANONICAL="https://certdep-spec.github.io/irina-design"
 
           check_mirror() {
             local name="$1"
@@ -144,7 +144,7 @@ jobs:
           check_mirror netlify "https://irina-design.netlify.app" "/"
 
           echo "Checking GitHub Pages"
-          PAGES="https://certdep-spec.github.io/Irina-design"
+          PAGES="https://certdep-spec.github.io/irina-design"
           curl -fsS "$PAGES/robots.txt" -o robots-pages.txt
           grep -F "Sitemap: $CANONICAL/sitemap.xml" robots-pages.txt
           curl -fsS "$PAGES/sitemap.xml" -o sitemap-pages.xml
@@ -170,7 +170,7 @@ jobs:
             exit 0
           fi
           export CHROME_PATH
-          npx --yes lighthouse@12.8.2 https://certdep-spec.github.io/Irina-design \
+          npx --yes lighthouse@12.8.2 https://certdep-spec.github.io/irina-design \
             --quiet \
             --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" \
             --only-categories=performance,seo,accessibility,best-practices \
