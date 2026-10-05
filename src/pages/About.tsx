@@ -8,18 +8,18 @@ function About() {
   const personLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "@id": "https://certdep-spec.github.io/Irina-design/about#iryna",
+    "@id": "https://certdep-spec.github.io/irina-design/about#iryna",
     name: "Ірина",
     jobTitle: "Дизайнер інтер'єру та меблів",
     description:
       "Дизайнер інтер'єру та меблів із Вінниці. Проєктує житлові й комерційні простори, планування, візуалізації, робочі креслення та меблі на замовлення.",
-    image: "https://certdep-spec.github.io/Irina-design/Paint/ira-portrait.webp",
-    url: "https://certdep-spec.github.io/Irina-design/about",
-    mainEntityOfPage: "https://certdep-spec.github.io/Irina-design/about",
+    image: "https://certdep-spec.github.io/irina-design/Paint/ira-portrait.webp",
+    url: "https://certdep-spec.github.io/irina-design/about",
+    mainEntityOfPage: "https://certdep-spec.github.io/irina-design/about",
     areaServed: ["Вінниця", "Вінницька область", "Україна"],
     knowsLanguage: ["uk-UA"],
     knowsAbout: ["Дизайн інтер'єру", "Планування", "3D-візуалізація", "Дизайн меблів"],
-    worksFor: { "@id": "https://certdep-spec.github.io/Irina-design/#business" },
+    worksFor: { "@id": "https://certdep-spec.github.io/irina-design/#business" },
     sameAs: [
       "https://www.facebook.com/profile.php?id=100063828644118",
       "https://www.instagram.com/nova_art_design/",
@@ -60,12 +60,12 @@ function About() {
     <div>
       <Helmet>
         <title>Ірина — дизайнер інтер'єру та меблів у Вінниці</title>
-        <link rel="canonical" href="https://certdep-spec.github.io/Irina-design/about" />
+        <link rel="canonical" href="https://certdep-spec.github.io/irina-design/about" />
         <meta
           name="description"
           content="Ірина — дизайнер інтер'єру та меблів у Вінниці. Проєктую квартири, будинки й меблі: від планування та 3D-візуалізацій до креслень і супроводу."
         />
-        <meta property="og:url" content="https://certdep-spec.github.io/Irina-design/about" />
+        <meta property="og:url" content="https://certdep-spec.github.io/irina-design/about" />
         <meta property="og:title" content="Ірина — дизайнер інтер'єру та меблів у Вінниці" />
         <meta
           property="og:description"

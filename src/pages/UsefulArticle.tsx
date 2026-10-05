@@ -7,7 +7,7 @@ import { usefulArticleContent } from "../data/usefulArticleContent";
 import { practicalScenarios } from "../data/practicalScenarios";
 import { getArticleSeoDescription, getArticleSeoTitle } from "../lib/articleSeo";
 
-const SITE_URL = "https://certdep-spec.github.io/Irina-design";
+const SITE_URL = "https://certdep-spec.github.io/irina-design";
 const personalCtaText = (text: string) => {
   const replacements: Array<[RegExp, string]> = [
     [/підготуємо/gi, "підготую"], [/розробимо/gi, "розроблю"], [/проаналізуємо/gi, "проаналізую"],

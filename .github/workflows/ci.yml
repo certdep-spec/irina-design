@@ -96,7 +96,7 @@ jobs:
   verify-production:
     name: Verify production mirrors
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: [build, deploy-netlify]
     if: github.ref == 'refs/heads/main'
     steps:
       - name: Verify production HTTP and SEO essentials
@@ -140,8 +140,9 @@ jobs:
             grep -q '404' "404-$name.html"
           }
 
-          check_mirror vercel "https://irina-design.vercel.app" "/"
           check_mirror netlify "https://irina-design.netlify.app" "/"
+
+          echo "Vercel is not part of the CI deployment path; GitHub Pages and Netlify are verified here."
 
           echo "Checking GitHub Pages"
           PAGES="https://certdep-spec.github.io/irina-design"

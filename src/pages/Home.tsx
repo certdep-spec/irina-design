@@ -15,12 +15,12 @@ const Home: React.FC = () => {
     <div>
       <Helmet>
         <title>Дизайн інтер'єру у Вінниці та меблі на замовлення | Ірина</title>
-        <link rel="canonical" href="https://certdep-spec.github.io/Irina-design/" />
+        <link rel="canonical" href="https://certdep-spec.github.io/irina-design/" />
         <meta
           name="description"
           content="Дизайн інтер'єру у Вінниці для квартир і будинків: планування, 3D-візуалізації, робочі креслення та меблі на замовлення. Працюю також дистанційно."
         />
-        <meta property="og:url" content="https://certdep-spec.github.io/Irina-design/" />
+        <meta property="og:url" content="https://certdep-spec.github.io/irina-design/" />
         <meta property="og:title" content="Дизайн інтер'єру у Вінниці та меблі на замовлення | Ірина" />
         <meta
           property="og:description"
