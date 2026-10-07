@@ -30,7 +30,7 @@ const TEST_MODE = process.env.TEST_MODE === '1' || process.env.TEST_MODE === 'tr
  * Можно расширить через env ALLOWED_ORIGINS (через запятую).
  */
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ||
-  'http://127.0.0.1:5173,http://localhost:5173,https://certdep-spec.github.io')
+  'http://127.0.0.1:5173,http://localhost:5173,https://certdep-spec.github.io,https://irina-design.netlify.app,https://irina-design.vercel.app')
   .split(',')
   .map(s => s.trim())
   .filter(Boolean);

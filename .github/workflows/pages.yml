@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       BASE_PATH: /irina-design/
-      VITE_API_BASE: https://irina-design.vercel.app
+      VITE_API_BASE: https://irina-design.netlify.app
     steps:
       - name: Checkout
         uses: actions/checkout@v5
