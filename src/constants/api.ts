@@ -36,5 +36,5 @@ export const VALIDATION = {
   MAX_EMAIL_LENGTH: 100,
   MAX_MESSAGE_LENGTH: 1000,
   PHONE_PATTERN: /^[\d\s\-\+\(\)]+$/,
-  EMAIL_PATTERN: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,
+  EMAIL_PATTERN: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
 } as const;
