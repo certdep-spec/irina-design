@@ -21,10 +21,16 @@ export default defineConfig({
       use: { ...devices["Pixel 5"] },
     },
   ],
-  webServer: {
-    command: "npm run preview -- --port 4173",
-    url: "http://localhost:4173",
-    reuseExistingServer: !process.env.CI,
-    timeout: 120000,
-  },
+  // Start the local preview only for local runs. In CI, BASE_URL points to a
+  // deployed mirror, so waiting for localhost would make every mirror job time out.
+  ...(process.env.BASE_URL
+    ? {}
+    : {
+        webServer: {
+          command: "npm run preview -- --port 4173",
+          url: "http://localhost:4173",
+          reuseExistingServer: !process.env.CI,
+          timeout: 120000,
+        },
+      }),
 });
