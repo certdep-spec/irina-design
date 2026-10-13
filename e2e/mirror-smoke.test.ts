@@ -45,7 +45,8 @@ test.describe("Mirror smoke tests", () => {
         new RegExp(
           route.path === "/"
             ? "certdep-spec\\.github\\.io\\/Irina-design/?$"
-            : `certdep-spec\\.github\\.io\\/Irina-design${route.path}`
+            : `certdep-spec\\.github\\.io\\/irina-design${route.path}`,
+          "i"
         )
       );
     }
