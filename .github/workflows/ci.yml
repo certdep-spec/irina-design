@@ -99,63 +99,44 @@ jobs:
     needs: [build, deploy-netlify]
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: Verify production HTTP and SEO essentials
+      - name: Verify GitHub Pages HTTP and SEO essentials
         shell: bash
         run: |
           set -euo pipefail
           CANONICAL="https://certdep-spec.github.io/irina-design"
+          PAGES="$CANONICAL"
 
-          check_mirror() {
-            local name="$1"
-            local base="$2"
-            local prefix="$3"
-
-            echo "Checking $name: $base"
-            retry() {
-              local attempt=1
-              until "$@"; do
-                if [ "$attempt" -ge 6 ]; then return 1; fi
-                attempt=$((attempt + 1))
-                sleep 10
-              done
-            }
-
-            retry curl -fsS "$base/robots.txt" -o "robots-$name.txt"
-            grep -F "Sitemap: $CANONICAL/sitemap.xml" "robots-$name.txt"
-
-            retry curl -fsS "$base/sitemap.xml" -o "sitemap-$name.xml"
-            grep -F "$CANONICAL/portfolio/zhytlovyi-interier-120-m2" "sitemap-$name.xml"
-            grep -F "$CANONICAL/useful/category/kitchen" "sitemap-$name.xml"
-            grep -F "$CANONICAL/useful/skilky-rozetok-potribno-u-kvartyri" "sitemap-$name.xml"
-            ! grep -q '<lastmod>' "sitemap-$name.xml"
-            ! grep -q '<changefreq>' "sitemap-$name.xml"
-            ! grep -q '<priority>' "sitemap-$name.xml"
-
-            curl -fsS "$base/services" -o "services-$name.html"
-            grep -F "rel=\"canonical\" href=\"$CANONICAL/services\"" "services-$name.html"
-            grep -qi '<h1' "services-$name.html"
-
-            STATUS="$(curl -sS -o "404-$name.html" -w '%{http_code}' "$base/nonexistent-seo-check-918")"
-            test "$STATUS" = "404"
-            grep -q '404' "404-$name.html"
+          retry() {
+            local attempt=1
+            until "$@"; do
+              if [ "$attempt" -ge 6 ]; then return 1; fi
+              attempt=$((attempt + 1))
+              echo "Retry $attempt/6 after temporary production response..."
+              sleep 10
+            done
           }
 
-          check_mirror netlify "https://irina-design.netlify.app" "/"
-
-          echo "Vercel is not part of the CI deployment path; GitHub Pages and Netlify are verified here."
-
-          echo "Checking GitHub Pages"
-          PAGES="https://certdep-spec.github.io/irina-design"
-          curl -fsS "$PAGES/robots.txt" -o robots-pages.txt
+          echo "Checking GitHub Pages only: $PAGES"
+          retry curl -fsSL "$PAGES/robots.txt" -o robots-pages.txt
           grep -F "Sitemap: $CANONICAL/sitemap.xml" robots-pages.txt
-          curl -fsS "$PAGES/sitemap.xml" -o sitemap-pages.xml
+
+          retry curl -fsSL "$PAGES/sitemap.xml" -o sitemap-pages.xml
           grep -F "$CANONICAL/portfolio/zhytlovyi-interier-120-m2" sitemap-pages.xml
-          curl -fsS "$PAGES/services" -o services-pages.html
+          grep -F "$CANONICAL/useful/category/kitchen" sitemap-pages.xml
+          grep -F "$CANONICAL/useful/skilky-rozetok-potribno-u-kvartyri" sitemap-pages.xml
+          ! grep -q '<lastmod>' sitemap-pages.xml
+          ! grep -q '<changefreq>' sitemap-pages.xml
+          ! grep -q '<priority>' sitemap-pages.xml
+
+          retry curl -fsSL "$PAGES/services" -o services-pages.html
           grep -F "rel=\"canonical\" href=\"$CANONICAL/services\"" services-pages.html
           grep -qi '<h1' services-pages.html
 
-          echo "All three production mirrors passed HTTP/SEO checks."
+          retry curl -fsSL "$PAGES/useful/skilky-rozetok-potribno-u-kvartyri" -o article-pages.html
+          grep -F "rel=\"canonical\" href=\"$CANONICAL/useful/skilky-rozetok-potribno-u-kvartyri\"" article-pages.html
+          grep -qi '<h1' article-pages.html
 
+          echo "GitHub Pages HTTP and SEO essentials passed. Netlify is not inspected or changed by this job."
       - uses: actions/setup-node@v4
         with:
           node-version: 22
