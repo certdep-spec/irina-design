@@ -9,7 +9,7 @@ import { publishedUsefulArticles, usefulCategories } from "./src/data/usefulArti
 import { portfolioCases } from "./src/data/portfolio";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const SITE_URL = "https://certdep-spec.github.io/irina-design";
+const SITE_ORIGIN = "https://certdep-spec.github.io";
 const ARTICLE_ROUTES = publishedUsefulArticles.map(article => `/useful/${article.slug}`);
 const PUBLISHED_CATEGORY_IDS = new Set(publishedUsefulArticles.map(article => article.category));
 const CATEGORY_ROUTES = usefulCategories
@@ -24,7 +24,7 @@ export default defineConfig(() => ({
     ViteImageOptimizer({ webp: { quality: 80 } }),
     visualizer({ filename: "stats.html", open: false, gzipSize: true }),
     Sitemap({
-      hostname: SITE_URL,
+      hostname: SITE_ORIGIN,
       dynamicRoutes: Array.from(
         new Set([
           ...ARTICLE_ROUTES,
