@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const BASE_URL = (process.env.BASE_URL || "http://localhost:4173").replace(/\\/+$/, "");
+const BASE_URL = (process.env.BASE_URL || "http://localhost:4173").replace(/\/+$/, "");
 const CANONICAL_HOST = "certdep-spec.github.io/irina-design";
 const EXPECTED_ARTICLE_COUNT = 62;
 
