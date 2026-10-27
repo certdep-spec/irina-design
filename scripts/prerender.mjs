@@ -23,12 +23,25 @@ const sitemapRoutes = fs.existsSync(sitemapPath)
       .filter(route => route.startsWith("/useful/") || route.startsWith("/portfolio/"))
   : [];
 const base = (process.env.BASE_PATH || "").replace(/\/+$/, "");
+// The sitemap is intentionally canonicalized to GitHub Pages and therefore
+// includes /irina-design even when this same source is built for root-hosted
+// mirrors (Netlify/Vercel). Strip either the configured base or that known
+// canonical project prefix before creating output directories.
+const sitemapBasePrefixes = [...new Set([base, "/irina-design"].filter(Boolean))]
+  .map(prefix => prefix.replace(/^\/+|\/+$/g, ""))
+  .sort((a, b) => b.length - a.length);
 const ROUTES = [...new Set([
   ...STATIC_ROUTES,
   ...sitemapRoutes.map(route => {
-    const normalized = route.replace(/^\/+/, "");
-    const basePrefix = base.replace(/^\/+/, "") + "/";
-    return normalized.startsWith(basePrefix) ? "/" + normalized.slice(basePrefix.length) : "/" + normalized;
+    let normalized = route.replace(/^\/+/, "");
+    for (const prefix of sitemapBasePrefixes) {
+      if (normalized === prefix) return "/";
+      if (normalized.startsWith(prefix + "/")) {
+        normalized = normalized.slice(prefix.length + 1);
+        break;
+      }
+    }
+    return "/" + normalized;
   }),
 ])];
 const ROOT_DIV = '<div id="root"></div>';
