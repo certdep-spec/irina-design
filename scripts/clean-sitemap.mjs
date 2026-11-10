@@ -38,4 +38,20 @@ const cleaned = withGitHubPagesBasePath
   .replace(/<priority>[^<]*<\/priority>/g, "");
 
 fs.writeFileSync(sitemapPath, cleaned);
+
+// vite-plugin-sitemap generates robots.txt using the hostname as an origin,
+// which drops GitHub Pages' repository subpath. Write the final file after
+// Vite has generated its assets so the deployed sitemap URL stays canonical.
+const robotsPath = path.resolve(process.cwd(), "dist", "robots.txt");
+const robots = [
+  "User-agent: *",
+  "Allow: /",
+  "Disallow: /admin",
+  "Disallow: /irina-design/admin",
+  `Sitemap: ${SITE_ORIGIN}${SITE_PATH}/sitemap.xml`,
+  "",
+].join("\\n");
+fs.writeFileSync(robotsPath, robots);
+
 console.log("✓ normalized GitHub Pages /irina-design/ paths and removed synthetic sitemap metadata");
+console.log("✓ wrote robots.txt with the canonical GitHub Pages sitemap URL");
