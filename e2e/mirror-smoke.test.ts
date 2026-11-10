@@ -125,7 +125,7 @@ test.describe("Mirror smoke tests", () => {
     await expect(prices).toHaveCount(4);
     await expect(page.locator("text=Часті запитання")).toBeVisible();
     await expect(page.locator("text=Скільки часу займає")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Дізнатися вартість" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Дізнатися вартість" }).first()).toBeVisible();
   });
 
   test("Контакты: форма, tel:-ссылка, география работы и калькулятор", async ({ page }) => {
@@ -181,10 +181,8 @@ test.describe("Mirror smoke tests", () => {
   test("Усі індексовані статті мають статичний HTML, H1 та canonical", async ({ page }) => {
     const sitemap = await page.request.get(BASE_URL + "/sitemap.xml");
     const sitemapText = await sitemap.text();
-    const articlePaths = [
-      ...sitemapText.matchAll(/<loc>(?:https?:\/\/[^<]+)?(\/[^<]+)<\/loc>/g),
-    ]
-      .map(match => match[1].replace(/^\/irina-design(?=\/)/, ""))
+    const articlePaths = [...sitemapText.matchAll(/<loc>([^<]+)<\/loc>/g)]
+      .map(([, url]) => new URL(url).pathname.replace(/^\/irina-design(?=\/)/, ""))
       .filter(path => path.startsWith("/useful/") && !path.startsWith("/useful/category/"));
     expect(articlePaths).toHaveLength(EXPECTED_ARTICLE_COUNT);
 
