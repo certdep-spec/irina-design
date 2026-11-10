@@ -50,7 +50,7 @@ const robots = [
   "Disallow: /irina-design/admin",
   `Sitemap: ${SITE_ORIGIN}${SITE_PATH}/sitemap.xml`,
   "",
-].join("\\n");
+].join("\n");
 fs.writeFileSync(robotsPath, robots);
 
 console.log("✓ normalized GitHub Pages /irina-design/ paths and removed synthetic sitemap metadata");
