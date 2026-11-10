@@ -4,10 +4,15 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 6 * * 1'  # еженедельно в понедельник 06:00 UTC
+  workflow_run:
+    workflows: ["Deploy to GitHub Pages"]
+    types: [completed]
+    branches: [main]
 
 jobs:
   mirror-smoke:
     name: Smoke test against all three mirrors
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
