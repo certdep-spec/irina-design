@@ -20,6 +20,9 @@ const sitemapPath = path.join(distDir, "sitemap.xml");
 const sitemapRoutes = fs.existsSync(sitemapPath)
   ? [...fs.readFileSync(sitemapPath, "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)]
       .map(([, url]) => new URL(url).pathname)
+      // Normalize the canonical GitHub Pages prefix BEFORE filtering. The
+      // sitemap uses /irina-design/... while root-hosted mirrors use /....
+      .map(route => route.replace(/^\/irina-design(?=\/)/, ""))
       .filter(route => route.startsWith("/useful/") || route.startsWith("/portfolio/"))
   : [];
 const base = (process.env.BASE_PATH || "").replace(/\/+$/, "");
