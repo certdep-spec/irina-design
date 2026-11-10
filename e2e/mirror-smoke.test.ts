@@ -125,7 +125,7 @@ test.describe("Mirror smoke tests", () => {
     await expect(prices).toHaveCount(4);
     await expect(page.locator("text=Часті запитання")).toBeVisible();
     await expect(page.locator("text=Скільки часу займає")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Скільки може коштувати ваш проєкт" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Дізнатися вартість" })).toBeVisible();
   });
 
   test("Контакты: форма, tel:-ссылка, география работы и калькулятор", async ({ page }) => {
@@ -134,7 +134,7 @@ test.describe("Mirror smoke tests", () => {
     await expect(page.locator('a[href^="tel:"]').first()).toBeVisible();
     await expect(page.getByRole("heading", { name: "Як можна працювати" })).toBeVisible();
     await expect(page.getByText("Вінниці та області можливі зустрічі")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Скільки може коштувати ваш проєкт" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Надішліть повідомлення" })).toBeVisible();
   });
 
   test("Пустой сабмит формы → обязательные ошибки без требования сообщения", async ({ page }) => {
@@ -146,17 +146,14 @@ test.describe("Mirror smoke tests", () => {
     await expect(page.locator("text=Повідомлення обов'язкове")).toHaveCount(0);
   });
 
-  test("404: HTTP 404 со страницей; GH Pages → SPA-фолбэк на главную", async ({ page }) => {
+  test("404: невідомий маршрут показує коректну сторінку 404", async ({ page }) => {
     const response = await page.goto(BASE_URL + "/nonexistent-page-12345");
-    if (BASE_URL.includes("github.io")) {
-      await expect(page).toHaveURL(BASE_URL + "/");
-      await expect(page.locator("h1")).toContainText("Дизайн інтер'єру");
-    } else if (BASE_URL.includes("localhost")) {
+    if (BASE_URL.includes("localhost")) {
       expect(response?.status()).toBe(200);
       await expect(page.locator("#root")).toBeVisible();
     } else {
       expect(response?.status()).toBe(404);
-      await expect(page.locator("text=404")).toBeVisible();
+      await expect(page.locator("h1")).toContainText("Сторінку не знайдено");
     }
   });
 
