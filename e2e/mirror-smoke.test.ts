@@ -104,6 +104,7 @@ test.describe("Mirror smoke tests", () => {
     await page.keyboard.press("Escape");
 
     const caseLink = page.locator('[data-cta-name="portfolio_case_link_i1"]');
+      .first();
     await expect(caseLink).toHaveAttribute("href", "/portfolio/zhytlovyi-interier-120-m2");
   });
 
