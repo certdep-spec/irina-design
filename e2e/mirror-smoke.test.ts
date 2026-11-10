@@ -104,7 +104,7 @@ test.describe("Mirror smoke tests", () => {
     await expect(dialog.locator("h2")).toBeVisible();
 
     const caseLink = dialog.getByRole("link", { name: "Відкрити сторінку проєкту" });
-    const basePath = new URL(BASE_URL).pathname.replace(/\\/+$/, "");
+    const basePath = new URL(BASE_URL).pathname.replace(/\/+$/, "");
     await expect(caseLink).toHaveAttribute(
       "href",
       `${basePath}/portfolio/zhytlovyi-interier-120-m2`
