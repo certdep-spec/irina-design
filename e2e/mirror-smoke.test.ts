@@ -182,10 +182,10 @@ test.describe("Mirror smoke tests", () => {
     const sitemap = await page.request.get(BASE_URL + "/sitemap.xml");
     const sitemapText = await sitemap.text();
     const articlePaths = [
-      ...sitemapText.matchAll(/<loc>(?:https?:\/\/[^<]+)?(\/useful\/[^<]+)<\/loc>/g),
+      ...sitemapText.matchAll(/<loc>(?:https?:\/\/[^<]+)?(\/[^<]+)<\/loc>/g),
     ]
-      .map(match => match[1])
-      .filter(path => !path.startsWith("/useful/category/"));
+      .map(match => match[1].replace(/^\/irina-design(?=\/)/, ""))
+      .filter(path => path.startsWith("/useful/") && !path.startsWith("/useful/category/"));
     expect(articlePaths).toHaveLength(EXPECTED_ARTICLE_COUNT);
 
     for (const path of articlePaths) {
