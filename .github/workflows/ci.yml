@@ -118,9 +118,14 @@ jobs:
 
           echo "Checking GitHub Pages only: $PAGES"
           retry curl -fsSL "$PAGES/robots.txt" -o robots-pages.txt
+          echo "robots.txt received:"
+          cat robots-pages.txt
           grep -F "Sitemap: $CANONICAL/sitemap.xml" robots-pages.txt
 
           retry curl -fsSL "$PAGES/sitemap.xml" -o sitemap-pages.xml
+          echo "sitemap.xml received (first 20 lines):"
+          head -n 20 sitemap-pages.xml
+          echo "Checking required sitemap entries:"
           grep -F "$CANONICAL/portfolio/zhytlovyi-interier-120-m2" sitemap-pages.xml
           grep -F "$CANONICAL/useful/category/kitchen" sitemap-pages.xml
           grep -F "$CANONICAL/useful/skilky-rozetok-potribno-u-kvartyri" sitemap-pages.xml
