@@ -104,7 +104,11 @@ test.describe("Mirror smoke tests", () => {
     await expect(dialog.locator("h2")).toBeVisible();
 
     const caseLink = dialog.getByRole("link", { name: "Відкрити сторінку проєкту" });
-    await expect(caseLink).toHaveAttribute("href", "/portfolio/zhytlovyi-interier-120-m2");
+    const basePath = new URL(BASE_URL).pathname.replace(/\\/+$/, "");
+    await expect(caseLink).toHaveAttribute(
+      "href",
+      `${basePath}/portfolio/zhytlovyi-interier-120-m2`
+    );
     await page.keyboard.press("Escape");
   });
 
