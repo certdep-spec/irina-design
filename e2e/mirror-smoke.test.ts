@@ -99,13 +99,13 @@ test.describe("Mirror smoke tests", () => {
 
     const firstCase = page.locator('[data-cta-name^="portfolio_card_"]').first();
     await firstCase.click();
-    await expect(page.locator('[role="dialog"]')).toBeVisible();
-    await expect(page.locator('[role="dialog"] h2')).toBeVisible();
-    await page.keyboard.press("Escape");
+    const dialog = page.locator('[role="dialog"]');
+    await expect(dialog).toBeVisible();
+    await expect(dialog.locator("h2")).toBeVisible();
 
-    const caseLink = page.locator('[data-cta-name="portfolio_case_link_i1"]');
-      .first();
+    const caseLink = dialog.getByRole("link", { name: "Відкрити сторінку проєкту" });
     await expect(caseLink).toHaveAttribute("href", "/portfolio/zhytlovyi-interier-120-m2");
+    await page.keyboard.press("Escape");
   });
 
   test("Окрема сторінка кейсу: H1, canonical, галерея та CTA", async ({ page }) => {
@@ -180,20 +180,31 @@ test.describe("Mirror smoke tests", () => {
   });
 
   test("Усі індексовані статті мають статичний HTML, H1 та canonical", async ({ page }) => {
-    const sitemap = await page.request.get(BASE_URL + "/sitemap.xml");
+    test.setTimeout(120_000);
+    const sitemap = await page.request.get(BASE_URL + "/sitemap.xml", { timeout: 15_000 });
     const sitemapText = await sitemap.text();
     const articlePaths = [...sitemapText.matchAll(/<loc>([^<]+)<\/loc>/g)]
       .map(([, url]) => new URL(url).pathname.replace(/^\/irina-design(?=\/)/, ""))
       .filter(path => path.startsWith("/useful/") && !path.startsWith("/useful/category/"));
     expect(articlePaths).toHaveLength(EXPECTED_ARTICLE_COUNT);
 
-    for (const path of articlePaths) {
-      const response = await page.request.get(BASE_URL + path);
-      expect(response.status(), path).toBe(200);
-      const html = await response.text();
-      expect(html, path).toMatch(/<h1[\s>]/i);
-      expect(html, path).toContain(`<link data-rh="true" rel="canonical"`);
-      expect(html, path).not.toContain("Щось пішло не так");
+    // Check in small parallel batches: GitHub Pages can be slower than
+    // Netlify/Vercel, and 62 sequential requests exceed Playwright's default
+    // 30-second timeout without indicating a broken page.
+    for (let i = 0; i < articlePaths.length; i += 8) {
+      const batch = articlePaths.slice(i, i + 8);
+      const responses = await Promise.all(
+        batch.map(path => page.request.get(BASE_URL + path, { timeout: 15_000 }))
+      );
+      for (let j = 0; j < batch.length; j++) {
+        const path = batch[j];
+        const response = responses[j];
+        expect(response.status(), path).toBe(200);
+        const html = await response.text();
+        expect(html, path).toMatch(/<h1[\s>]/i);
+        expect(html, path).toContain(`<link data-rh="true" rel="canonical"`);
+        expect(html, path).not.toContain("Щось пішло не так");
+      }
     }
   });
 
