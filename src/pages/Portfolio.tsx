@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { Helmet } from "react-helmet-async";
 import { FiX } from "react-icons/fi";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { portfolioCases as staticCases, type PortfolioCase } from "../data/portfolio";
 import { Image } from "../components/Image";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
@@ -319,6 +319,13 @@ function Portfolio() {
                       <p className="text-stone-700 leading-relaxed">{selectedItem.solution}</p>
                     </div>
                   )}
+                  <Link
+                    to={`/portfolio/${selectedItem.slug}`}
+                    data-cta-name={`portfolio_case_link_${selectedItem.id}`}
+                    className="btn-primary inline-flex items-center justify-center mt-6"
+                  >
+                    Відкрити сторінку проєкту
+                  </Link>
                 </div>
 
                 {/* Gallery Grid */}
