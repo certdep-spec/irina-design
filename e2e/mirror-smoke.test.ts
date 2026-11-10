@@ -184,28 +184,42 @@ test.describe("Mirror smoke tests", () => {
   });
 
   test("Усі індексовані статті мають статичний HTML, H1 та canonical", async ({ page }) => {
-    test.setTimeout(120_000);
-    const sitemap = await page.request.get(BASE_URL + "/sitemap.xml", { timeout: 15_000 });
+    test.setTimeout(240_000);
+    const sitemap = await page.request.get(BASE_URL + "/sitemap.xml", { timeout: 20_000 });
     const sitemapText = await sitemap.text();
     const articlePaths = [...sitemapText.matchAll(/<loc>([^<]+)<\/loc>/g)]
       .map(([, url]) => new URL(url).pathname.replace(/^\/irina-design(?=\/)/, ""))
       .filter(path => path.startsWith("/useful/") && !path.startsWith("/useful/category/"));
     expect(articlePaths).toHaveLength(EXPECTED_ARTICLE_COUNT);
 
-    // Check in small parallel batches: GitHub Pages can be slower than
-    // Netlify/Vercel, and 62 sequential requests exceed Playwright's default
-    // 30-second timeout without indicating a broken page.
-    for (let i = 0; i < articlePaths.length; i += 8) {
-      const batch = articlePaths.slice(i, i + 8);
+    // Keep mirror traffic gentle: some hosts can reset connections when
+    // many static pages are requested concurrently. Two at a time plus
+    // retries avoids treating transient network resets as site failures.
+    for (let i = 0; i < articlePaths.length; i += 2) {
+      const batch = articlePaths.slice(i, i + 2);
       const responses = await Promise.all(
-        batch.map(path => page.request.get(BASE_URL + path, { timeout: 15_000 }))
+        batch.map(async path => {
+          let lastError: unknown;
+          for (let attempt = 1; attempt <= 3; attempt++) {
+            try {
+              const response = await page.request.get(BASE_URL + path, { timeout: 20_000 });
+              if (response.status() < 500 || attempt === 3) return response;
+              lastError = new Error(`HTTP ${response.status()} for ${path}`);
+            } catch (error) {
+              lastError = error;
+              if (attempt === 3) throw error;
+            }
+            await new Promise(resolve => setTimeout(resolve, attempt * 750));
+          }
+          throw lastError;
+        })
       );
       for (let j = 0; j < batch.length; j++) {
         const path = batch[j];
         const response = responses[j];
         expect(response.status(), path).toBe(200);
         const html = await response.text();
-        expect(html, path).toMatch(/<h1[\s>]/i);
+        expect(html, path).toMatch(/<h1[\\s>]/i);
         expect(html, path).toContain(`<link data-rh="true" rel="canonical"`);
         expect(html, path).not.toContain("Щось пішло не так");
       }
